@@ -82,6 +82,28 @@ Read More here [daffl/launchpad](https://github.com/daffl/launchpad#environment-
 
 You can extend the app by adding more views that will be demand-loaded e.g. based on the route, or to progressively render non-critical sections of the application. Each new demand-loaded fragment should be added to the list of `fragments` in the included `polymer.json` file. This will ensure those components and their dependencies are added to the list of pre-cached components and will be included in the build.
 
+### Deploying to GitHub Pages
+
+If you are deploying to a [Project Page](https://help.github.com/articles/user-organization-and-project-pages/#project-pages) then you will first need to modify the base URL and root path values in `index.html` to match your project name. For example, for the project name `shopping-list-polymer-pouchdb` change:
+
+    <base href="/">
+
+To:
+
+    <base href="/shopping-list-polymer-pouchdb/">
+
+And change:
+
+    window.Polymer = {rootPath: '/'};
+
+To:
+
+    window.Polymer = {rootPath: '/shopping-list-polymer-pouchdb/'};
+
+You can then deploy the app to GitHub pages by running:
+
+    npm run deploy:gh-pages
+
 ## Features
 
 Shopping List is a simple demo app, with a limited feature set. Here is a list of features written as user stories grouped by Epic:
