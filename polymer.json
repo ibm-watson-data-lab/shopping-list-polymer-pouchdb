@@ -1,8 +1,8 @@
 {
   "entrypoint": "index.html",
-  "shell": "src/my-app.html",
+  "shell": "src/shopping-list-app.html",
   "fragments": [
-    "src/my-view404.html"
+    "src/shopping-list-view404.html"
   ],
   "sources": [
     "src/**/*",

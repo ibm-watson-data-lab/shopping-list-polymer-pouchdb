@@ -20,11 +20,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="my-icons.html">
+<link rel="import" href="shopping-list-icons.html">
 
-<link rel="lazy-import" href="my-view404.html">
+<link rel="lazy-import" href="shopping-list-view404.html">
 
-<dom-module id="my-app">
+<dom-module id="shopping-list-app">
   <template>
     <style>
       :host {
@@ -79,7 +79,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         <app-header slot="header" condenses reveals effects="waterfall">
           <app-toolbar>
-            <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
+            <paper-icon-button icon="shopping-list-icons:menu" drawer-toggle></paper-icon-button>
             <div main-title>Shopping List</div>
           </app-toolbar>
         </app-header>
@@ -89,15 +89,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             attr-for-selected="name"
             fallback-selection="view404"
             role="main">
-          <my-view404 name="view404"></my-view404>
+          <shopping-list-view404 name="view404"></shopping-list-view404>
         </iron-pages>
       </app-header-layout>
     </app-drawer-layout>
   </template>
 
   <script>
-    class MyApp extends Polymer.Element {
-      static get is() { return 'my-app'; }
+    class ShoppingListApp extends Polymer.Element {
+      static get is() { return 'shopping-list-app'; }
 
       static get properties() {
         return {
@@ -133,7 +133,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       _pageChanged(page) {
         // Load page import on demand. Show 404 page if fails
-        var resolvedPageUrl = this.resolveUrl('my-' + page + '.html');
+        var resolvedPageUrl = this.resolveUrl('shopping-list-' + page + '.html');
         Polymer.importHref(
             resolvedPageUrl,
             null,
@@ -146,6 +146,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     }
 
-    window.customElements.define(MyApp.is, MyApp);
+    window.customElements.define(ShoppingListApp.is, ShoppingListApp);
   </script>
 </dom-module>
