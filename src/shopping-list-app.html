@@ -23,6 +23,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="shopping-list-icons.html">
 
 <link rel="lazy-import" href="shopping-list-lists.html">
+<link rel="lazy-import" href="shopping-list-items.html">
 <link rel="lazy-import" href="shopping-list-view404.html">
 
 <dom-module id="shopping-list-app">
@@ -98,6 +99,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             fallback-selection="view404"
             role="main">
           <shopping-list-lists name="lists"></shopping-list-lists>
+          <shopping-list-items name="items" route="{{subroute}}"></shopping-list-items>
           <shopping-list-view404 name="view404"></shopping-list-view404>
         </iron-pages>
       </app-header-layout>

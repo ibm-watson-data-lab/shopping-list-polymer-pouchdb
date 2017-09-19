@@ -3,6 +3,7 @@
   "shell": "src/shopping-list-app.html",
   "fragments": [
     "src/shopping-list-lists.html",
+    "src/shopping-list-items.html",
     "src/shopping-list-view404.html"
   ],
   "sources": [
