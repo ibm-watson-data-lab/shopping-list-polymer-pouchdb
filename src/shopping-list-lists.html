@@ -1,5 +1,7 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 
 <dom-module id="shopping-list-lists">
   <template>
@@ -12,10 +14,17 @@
       paper-card {
         width: 100%;
       }
+
+      paper-fab {
+        position: fixed;
+        right: 16px;
+        bottom: 16px;
+      }
     </style>
 
     <paper-card heading="Groceries">
     </paper-card>
+    <paper-fab mini icon="add"></paper-fab>
   </template>
   <script>
     class ShoppingListLists extends Polymer.Element {
