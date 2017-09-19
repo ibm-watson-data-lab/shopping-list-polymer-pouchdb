@@ -1,0 +1,26 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+
+<dom-module id="shopping-list-index">
+  <template>
+    <style>
+      :host {
+        display: block;
+        padding: 8px 8px;
+      }
+
+      paper-card {
+        width: 100%;
+      }
+    </style>
+
+    <paper-card heading="Groceries">
+    </paper-card>
+  </template>
+  <script>
+    class ShoppingListIndex extends Polymer.Element {
+      static get is() { return 'shopping-list-index'; }
+    }
+    window.customElements.define(ShoppingListIndex.is, ShoppingListIndex);
+  </script>
+</dom-module>
