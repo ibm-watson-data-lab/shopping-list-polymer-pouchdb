@@ -1,6 +1,24 @@
 {
-  "name": "polymer-starter-kit",
-  "license": "BSD-3-Clause",
+  "name": "ibm-shopping-list-app-polymer-pouchdb",
+  "description": "Shopping List is an Offline First demo Progressive Web App built using Polymer and PouchDB.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb.git"
+  },
+  "keywords": [
+    "offline-first",
+    "pwa",
+    "Polymer",
+    "PouchDB",
+    "CouchDB",
+    "Cloudant"
+  ],
+  "author": "Bradley Holt <bradley.holt@us.ibm.com> (https://www.npmjs.com/~bradley-holt)",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/issues"
+  },
+  "homepage": "https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb#readme",
   "devDependencies": {
     "eslint": "^3.19.0",
     "eslint-config-google": "^0.7.0",
