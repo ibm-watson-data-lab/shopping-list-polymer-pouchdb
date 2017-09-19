@@ -1,9 +1,9 @@
 {
-  "name": "polymer-starter-kit",
+  "name": "ibm-shopping-list-app-polymer-pouchdb",
   "authors": [
-    "The Polymer Authors"
+    "Bradley Holt <bradley.holt@us.ibm.com> (https://www.npmjs.com/~bradley-holt)"
   ],
-  "license": "https://polymer.github.io/LICENSE.txt",
+  "license": "Apache-2.0",
   "dependencies": {
     "app-layout": "PolymerElements/app-layout#^2.0.0",
     "app-route": "PolymerElements/app-route#^2.0.0",
@@ -13,7 +13,11 @@
     "iron-pages": "PolymerElements/iron-pages#^2.0.0",
     "iron-selector": "PolymerElements/iron-selector#^2.0.0",
     "paper-card":  "PolymerElements/paper-card#^2.0.0",
+    "paper-checkbox":  "PolymerElements/paper-checkbox#^2.0.0",
+    "paper-fab":  "PolymerElements/paper-fab#^2.0.0",
     "paper-icon-button": "PolymerElements/paper-icon-button#^2.0.0",
+    "paper-item":  "PolymerElements/paper-item#^2.0.0",
+    "paper-listbox":  "PolymerElements/paper-listbox#^2.0.0",
     "polymer": "Polymer/polymer#^2.0.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
   },
