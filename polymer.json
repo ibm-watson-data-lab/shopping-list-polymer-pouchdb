@@ -2,7 +2,7 @@
   "entrypoint": "index.html",
   "shell": "src/shopping-list-app.html",
   "fragments": [
-    "src/shopping-list-index.html",
+    "src/shopping-list-lists.html",
     "src/shopping-list-view404.html"
   ],
   "sources": [
