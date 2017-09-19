@@ -1,9 +1,9 @@
 {
-  "name": "polymer-starter-kit",
+  "name": "ibm-shopping-list-app-polymer-pouchdb",
   "authors": [
-    "The Polymer Authors"
+    "Bradley Holt <bradley.holt@us.ibm.com> (https://www.npmjs.com/~bradley-holt)"
   ],
-  "license": "https://polymer.github.io/LICENSE.txt",
+  "license": "Apache-2.0",
   "dependencies": {
     "app-layout": "PolymerElements/app-layout#^2.0.0",
     "app-route": "PolymerElements/app-route#^2.0.0",
