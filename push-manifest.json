@@ -2,5 +2,6 @@
   "src/shopping-list-app.html": {},
   "src/shopping-list-lists.html": {},
   "src/shopping-list-items.html": {},
-  "src/shopping-list-view404.html": {}
+  "src/shopping-list-view404.html": {},
+  "src/shopping-list-list-add.html": {}
 }
