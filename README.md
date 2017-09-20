@@ -16,6 +16,10 @@ Second, install [Bower](https://bower.io/) using [npm](https://www.npmjs.com):
 
     npm install --global bower
 
+Third, install the [Bower npm resolver](https://github.com/mjeanroy/bower-npm-resolver):
+
+    npm install --global bower-npm-resolver
+
 ### Running the Development Server
 
 This command serves the app at `http://127.0.0.1:8081` and provides basic URL routing for the app:
