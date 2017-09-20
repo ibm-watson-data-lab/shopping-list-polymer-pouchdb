@@ -38,7 +38,7 @@
       </a>
     </template>
 
-    <paper-fab mini icon="add"></paper-fab>
+    <paper-fab mini icon="add" on-click="addShoppingList"></paper-fab>
   </template>
   <script src="../bower_components/pouchdb/dist/pouchdb.js"></script>
   <script src="../bower_components/pouchdb-find/dist/pouchdb.find.js"></script>
@@ -108,6 +108,27 @@
 
       _listOfShoppingListsIsEmpty(listOfShoppingLists) {
         return listOfShoppingLists.isEmpty();
+      }
+
+      addShoppingList() {
+        this.shoppingListRepository.ensureIndexes().then(result => {
+          return this.shoppingListRepository.find();
+        }).then(listOfShoppingLists => {
+          if (!listOfShoppingLists.isEmpty()) {
+            return this.shoppingListFactory.newListOfShoppingLists();
+          }
+          let shoppingList01 = this.shoppingListFactory.newShoppingList({
+            title: "Groceries"
+          });
+          let shoppingList02 = this.shoppingListFactory.newShoppingList({
+            title: "Camping Supplies"
+          });
+          listOfShoppingLists = this.shoppingListFactory.newListOfShoppingLists([
+            shoppingList01,
+            shoppingList02
+          ]);
+          return this.shoppingListRepository.putBulk(listOfShoppingLists);
+        });
       }
 
       ready() {
