@@ -1,0 +1,83 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/iron-form/iron-form.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/iron-location/iron-location.html">
+<link rel="import" href="pouchdb.html">
+<link rel="import" href="shopping-list-model.html">
+
+<dom-module id="shopping-list-list-add">
+  <template>
+    <style>
+      :host {
+        display: block;
+        padding: 8px 8px;
+      }
+
+      paper-card {
+        width: 100%;
+        padding: 8px;
+      }
+    </style>
+
+    <iron-location id="ironLocation"></iron-location>
+
+    <paper-card heading="New List">
+      <iron-form id="listAddForm">
+        <paper-input id="title" name="title" label="Title" required autofocus></paper-input>
+        <paper-button on-click="_submit" id="listAddFormSubmit" raised>Save</paper-button>
+      </iron-form>
+    </paper-card>
+
+  </template>
+  <script>
+
+    class ShoppingListListAdd extends Polymer.Element {
+
+      static get is() { return "shopping-list-list-add"; }
+
+      static get properties() {
+        return {
+          shoppingListFactory: {
+            type: Object,
+            readOnly: true,
+            notify: false,
+            value: function() {
+              return new ShoppingListModel.ShoppingListFactory()
+            }
+          },
+          db: {
+            type: Object,
+            readOnly: true,
+            notify: false,
+            value: function() {
+              return new PouchDB("shopping-list");
+            }
+          },
+          shoppingListRepository: {
+            type: Object,
+            readOnly: true,
+            notify: false,
+            value: function() {
+              return new ShoppingListModel.ShoppingListRepositoryPouchDB(this.db)
+            }
+          }
+        };
+      }
+
+      _submit() {
+        let shoppingList = this.shoppingListFactory.newShoppingList({
+          title: this.$.title.value
+        });
+        this.shoppingListRepository.put(shoppingList).then(shoppingList => {
+          this.$.listAddForm.reset();
+          this.$.title.value = undefined;
+          this.$.ironLocation.path = this.rootPath;
+        });
+      }
+
+    }
+    window.customElements.define(ShoppingListListAdd.is, ShoppingListListAdd);
+  </script>
+</dom-module>
