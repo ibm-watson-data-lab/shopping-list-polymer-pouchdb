@@ -11,6 +11,11 @@
         padding: 8px 8px;
       }
 
+      div.empty-state {
+        text-align: center;
+        margin-top: 120px;
+      }
+
       paper-card {
         width: 100%;
       }
@@ -22,15 +27,67 @@
       }
     </style>
 
-    <a name="index" href="[[rootPath]]items/list:cj6mj1zfj000001n1ugjfkj33">
-      <paper-card heading="Groceries">
-      </paper-card>
-    </a>
+    <template is="dom-if" if="[[listOfShoppingListsIsEmpty]]">
+      <div class="empty-state">You have no shopping lists</div>
+    </template>
+
+    <template is="dom-repeat" items="[[listOfShoppingListsArray]]">
+      <a name="index" href="[[rootPath]]items/[[item._id]]">
+        <paper-card heading="[[item.title]]">
+        </paper-card>
+      </a>
+    </template>
+
     <paper-fab mini icon="add"></paper-fab>
   </template>
+  <script src="../bower_components/ibm-shopping-list-model/dist/bundle.js"></script>
   <script>
+
     class ShoppingListLists extends Polymer.Element {
+
       static get is() { return 'shopping-list-lists'; }
+
+      static get properties() {
+        return {
+          shoppingListFactory: {
+            type: Object,
+            readOnly: true,
+            notify: false,
+            value: function() {
+              return new ShoppingListModel.ShoppingListFactory()
+            }
+          },
+          listOfShoppingLists: {
+            type: Object,
+            readOnly: true,
+            notify: true,
+            value: function() {
+              return this.shoppingListFactory.newListOfShoppingLists();
+            }
+          },
+          listOfShoppingListsArray: {
+            type: Array,
+            readOnly: true,
+            notify: true,
+            computed: "_listOfShoppingListsArray(listOfShoppingLists)"
+          },
+          listOfShoppingListsIsEmpty: {
+            type: Boolean,
+            readOnly: true,
+            notify: true,
+            computed: "_listOfShoppingListsIsEmpty(listOfShoppingLists)"
+          }
+        };
+      }
+
+      _listOfShoppingListsArray(listOfShoppingLists) {
+        return listOfShoppingLists.toArray();
+      }
+
+      _listOfShoppingListsIsEmpty(listOfShoppingLists) {
+        return listOfShoppingLists.isEmpty();
+      }
+
     }
     window.customElements.define(ShoppingListLists.is, ShoppingListLists);
   </script>
