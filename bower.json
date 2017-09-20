@@ -21,7 +21,9 @@
     "paper-item": "PolymerElements/paper-item#^2.0.0",
     "paper-listbox": "PolymerElements/paper-listbox#^2.0.0",
     "polymer": "Polymer/polymer#^2.0.0",
-    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0",
+    "pouchdb": "^6.3.4",
+    "pouchdb-find": "^0.10.5"
   },
   "resolutions": {
     "polymer": "^2.0.0"

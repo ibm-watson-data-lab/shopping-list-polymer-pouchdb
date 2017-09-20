@@ -40,6 +40,8 @@
 
     <paper-fab mini icon="add"></paper-fab>
   </template>
+  <script src="../bower_components/pouchdb/dist/pouchdb.js"></script>
+  <script src="../bower_components/pouchdb-find/dist/pouchdb.find.js"></script>
   <script src="../bower_components/ibm-shopping-list-model/dist/bundle.js"></script>
   <script>
 
@@ -55,6 +57,26 @@
             notify: false,
             value: function() {
               return new ShoppingListModel.ShoppingListFactory()
+            }
+          },
+          db: {
+            type: Object,
+            readOnly: true,
+            notify: false,
+            value: function() {
+              return new PouchDB("shopping-list");
+            }
+          },
+          dbChanges: {
+            type: Object,
+            notify: false
+          },
+          shoppingListRepository: {
+            type: Object,
+            readOnly: true,
+            notify: false,
+            value: function() {
+              return new ShoppingListModel.ShoppingListRepositoryPouchDB(this.db)
             }
           },
           listOfShoppingLists: {
@@ -90,18 +112,18 @@
 
       ready() {
         super.ready();
-        let shoppingList01 = this.shoppingListFactory.newShoppingList({
-          title: "Groceries"
+        this.shoppingListRepository.ensureIndexes().then(result => {
+          this.dbChanges = this.db.changes({
+            live: true,
+            selector: {
+              type: "list"
+            }
+          }).on("change", change => {
+            this.shoppingListRepository.find().then(listOfShoppingLists => {
+              this._setListOfShoppingLists(listOfShoppingLists);
+            });
+          });
         });
-        let shoppingList02 = this.shoppingListFactory.newShoppingList({
-          title: "Camping Supplies"
-        });
-
-        let listOfShoppingLists = this.shoppingListFactory.newListOfShoppingLists([
-          shoppingList01,
-          shoppingList02
-        ]);
-        this._setListOfShoppingLists(listOfShoppingLists);
       }
 
     }
