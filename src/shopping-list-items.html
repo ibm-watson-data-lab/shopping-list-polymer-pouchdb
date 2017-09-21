@@ -40,7 +40,7 @@
       <paper-listbox>
         <template is="dom-repeat" items="[[listOfShoppingListItemsArray]]">
           <paper-item data-checked$="[[item.checked]]">
-            <paper-checkbox checked="[[item.checked]]"></paper-checkbox>
+            <paper-checkbox data-id$="[[item._id]]" checked="[[item.checked]]" on-checked-changed="_checkedChanged"></paper-checkbox>
             <paper-item-body>
               <div>[[item.title]]</div>
             </paper-item-body>
@@ -155,6 +155,18 @@
         }).then(listOfShoppingListItems => {
           this._setListOfShoppingListItems(listOfShoppingListItems);
         });
+      }
+
+      _checkedChanged(event) {
+        let id = event.currentTarget.dataset.id;
+        let checked = event.detail.value;
+        let listItem = this.listOfShoppingListItems.find(item => {
+          return item._id === id;
+        });
+        if (listItem && listItem.checked !== checked) {
+          listItem = listItem.set("checked", checked);
+          this.shoppingListRepository.putItem(listItem);
+        }
       }
 
       ready() {
