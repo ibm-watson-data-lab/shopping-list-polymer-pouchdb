@@ -5,6 +5,7 @@
 <link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="shopping-list-model.html">
 
 <dom-module id="shopping-list-items">
   <template>
@@ -13,9 +14,14 @@
         display: block;
       }
 
-      paper-item[checked] paper-item-body {
+      paper-item[data-checked] {
         text-decoration: line-through;
-        opacity: 0.38;
+        color: var(--paper-item-disabled-color, var(--disabled-text-color));
+      }
+
+      div.empty-state {
+        text-align: center;
+        margin-top: 120px;
       }
 
       paper-fab {
@@ -25,34 +31,71 @@
       }
     </style>
 
-    <paper-listbox>
-      <paper-item checked>
-        <paper-checkbox checked></paper-checkbox>
-        <paper-item-body>
-          <div>Mangos</div>
-        </paper-item-body>
-        <iron-icon icon="more-vert"></iron-icon>
-      </paper-item>
-      <paper-item>
-        <paper-checkbox></paper-checkbox>
-        <paper-item-body>
-          <div>Oranges</div>
-        </paper-item-body>
-        <iron-icon icon="more-vert"></iron-icon>
-      </paper-item>
-      <paper-item>
-        <paper-checkbox></paper-checkbox>
-        <paper-item-body>
-          <div>Pears</div>
-        </paper-item-body>
-        <iron-icon icon="more-vert"></iron-icon>
-      </paper-item>
-    </paper-listbox>
+    <template is="dom-if" if="[[listOfShoppingListItemsIsEmpty]]">
+      <div class="empty-state">You have no shopping list items</div>
+    </template>
+
+    <template is="dom-if" if="[[!listOfShoppingListItemsIsEmpty]]">
+      <paper-listbox>
+        <template is="dom-repeat" items="[[listOfShoppingListItemsArray]]">
+          <paper-item data-checked$="[[item.checked]]">
+            <paper-checkbox checked="[[item.checked]]"></paper-checkbox>
+            <paper-item-body>
+              <div>[[item.title]]</div>
+            </paper-item-body>
+            <iron-icon icon="more-vert"></iron-icon>
+          </paper-item>
+        </template>
+      </paper-listbox>
+    </template>
+
     <paper-fab mini icon="add"></paper-fab>
   </template>
   <script>
     class ShoppingListItems extends Polymer.Element {
       static get is() { return "shopping-list-items"; }
+
+      static get properties() {
+        return {
+          shoppingListFactory: {
+            type: Object,
+            readOnly: true,
+            notify: false,
+            value: function() {
+              return new ShoppingListModel.ShoppingListFactory();
+            }
+          },
+          listOfShoppingListItems: {
+            type: Object,
+            readOnly: true,
+            notify: true,
+            value: function() {
+              return this.shoppingListFactory.newListOfShoppingListItems();
+            }
+          },
+          listOfShoppingListItemsArray: {
+            type: Array,
+            readOnly: true,
+            notify: true,
+            computed: "_listOfShoppingListItemsArray(listOfShoppingListItems)"
+          },
+          listOfShoppingListItemsIsEmpty: {
+            type: Boolean,
+            readOnly: true,
+            notify: true,
+            computed: "_listOfShoppingListItemsIsEmpty(listOfShoppingListItems)"
+          }
+        };
+      }
+
+      _listOfShoppingListItemsArray(listOfShoppingListItems) {
+        return listOfShoppingListItems.toArray();
+      }
+
+      _listOfShoppingListItemsIsEmpty(listOfShoppingListItems) {
+        return listOfShoppingListItems.isEmpty();
+      }
+
     }
     window.customElements.define(ShoppingListItems.is, ShoppingListItems);
   </script>
