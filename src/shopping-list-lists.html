@@ -75,7 +75,7 @@
             readOnly: true,
             notify: false,
             value: function() {
-              return new ShoppingListModel.ShoppingListFactory()
+              return new ShoppingListModel.ShoppingListFactory();
             }
           },
           db: {
@@ -95,7 +95,7 @@
             readOnly: true,
             notify: false,
             value: function() {
-              return new ShoppingListModel.ShoppingListRepositoryPouchDB(this.db)
+              return new ShoppingListModel.ShoppingListRepositoryPouchDB(this.db);
             }
           },
           listOfShoppingLists: {
