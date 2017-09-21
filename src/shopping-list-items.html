@@ -5,6 +5,7 @@
 <link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="pouchdb.html">
 <link rel="import" href="shopping-list-model.html">
 
 <dom-module id="shopping-list-items">
@@ -55,6 +56,12 @@
     class ShoppingListItems extends Polymer.Element {
       static get is() { return "shopping-list-items"; }
 
+      static get observers() {
+        return [
+          "_routeChanged(route.*)"
+        ]
+      }
+
       static get properties() {
         return {
           shoppingListFactory: {
@@ -64,6 +71,32 @@
             value: function() {
               return new ShoppingListModel.ShoppingListFactory();
             }
+          },
+          db: {
+            type: Object,
+            readOnly: true,
+            notify: false,
+            value: function() {
+              return new PouchDB("shopping-list");
+            }
+          },
+          dbChanges: {
+            type: Object,
+            notify: false
+          },
+          shoppingListRepository: {
+            type: Object,
+            readOnly: true,
+            notify: false,
+            value: function() {
+              return new ShoppingListModel.ShoppingListRepositoryPouchDB(this.db);
+            }
+          },
+          listItemId: {
+            type: String,
+            readOnly: true,
+            notify: true,
+            observer: "_listItemIdChanged"
           },
           listOfShoppingListItems: {
             type: Object,
@@ -88,6 +121,17 @@
         };
       }
 
+      _routeChanged(route) {
+        if (route.base.prefix !== "/items") {
+          return;
+        }
+        this._setListItemId(route.base.path.replace(/\//g, ""));
+      }
+
+      _listItemIdChanged(newListItemId, oldListItemId) {
+        this._findListOfShoppingListItems();
+      }
+
       _listOfShoppingListItemsArray(listOfShoppingListItems) {
         return listOfShoppingListItems.toArray();
       }
@@ -96,29 +140,33 @@
         return listOfShoppingListItems.isEmpty();
       }
 
+      _findListOfShoppingListItems() {
+        if (this.listItemId === undefined) {
+          this._setListOfShoppingListItems(this.shoppingListFactory.newListOfShoppingListItems());
+        }
+        this.shoppingListRepository.findItems({
+          selector: {
+            type: "item",
+            list: this.listItemId
+          }
+        }).then(listOfShoppingListItems => {
+          this._setListOfShoppingListItems(listOfShoppingListItems);
+        });
+      }
+
       ready() {
         super.ready();
-        let shoppingList = this.shoppingListFactory.newShoppingList({
-          title: "Groceries"
+        this._findListOfShoppingListItems();
+        this.shoppingListRepository.ensureIndexes().then(result => {
+          this.dbChanges = this.db.changes({
+            live: true,
+            selector: {
+              type: "item"
+            }
+          }).on("change", change => {
+            this._findListOfShoppingListItems();
+          });
         });
-
-        let shoppingListItem01 = this.shoppingListFactory.newShoppingListItem({
-          title: "Mangos",
-          checked: true
-        }, shoppingList);
-        let shoppingListItem02 = this.shoppingListFactory.newShoppingListItem({
-          title: "Oranges"
-        }, shoppingList);
-        let shoppingListItem03 = this.shoppingListFactory.newShoppingListItem({
-          title: "Pears"
-        }, shoppingList);
-
-        let listOfShoppingListItems = this.shoppingListFactory.newListOfShoppingListItems([
-          shoppingListItem01,
-          shoppingListItem02,
-          shoppingListItem03
-        ]);
-        this._setListOfShoppingListItems(listOfShoppingListItems);
       }
 
     }
