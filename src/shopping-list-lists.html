@@ -83,7 +83,7 @@
             readOnly: true,
             notify: false,
             value: function() {
-              return new PouchDB("shopping-list");
+              return new PouchDB("shopping-list", { storage: "persistent" });
             }
           },
           dbChanges: {
