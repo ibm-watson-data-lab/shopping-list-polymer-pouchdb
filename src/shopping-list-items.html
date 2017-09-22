@@ -125,7 +125,7 @@
       }
 
       _routeChanged(route) {
-        if (route.base.prefix !== "/items") {
+        if (route.base.prefix !== this.rootPath + "items") {
           return;
         }
         this._setListItemId(route.base.path.replace(/\//g, ""));
