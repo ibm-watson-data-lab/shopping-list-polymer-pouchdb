@@ -22,6 +22,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="shopping-list-icons.html">
 
+<link rel="import" href="shopping-list-replicator.html">
 <link rel="lazy-import" href="shopping-list-lists.html">
 <link rel="lazy-import" href="shopping-list-list-add.html">
 <link rel="lazy-import" href="shopping-list-items.html">
@@ -83,6 +84,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
           <a name="lists" href="[[rootPath]]lists">Lists</a>
           <a name="lists" href="[[rootPath]]list-add">Add List</a>
+          <a name="lists" href="[[rootPath]]replicator">Replicator</a>
         </iron-selector>
       </app-drawer>
 
@@ -101,6 +103,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             attr-for-selected="name"
             fallback-selection="view404"
             role="main">
+          <shopping-list-replicator name="replicator"></shopping-list-replicator>
           <shopping-list-lists name="lists"></shopping-list-lists>
           <shopping-list-list-add name="list-add"></shopping-list-list-add>
           <shopping-list-items name="items" route="{{subroute}}"></shopping-list-items>

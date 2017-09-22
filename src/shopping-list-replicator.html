@@ -1,0 +1,149 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/iron-form/iron-form.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-toast/paper-toast.html">
+<link rel="import" href="pouchdb.html">
+
+<dom-module id="shopping-list-replicator">
+  <template>
+    <style>
+      :host {
+        display: block;
+        padding: 8px 8px;
+      }
+
+      paper-card {
+        width: 100%;
+        padding: 8px;
+      }
+    </style>
+
+    <paper-card heading="Replication Target">
+      <iron-form id="replicationForm">
+        <paper-input id="url" name="url" label="Database URL" value="{{url}}" required autofocus></paper-input>
+        <paper-input id="username" name="username" label="Username" value="{{username}}"></paper-input>
+        <paper-input type="password" id="password" name="password" label="Password" value="{{password}}"></paper-input>
+        <paper-button on-click="_submit" id="replicationFormSubmit" raised>Save</paper-button>
+      </iron-form>
+    </paper-card>
+
+    <paper-toast id="toast"></paper-toast>
+
+  </template>
+  <script>
+    class ShoppingListReplicator extends Polymer.Element {
+      static get is() { return "shopping-list-replicator"; }
+
+      static get properties() {
+        return {
+          db: {
+            type: Object,
+            readOnly: true,
+            notify: false,
+            value: function() {
+              return new PouchDB("shopping-list", { storage: "persistent" });
+            }
+          },
+          url: {
+            type: String,
+            notify: true
+          },
+          username: {
+            type: String,
+            notify: true
+          },
+          password: {
+            type: String,
+            notify: true
+          },
+          localConfig: {
+            type: Object,
+            readOnly: true,
+            notify: true,
+            observer: "_localConfigChanged",
+            value: function() {
+              return {
+                _id: "_local/config"
+              };
+            }
+          },
+          remoteDb: {
+            type: Object,
+            readOnly: true,
+            notify: true,
+            computed: "_remoteDb(localConfig)",
+            observer: "_remoteDbChanged"
+          },
+          replicationHandler: {
+            type: Object,
+            notify: false
+          },
+        };
+      }
+
+      _localConfigChanged() {
+        if (!this.localConfig.remoteDb) {
+          return;
+        }
+        this.url = this.localConfig.remoteDb.url;
+        this.username = this.localConfig.remoteDb.options.auth.username;
+        this.password = this.localConfig.remoteDb.options.auth.password;
+      }
+
+      _remoteDb(localConfig) {
+        if (!localConfig.remoteDb) {
+          return undefined;
+        }
+        return new PouchDB(localConfig.remoteDb.url, localConfig.remoteDb.options);
+      }
+
+      _remoteDbChanged() {
+        if (this.replicationHandler) {
+          this.replicationHandler.cancel();
+        }
+        this.replicationHandler = this.db.sync(this.remoteDb, {
+          live: true,
+          retry: true
+        });
+        this.$.toast.text = "Live replication with remote database started";
+        this.$.toast.open();
+      }
+
+      _findLocalConfig() {
+        return this.db.get(this.localConfig._id).then(localConfig => {
+          this._setLocalConfig(localConfig);
+        }).catch(err => {
+          if (err.status != 404) {
+            throw err;
+          }
+        });
+      }
+
+      ready() {
+        super.ready();
+        this._findLocalConfig();
+      }
+
+      _submit() {
+        let localConfig = this.localConfig;
+        localConfig.remoteDb = {
+          url: this.url,
+          options: {}
+        };
+        if (this.username && this.password) {
+          localConfig.remoteDb.options.auth = {
+            username: this.username,
+            password: this.password
+          }
+        }
+        this.db.put(localConfig).then(result => {
+          this._findLocalConfig();
+        });
+      }
+
+    }
+    window.customElements.define(ShoppingListReplicator.is, ShoppingListReplicator);
+  </script>
+</dom-module>
