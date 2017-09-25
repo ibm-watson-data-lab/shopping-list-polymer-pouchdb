@@ -2,6 +2,7 @@
 <link rel="import" href="../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="shopping-list-model.html">
 
 <dom-module id="my-lists">
   <template>
@@ -22,8 +23,12 @@
       }
     </style>
 
-    <paper-card heading="Groceries">
-    </paper-card>
+    <template is="dom-repeat" items="[[listOfShoppingListsArray]]">
+      <a name="index" href="[[rootPath]]items/[[item._id]]">
+        <paper-card heading="[[item.title]]">
+        </paper-card>
+      </a>
+    </template>
 
     <paper-fab mini icon="add"></paper-fab>
 
@@ -33,6 +38,37 @@
     class MyLists extends Polymer.Element {
 
       static get is() { return "my-lists"; }
+
+      static get properties() {
+        return {
+          shoppingListFactory: {
+            type: Object,
+            readOnly: true,
+            notify: false,
+            value: function() {
+              return new ShoppingListModel.ShoppingListFactory();
+            }
+          },
+          listOfShoppingLists: {
+            type: Object,
+            readOnly: true,
+            notify: true,
+            value: function() {
+              return this.shoppingListFactory.newListOfShoppingLists();
+            }
+          },
+          listOfShoppingListsArray: {
+            type: Array,
+            readOnly: true,
+            notify: true,
+            computed: "_listOfShoppingListsArray(listOfShoppingLists)"
+          },
+        };
+      }
+
+      _listOfShoppingListsArray(listOfShoppingLists) {
+        return listOfShoppingLists.toArray();
+      }
 
     }
     window.customElements.define(MyLists.is, MyLists);
