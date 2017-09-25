@@ -23,6 +23,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="my-icons.html">
 
 <link rel="lazy-import" href="my-lists.html">
+<link rel="lazy-import" href="my-items.html">
 <link rel="lazy-import" href="my-view404.html">
 
 <dom-module id="my-app">
@@ -98,6 +99,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             fallback-selection="view404"
             role="main">
           <my-lists name="lists"></my-lists>
+          <my-items name="items" route="{{subroute}}"></my-items>
           <my-view404 name="view404"></my-view404>
         </iron-pages>
       </app-header-layout>

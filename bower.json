@@ -17,7 +17,10 @@
     "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0",
     "paper-card": "PolymerElements/paper-card#^2.0.0",
     "paper-fab": "PolymerElements/paper-fab#^2.0.0",
-    "iron-icons": "PolymerElements/iron-icons#^2.0.0"
+    "iron-icons": "PolymerElements/iron-icons#^2.0.0",
+    "paper-listbox": "PolymerElements/paper-listbox#^2.0.0",
+    "paper-item": "PolymerElements/paper-item#^2.0.0",
+    "paper-checkbox": "PolymerElements/paper-checkbox#^2.0.0"
   },
   "resolutions": {
     "polymer": "^2.0.0"

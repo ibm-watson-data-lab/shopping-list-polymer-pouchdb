@@ -1,0 +1,60 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/paper-item/paper-item-body.html">
+<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+
+<dom-module id="my-items">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      paper-item[data-checked] {
+        text-decoration: line-through;
+        color: var(--paper-item-disabled-color, var(--disabled-text-color));
+      }
+
+      paper-fab {
+        position: fixed;
+        right: 16px;
+        bottom: 16px;
+      }
+    </style>
+
+    <paper-listbox>
+      <paper-item data-checked>
+        <paper-checkbox checked></paper-checkbox>
+        <paper-item-body>
+          <div>Mangos</div>
+        </paper-item-body>
+      </paper-item>
+      <paper-item>
+        <paper-checkbox ></paper-checkbox>
+        <paper-item-body>
+          <div>Oranges</div>
+        </paper-item-body>
+      </paper-item>
+      <paper-item>
+        <paper-checkbox></paper-checkbox>
+        <paper-item-body>
+          <div>Pears</div>
+        </paper-item-body>
+      </paper-item>
+    </paper-listbox>
+
+    <paper-fab mini icon="add"></paper-fab>
+
+  </template>
+  <script>
+    class MyItems extends Polymer.Element {
+
+      static get is() { return "my-items"; }
+
+    }
+    window.customElements.define(MyItems.is, MyItems);
+  </script>
+</dom-module>
