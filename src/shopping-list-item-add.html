@@ -4,7 +4,6 @@
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/iron-location/iron-location.html">
-<link rel="import" href="pouchdb.html">
 <link rel="import" href="shopping-list-model.html">
 
 <dom-module id="shopping-list-item-add">
@@ -52,14 +51,6 @@
             notify: false,
             value: function() {
               return new ShoppingListModel.ShoppingListFactory();
-            }
-          },
-          db: {
-            type: Object,
-            readOnly: true,
-            notify: false,
-            value: function() {
-              return new PouchDB("shopping-list", { storage: "persistent" });
             }
           },
           shoppingListRepository: {

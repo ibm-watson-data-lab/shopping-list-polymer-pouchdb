@@ -38,14 +38,6 @@
 
       static get properties() {
         return {
-          db: {
-            type: Object,
-            readOnly: true,
-            notify: false,
-            value: function() {
-              return new PouchDB("shopping-list", { storage: "persistent" });
-            }
-          },
           url: {
             type: String,
             notify: true
