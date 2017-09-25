@@ -5,6 +5,10 @@
 <link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../bower_components/iron-form/iron-form.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="shopping-list-model.html">
 
 <dom-module id="shopping-list-items">
@@ -29,6 +33,11 @@
         right: 16px;
         bottom: 16px;
       }
+
+      paper-dialog {
+        width: 100%;
+        padding: 8px;
+      }
     </style>
 
     <template is="dom-if" if="[[listOfShoppingListItemsIsEmpty]]">
@@ -49,9 +58,23 @@
       </paper-listbox>
     </template>
 
-    <a name="item-add" href="[[rootPath]]item-add/[[listItemId]]">
+    <a name="item-add" on-click="_listItemAdd">
       <paper-fab mini icon="add"></paper-fab>
     </a>
+
+    <paper-dialog id="listItemAddDialog">
+      <h2>New List Item</h2>
+      <paper-dialog-scrollable>
+        <iron-form id="listItemAddForm">
+          <paper-input id="newListItemTitle" name="title" label="Title" value="{{newListItem.title}}" required autofocus></paper-input>
+          <paper-input hidden="true" type="submit"></paper-input>
+        </iron-form>
+      </paper-dialog-scrollable>
+      <div class="buttons">
+        <paper-button dialog-dismiss raised>Cancel</paper-button>
+        <paper-button dialog-confirm on-click="_listItemAddFormSubmit" raised>Save</paper-button>
+      </div>
+    </paper-dialog>
 
   </template>
   <script>
@@ -92,6 +115,11 @@
             notify: true,
             observer: "_listItemIdChanged"
           },
+          shoppingList: {
+            type: Object,
+            readOnly: true,
+            notify: true,
+          },
           listOfShoppingListItems: {
             type: Object,
             readOnly: true,
@@ -111,7 +139,12 @@
             readOnly: true,
             notify: true,
             computed: "_listOfShoppingListItemsIsEmpty(listOfShoppingListItems)"
-          }
+          },
+          newListItem: {
+            type: Object,
+            notify: false,
+            value: {}
+          },
         };
       }
 
@@ -123,6 +156,7 @@
       }
 
       _listItemIdChanged(newListItemId, oldListItemId) {
+        this._findShoppingList();
         this._findListOfShoppingListItems();
       }
 
@@ -132,6 +166,15 @@
 
       _listOfShoppingListItemsIsEmpty(listOfShoppingListItems) {
         return listOfShoppingListItems.isEmpty();
+      }
+
+      _findShoppingList() {
+        if (this.listItemId === undefined) {
+          this._setShoppingList(undefined);
+        }
+        this.shoppingListRepository.get(this.listItemId).then(shoppingList => {
+          this._setShoppingList(shoppingList);
+        });
       }
 
       _findListOfShoppingListItems() {
@@ -160,8 +203,24 @@
         }
       }
 
+      _listItemAdd() {
+        this.$.listItemAddDialog.open();
+      }
+
+      _listItemAddFormSubmit() {
+        let shoppingListItem = this.shoppingListFactory.newShoppingListItem({
+          title: this.newListItem.title
+        }, this.shoppingList);
+        this.shoppingListRepository.putItem(shoppingListItem).then(shoppingListItem => {
+          this.$.listItemAddForm.reset();
+          this.newListItem = {};
+          this.$.listItemAddDialog.close();
+        });
+      }
+
       ready() {
         super.ready();
+        this._findShoppingList();
         this._findListOfShoppingListItems();
         this.shoppingListRepository.ensureIndexes().then(result => {
           this.dbChanges = this.db.changes({
