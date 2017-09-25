@@ -1,0 +1,40 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+
+<dom-module id="my-lists">
+  <template>
+    <style>
+      :host {
+        display: block;
+        padding: 8px 8px;
+      }
+
+      paper-card {
+        width: 100%;
+      }
+
+      paper-fab {
+        position: fixed;
+        right: 16px;
+        bottom: 16px;
+      }
+    </style>
+
+    <paper-card heading="Groceries">
+    </paper-card>
+
+    <paper-fab mini icon="add"></paper-fab>
+
+  </template>
+  <script>
+
+    class MyLists extends Polymer.Element {
+
+      static get is() { return "my-lists"; }
+
+    }
+    window.customElements.define(MyLists.is, MyLists);
+  </script>
+</dom-module>
