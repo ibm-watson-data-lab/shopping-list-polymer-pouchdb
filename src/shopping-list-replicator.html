@@ -80,8 +80,10 @@
           return;
         }
         this.url = this.localConfig.remoteDb.url;
-        this.username = this.localConfig.remoteDb.options.auth.username;
-        this.password = this.localConfig.remoteDb.options.auth.password;
+        if (this.localConfig.remoteDb.options.auth) {
+          this.username = this.localConfig.remoteDb.options.auth.username;
+          this.password = this.localConfig.remoteDb.options.auth.password;
+        }
       }
 
       _remoteDb(localConfig) {
