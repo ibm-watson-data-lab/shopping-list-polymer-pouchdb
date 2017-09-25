@@ -109,11 +109,11 @@
               return new ShoppingListModel.ShoppingListRepositoryPouchDB(this.db);
             }
           },
-          listItemId: {
+          shoppingListId: {
             type: String,
             readOnly: true,
             notify: true,
-            observer: "_listItemIdChanged"
+            observer: "_shoppingListIdChanged"
           },
           shoppingList: {
             type: Object,
@@ -152,10 +152,10 @@
         if (route.base.prefix !== this.rootPath + "items") {
           return;
         }
-        this._setListItemId(route.base.path.replace(/\//g, ""));
+        this._setShoppingListId(route.base.path.replace(/\//g, ""));
       }
 
-      _listItemIdChanged(newListItemId, oldListItemId) {
+      _shoppingListIdChanged(newshoppingListId, oldshoppingListId) {
         this._findShoppingList();
         this._findListOfShoppingListItems();
       }
@@ -169,22 +169,22 @@
       }
 
       _findShoppingList() {
-        if (this.listItemId === undefined) {
+        if (this.shoppingListId === undefined) {
           this._setShoppingList(undefined);
         }
-        this.shoppingListRepository.get(this.listItemId).then(shoppingList => {
+        this.shoppingListRepository.get(this.shoppingListId).then(shoppingList => {
           this._setShoppingList(shoppingList);
         });
       }
 
       _findListOfShoppingListItems() {
-        if (this.listItemId === undefined) {
+        if (this.shoppingListId === undefined) {
           this._setListOfShoppingListItems(this.shoppingListFactory.newListOfShoppingListItems());
         }
         this.shoppingListRepository.findItems({
           selector: {
             type: "item",
-            list: this.listItemId
+            list: this.shoppingListId
           }
         }).then(listOfShoppingListItems => {
           this._setListOfShoppingListItems(listOfShoppingListItems);
