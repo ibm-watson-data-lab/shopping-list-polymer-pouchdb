@@ -20,7 +20,8 @@
     "iron-icons": "PolymerElements/iron-icons#^2.0.0",
     "paper-listbox": "PolymerElements/paper-listbox#^2.0.0",
     "paper-item": "PolymerElements/paper-item#^2.0.0",
-    "paper-checkbox": "PolymerElements/paper-checkbox#^2.0.0"
+    "paper-checkbox": "PolymerElements/paper-checkbox#^2.0.0",
+    "ibm-shopping-list-model": "npm:ibm-shopping-list-model#^0.2.6"
   },
   "resolutions": {
     "polymer": "^2.0.0"

@@ -45,6 +45,10 @@ Second, install [Bower](https://bower.io/) using [npm](https://www.npmjs.com)
 
     npm install -g bower
 
+Third, install the [Bower npm resolver](https://github.com/mjeanroy/bower-npm-resolver)
+
+    npm install -g bower-npm-resolver
+
 ##### Initialize project from template
 
     mkdir my-app
