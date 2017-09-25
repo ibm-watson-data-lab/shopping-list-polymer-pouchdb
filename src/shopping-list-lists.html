@@ -3,6 +3,10 @@
 <link rel="import" href="../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../bower_components/iron-form/iron-form.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="shopping-list-model.html">
 
 <dom-module id="shopping-list-lists">
@@ -32,6 +36,11 @@
         right: 16px;
         bottom: 16px;
       }
+
+      paper-dialog {
+        width: 100%;
+        padding: 8px;
+      }
     </style>
 
     <template is="dom-if" if="[[loading]]">
@@ -51,9 +60,21 @@
       </a>
     </template>
 
-    <a name="list-add" href="[[rootPath]]list-add">
-      <paper-fab mini icon="add"></paper-fab>
-    </a>
+    <paper-fab mini icon="add" on-click="_listAdd"></paper-fab>
+
+    <paper-dialog id="listAddDialog">
+      <h2>New List</h2>
+      <paper-dialog-scrollable>
+        <iron-form id="listAddForm">
+          <paper-input id="newListTitle" name="title" label="Title" value="{{newList.title}}" required autofocus></paper-input>
+          <paper-input hidden="true" type="submit"></paper-input>
+        </iron-form>
+      </paper-dialog-scrollable>
+      <div class="buttons">
+        <paper-button dialog-dismiss raised>Cancel</paper-button>
+        <paper-button dialog-confirm on-click="_listAddFormSubmit" raised>Save</paper-button>
+      </div>
+    </paper-dialog>
 
   </template>
   <script>
@@ -108,7 +129,12 @@
             readOnly: true,
             notify: true,
             computed: "_listOfShoppingListsIsEmptyAndNotLoading(listOfShoppingLists, loading)"
-          }
+          },
+          newList: {
+            type: Object,
+            notify: false,
+            value: {}
+          },
         };
       }
 
@@ -125,6 +151,21 @@
         this.shoppingListRepository.find().then(listOfShoppingLists => {
           this._setListOfShoppingLists(listOfShoppingLists);
           this.loading = false;
+        });
+      }
+
+      _listAdd() {
+        this.$.listAddDialog.open();
+      }
+
+      _listAddFormSubmit() {
+        let shoppingList = this.shoppingListFactory.newShoppingList({
+          title: this.newList.title
+        });
+        this.shoppingListRepository.put(shoppingList).then(shoppingList => {
+          this.$.listAddForm.reset();
+          this.newList = {};
+          this.$.listAddDialog.close();
         });
       }
 
