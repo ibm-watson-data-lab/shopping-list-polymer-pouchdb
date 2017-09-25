@@ -2,6 +2,7 @@
 <link rel="import" href="../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/paper-spinner/paper-spinner.html">
 <link rel="import" href="shopping-list-model.html">
 
 <dom-module id="my-lists">
@@ -10,6 +11,11 @@
       :host {
         display: block;
         padding: 8px 8px;
+      }
+
+      #paperSpinnerContainer {
+        text-align: center;
+        margin-top: 120px;
       }
 
       div.empty-state {
@@ -28,15 +34,25 @@
       }
     </style>
 
-    <template is="dom-if" if="[[listOfShoppingListsIsEmpty]]">
-      <div class="empty-state">You have no shopping lists</div>
+    <template is="dom-if" if="[[loading]]">
+      <div id="paperSpinnerContainer">
+        <paper-spinner active></paper-spinner>
+      </div>
     </template>
 
-    <template is="dom-repeat" items="[[listOfShoppingListsArray]]">
-      <a name="index" href="[[rootPath]]items/[[item._id]]">
-        <paper-card heading="[[item.title]]">
-        </paper-card>
-      </a>
+    <template is="dom-if" if="[[!loading]]">
+
+      <template is="dom-if" if="[[listOfShoppingListsIsEmpty]]">
+        <div class="empty-state">You have no shopping lists</div>
+      </template>
+
+      <template is="dom-repeat" items="[[listOfShoppingListsArray]]">
+        <a name="index" href="[[rootPath]]items/[[item._id]]">
+          <paper-card heading="[[item.title]]">
+          </paper-card>
+        </a>
+      </template>
+
     </template>
 
     <paper-fab mini icon="add"></paper-fab>
@@ -50,6 +66,11 @@
 
       static get properties() {
         return {
+          loading: {
+            type: Boolean,
+            notify: true,
+            value: true
+          },
           shoppingListFactory: {
             type: Object,
             readOnly: true,
@@ -102,6 +123,7 @@
           shoppingList02
         ]);
         this._setListOfShoppingLists(listOfShoppingLists);
+        this.loading = false;
       }
 
     }
