@@ -89,6 +89,21 @@
         return listOfShoppingLists.isEmpty();
       }
 
+      ready() {
+        super.ready();
+        let shoppingList01 = this.shoppingListFactory.newShoppingList({
+          title: "Groceries"
+        });
+        let shoppingList02 = this.shoppingListFactory.newShoppingList({
+          title: "Camping Supplies"
+        });
+        let listOfShoppingLists = this.shoppingListFactory.newListOfShoppingLists([
+          shoppingList01,
+          shoppingList02
+        ]);
+        this._setListOfShoppingLists(listOfShoppingLists);
+      }
+
     }
     window.customElements.define(MyLists.is, MyLists);
   </script>
