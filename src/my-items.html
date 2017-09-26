@@ -73,6 +73,12 @@
 
       static get is() { return "my-items"; }
 
+      static get observers() {
+        return [
+          "_routeChanged(route.*)"
+        ]
+      }
+
       static get properties() {
         return {
           loading: {
@@ -87,6 +93,11 @@
             value: function() {
               return new ShoppingListModel.ShoppingListFactory();
             }
+          },
+          shoppingListId: {
+            type: String,
+            readOnly: true,
+            notify: true
           },
           listOfShoppingListItems: {
             type: Object,
@@ -109,6 +120,13 @@
             computed: "_listOfShoppingListItemsIsEmpty(listOfShoppingListItems)"
           },
         };
+      }
+
+      _routeChanged(route) {
+        if (route.base.prefix !== this.rootPath + "items") {
+          return;
+        }
+        this._setShoppingListId(route.base.path.replace(/\//g, ""));
       }
 
       _listOfShoppingListItemsArray(listOfShoppingListItems) {
