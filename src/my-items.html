@@ -19,12 +19,21 @@
         color: var(--paper-item-disabled-color, var(--disabled-text-color));
       }
 
+      div.empty-state {
+        text-align: center;
+        margin-top: 120px;
+      }
+
       paper-fab {
         position: fixed;
         right: 16px;
         bottom: 16px;
       }
     </style>
+
+    <template is="dom-if" if="[[listOfShoppingListItemsIsEmpty]]">
+      <div class="empty-state">You have no shopping list items</div>
+    </template>
 
     <template is="dom-if" if="[[!listOfShoppingListItemsIsEmpty]]">
       <paper-listbox>
