@@ -22,7 +22,9 @@
     "paper-item": "PolymerElements/paper-item#^2.0.0",
     "paper-checkbox": "PolymerElements/paper-checkbox#^2.0.0",
     "ibm-shopping-list-model": "npm:ibm-shopping-list-model#^0.2.6",
-    "paper-spinner": "PolymerElements/paper-spinner#^2.0.0"
+    "paper-spinner": "PolymerElements/paper-spinner#^2.0.0",
+    "pouchdb": "^6.3.4",
+    "pouchdb-find": "^0.10.5"
   },
   "resolutions": {
     "polymer": "^2.0.0"
