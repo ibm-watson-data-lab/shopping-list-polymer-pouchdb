@@ -94,10 +94,24 @@
               return new ShoppingListModel.ShoppingListFactory();
             }
           },
+          shoppingListRepository: {
+            type: Object,
+            readOnly: true,
+            notify: false,
+            value: function() {
+              return new ShoppingListModel.ShoppingListRepositoryPouchDB(this.db);
+            }
+          },
           shoppingListId: {
             type: String,
             readOnly: true,
-            notify: true
+            notify: true,
+            observer: "_shoppingListIdChanged"
+          },
+          shoppingList: {
+            type: Object,
+            readOnly: true,
+            notify: true,
           },
           listOfShoppingListItems: {
             type: Object,
@@ -129,6 +143,11 @@
         this._setShoppingListId(route.base.path.replace(/\//g, ""));
       }
 
+      _shoppingListIdChanged(newshoppingListId, oldshoppingListId) {
+        this._findShoppingList();
+        this._findListOfShoppingListItems();
+      }
+
       _listOfShoppingListItemsArray(listOfShoppingListItems) {
         return listOfShoppingListItems.toArray();
       }
@@ -137,28 +156,38 @@
         return listOfShoppingListItems.isEmpty();
       }
 
+      _findShoppingList() {
+        if (this.shoppingListId === undefined) {
+          this._setShoppingList(undefined);
+          return;
+        }
+        this.shoppingListRepository.get(this.shoppingListId).then(shoppingList => {
+          this._setShoppingList(shoppingList);
+        });
+      }
+
+      _findListOfShoppingListItems() {
+        this.loading = true;
+        if (this.shoppingListId === undefined) {
+          this._setListOfShoppingListItems(this.shoppingListFactory.newListOfShoppingListItems());
+          return;
+        }
+        this.shoppingListRepository.findItems({
+          selector: {
+            type: "item",
+            list: this.shoppingListId
+          }
+        }).then(listOfShoppingListItems => {
+          this._setListOfShoppingListItems(listOfShoppingListItems);
+          this.loading = false;
+        });
+      }
+
       ready() {
         super.ready();
-        let shoppingList = this.shoppingListFactory.newShoppingList({
-          title: "Groceries"
-        });
-        let shoppingListItem01 = this.shoppingListFactory.newShoppingListItem({
-          title: "Mangos",
-          checked: true
-        }, shoppingList);
-        let shoppingListItem02 = this.shoppingListFactory.newShoppingListItem({
-          title: "Oranges"
-        }, shoppingList);
-        let shoppingListItem03 = this.shoppingListFactory.newShoppingListItem({
-          title: "Pears"
-        }, shoppingList);
-        let listOfShoppingListItems = this.shoppingListFactory.newListOfShoppingListItems([
-          shoppingListItem01,
-          shoppingListItem02,
-          shoppingListItem03
-        ]);
-        this._setListOfShoppingListItems(listOfShoppingListItems);
-        this.loading = false;
+        this.shoppingListRepository.ensureIndexes();
+        this._findShoppingList();
+        this._findListOfShoppingListItems();
       }
 
     }
