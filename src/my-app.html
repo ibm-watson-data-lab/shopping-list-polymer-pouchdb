@@ -21,6 +21,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="my-icons.html">
+<link rel="import" href="pouchdb.html">
 
 <link rel="lazy-import" href="my-lists.html">
 <link rel="lazy-import" href="my-items.html">
@@ -98,8 +99,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             attr-for-selected="name"
             fallback-selection="view404"
             role="main">
-          <my-lists name="lists"></my-lists>
-          <my-items name="items" route="{{subroute}}"></my-items>
+          <my-lists name="lists" db="[[db]]"></my-lists>
+          <my-items name="items" route="{{subroute}}" db="[[db]]"></my-items>
           <my-view404 name="view404"></my-view404>
         </iron-pages>
       </app-header-layout>
@@ -122,6 +123,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           // This shouldn't be neccessary, but the Analyzer isn't picking up
           // Polymer.Element#rootPath
           rootPath: String,
+          db: {
+            type: Object,
+            readOnly: true,
+            notify: false,
+            value: function() {
+              return new PouchDB("shopping-list", { storage: "persistent" });
+            }
+          },
         };
       }
 
