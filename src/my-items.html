@@ -5,6 +5,7 @@
 <link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/paper-spinner/paper-spinner.html">
 <link rel="import" href="shopping-list-model.html">
 
 <dom-module id="my-items">
@@ -12,6 +13,11 @@
     <style>
       :host {
         display: block;
+      }
+
+      #paperSpinnerContainer {
+        text-align: center;
+        margin-top: 120px;
       }
 
       paper-item[data-checked] {
@@ -31,22 +37,32 @@
       }
     </style>
 
-    <template is="dom-if" if="[[listOfShoppingListItemsIsEmpty]]">
-      <div class="empty-state">You have no shopping list items</div>
+    <template is="dom-if" if="[[loading]]">
+      <div id="paperSpinnerContainer">
+        <paper-spinner active></paper-spinner>
+      </div>
     </template>
 
-    <template is="dom-if" if="[[!listOfShoppingListItemsIsEmpty]]">
-      <paper-listbox>
-        <template is="dom-repeat" items="[[listOfShoppingListItemsArray]]">
-          <paper-item data-checked$="[[item.checked]]">
-            <paper-checkbox data-id$="[[item._id]]" checked="[[item.checked]]"></paper-checkbox>
-            <paper-item-body>
-              <div>[[item.title]]</div>
-            </paper-item-body>
-            <iron-icon icon="more-vert"></iron-icon>
-          </paper-item>
-        </template>
-      </paper-listbox>
+    <template is="dom-if" if="[[!loading]]">
+
+      <template is="dom-if" if="[[listOfShoppingListItemsIsEmpty]]">
+        <div class="empty-state">You have no shopping list items</div>
+      </template>
+
+      <template is="dom-if" if="[[!listOfShoppingListItemsIsEmpty]]">
+        <paper-listbox>
+          <template is="dom-repeat" items="[[listOfShoppingListItemsArray]]">
+            <paper-item data-checked$="[[item.checked]]">
+              <paper-checkbox data-id$="[[item._id]]" checked="[[item.checked]]"></paper-checkbox>
+              <paper-item-body>
+                <div>[[item.title]]</div>
+              </paper-item-body>
+              <iron-icon icon="more-vert"></iron-icon>
+            </paper-item>
+          </template>
+        </paper-listbox>
+      </template>
+
     </template>
 
     <paper-fab mini icon="add"></paper-fab>
@@ -59,6 +75,11 @@
 
       static get properties() {
         return {
+          loading: {
+            type: Boolean,
+            notify: true,
+            value: true
+          },
           shoppingListFactory: {
             type: Object,
             readOnly: true,
@@ -119,6 +140,7 @@
           shoppingListItem03
         ]);
         this._setListOfShoppingListItems(listOfShoppingListItems);
+        this.loading = false;
       }
 
     }
