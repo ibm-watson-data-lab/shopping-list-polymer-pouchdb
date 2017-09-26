@@ -102,6 +102,10 @@
               return new ShoppingListModel.ShoppingListRepositoryPouchDB(this.db);
             }
           },
+          dbChanges: {
+            type: Object,
+            notify: false
+          },
           shoppingListId: {
             type: String,
             readOnly: true,
@@ -188,6 +192,14 @@
         this.shoppingListRepository.ensureIndexes();
         this._findShoppingList();
         this._findListOfShoppingListItems();
+        this.dbChanges = this.db.changes({
+          live: true,
+          selector: {
+            type: "item"
+          }
+        }).on("change", change => {
+          this._findListOfShoppingListItems();
+        });
       }
 
     }
