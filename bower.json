@@ -24,7 +24,11 @@
     "ibm-shopping-list-model": "npm:ibm-shopping-list-model#^0.2.6",
     "paper-spinner": "PolymerElements/paper-spinner#^2.0.0",
     "pouchdb": "^6.3.4",
-    "pouchdb-find": "^0.10.5"
+    "pouchdb-find": "^0.10.5",
+    "paper-dialog": "PolymerElements/paper-dialog#^2.0.0",
+    "iron-form": "PolymerElements/iron-form#^2.0.0",
+    "paper-input": "PolymerElements/paper-input#^2.0.0",
+    "paper-button": "PolymerElements/paper-button#^2.0.0"
   },
   "resolutions": {
     "polymer": "^2.0.0"
