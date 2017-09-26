@@ -20,6 +20,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-toast/paper-toast.html">
 <link rel="import" href="my-icons.html">
 <link rel="import" href="pouchdb.html">
 
@@ -105,6 +106,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </iron-pages>
       </app-header-layout>
     </app-drawer-layout>
+
+    <paper-toast id="toast"></paper-toast>
   </template>
 
   <script>
@@ -130,6 +133,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             value: function() {
               return new PouchDB("shopping-list", { storage: "persistent" });
             }
+          },
+          remoteDb: {
+            type: Object,
+            readOnly: true,
+            notify: true,
+            value: function() {
+              // Uncomment and change parameter value to enable replication (don't forget to enable CORS)
+              //return new PouchDB("http://127.0.0.1:15984/shopping-list");
+            }
+          },
+          replicationHandler: {
+            type: Object,
+            notify: false
           },
         };
       }
@@ -163,6 +179,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       _showPage404() {
         this.page = 'view404';
+      }
+
+      ready() {
+        super.ready();
+        if (this.remoteDb) {
+         this.replicationHandler = this.db.sync(this.remoteDb, {
+            live: true,
+            retry: true
+          });
+          this.$.toast.text = "Live replication with remote database started";
+          this.$.toast.open();
+        }
       }
     }
 
