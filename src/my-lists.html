@@ -75,7 +75,7 @@
       </paper-dialog-scrollable>
       <div class="buttons">
         <paper-button dialog-dismiss raised>Cancel</paper-button>
-        <paper-button dialog-confirm raised>Save</paper-button>
+        <paper-button dialog-confirm raised on-click="_listAddFormSubmit">Save</paper-button>
       </div>
     </paper-dialog>
 
@@ -159,6 +159,17 @@
 
       _listAdd() {
         this.$.listAddDialog.open();
+      }
+
+      _listAddFormSubmit() {
+        let shoppingList = this.shoppingListFactory.newShoppingList({
+          title: this.newList.title
+        });
+        this.shoppingListRepository.put(shoppingList).then(shoppingList => {
+          this.$.listAddForm.reset();
+          this.newList = {};
+          this.$.listAddDialog.close();
+        });
       }
 
       ready() {
