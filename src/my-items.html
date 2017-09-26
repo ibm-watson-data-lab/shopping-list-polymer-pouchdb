@@ -5,6 +5,7 @@
 <link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="shopping-list-model.html">
 
 <dom-module id="my-items">
   <template>
@@ -25,26 +26,19 @@
       }
     </style>
 
-    <paper-listbox>
-      <paper-item data-checked>
-        <paper-checkbox checked></paper-checkbox>
-        <paper-item-body>
-          <div>Mangos</div>
-        </paper-item-body>
-      </paper-item>
-      <paper-item>
-        <paper-checkbox ></paper-checkbox>
-        <paper-item-body>
-          <div>Oranges</div>
-        </paper-item-body>
-      </paper-item>
-      <paper-item>
-        <paper-checkbox></paper-checkbox>
-        <paper-item-body>
-          <div>Pears</div>
-        </paper-item-body>
-      </paper-item>
-    </paper-listbox>
+    <template is="dom-if" if="[[!listOfShoppingListItemsIsEmpty]]">
+      <paper-listbox>
+        <template is="dom-repeat" items="[[listOfShoppingListItemsArray]]">
+          <paper-item data-checked$="[[item.checked]]">
+            <paper-checkbox data-id$="[[item._id]]" checked="[[item.checked]]"></paper-checkbox>
+            <paper-item-body>
+              <div>[[item.title]]</div>
+            </paper-item-body>
+            <iron-icon icon="more-vert"></iron-icon>
+          </paper-item>
+        </template>
+      </paper-listbox>
+    </template>
 
     <paper-fab mini icon="add"></paper-fab>
 
@@ -53,6 +47,47 @@
     class MyItems extends Polymer.Element {
 
       static get is() { return "my-items"; }
+
+      static get properties() {
+        return {
+          shoppingListFactory: {
+            type: Object,
+            readOnly: true,
+            notify: false,
+            value: function() {
+              return new ShoppingListModel.ShoppingListFactory();
+            }
+          },
+          listOfShoppingListItems: {
+            type: Object,
+            readOnly: true,
+            notify: true,
+            value: function() {
+              return this.shoppingListFactory.newListOfShoppingListItems();
+            }
+          },
+          listOfShoppingListItemsArray: {
+            type: Array,
+            readOnly: true,
+            notify: true,
+            computed: "_listOfShoppingListItemsArray(listOfShoppingListItems)"
+          },
+          listOfShoppingListItemsIsEmpty: {
+            type: Boolean,
+            readOnly: true,
+            notify: true,
+            computed: "_listOfShoppingListItemsIsEmpty(listOfShoppingListItems)"
+          },
+        };
+      }
+
+      _listOfShoppingListItemsArray(listOfShoppingListItems) {
+        return listOfShoppingListItems.toArray();
+      }
+
+      _listOfShoppingListItemsIsEmpty(listOfShoppingListItems) {
+        return listOfShoppingListItems.isEmpty();
+      }
 
     }
     window.customElements.define(MyItems.is, MyItems);
