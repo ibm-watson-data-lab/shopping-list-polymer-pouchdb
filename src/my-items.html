@@ -98,6 +98,29 @@
         return listOfShoppingListItems.isEmpty();
       }
 
+      ready() {
+        super.ready();
+        let shoppingList = this.shoppingListFactory.newShoppingList({
+          title: "Groceries"
+        });
+        let shoppingListItem01 = this.shoppingListFactory.newShoppingListItem({
+          title: "Mangos",
+          checked: true
+        }, shoppingList);
+        let shoppingListItem02 = this.shoppingListFactory.newShoppingListItem({
+          title: "Oranges"
+        }, shoppingList);
+        let shoppingListItem03 = this.shoppingListFactory.newShoppingListItem({
+          title: "Pears"
+        }, shoppingList);
+        let listOfShoppingListItems = this.shoppingListFactory.newListOfShoppingListItems([
+          shoppingListItem01,
+          shoppingListItem02,
+          shoppingListItem03
+        ]);
+        this._setListOfShoppingListItems(listOfShoppingListItems);
+      }
+
     }
     window.customElements.define(MyItems.is, MyItems);
   </script>
