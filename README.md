@@ -163,7 +163,10 @@ Shopping List is an Offline First demo Progressive Web App built using Polymer a
 * Tutorial Steps
 * Initial Set Up
 * Creating the Shopping List Polymer App
-* Adding a PouchDB Database
+  * Building the Basic Components
+  * Adding the Shopping List Domain Model
+  * Adding a PouchDB Database
+  * Completing the App
 * Syncing Data
   * Configure a Database
      * Option 1: Apache CouchDB
@@ -275,7 +278,7 @@ Install Polymer CLI:
 $ npm install -g polymer-cli
 ```
 
-### Initialize the app using the Polymer App Toolbox - Starter Kit
+#### Initialize the app using the Polymer App Toolbox - Starter Kit
 
 [[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/8d28ee041c027943163ea99a709aa223ceb2c700)]
 
@@ -330,7 +333,9 @@ Close the browser tab containing the Starter Kit app. Back in your terminal, use
 
 ### Creating the Shopping List Polymer App
 
-#### Update the app title, description, and related metadata
+#### Building the Basic Components
+
+##### Update the app title, description, and related metadata
 
 [[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/3989f05a757ae8d4c120a9ee4402c71fd2f680f4)]
 
@@ -418,7 +423,7 @@ to:
 
 The `src/my-app.html` file serves as the [app shell](https://www.polymer-project.org/2.0/toolbox/server#app-shell), which is responsible for routing within your app and may also include the main navigation elements for your app.
 
-#### Remove views from the Starter Kit that we will not be using
+##### Remove views from the Starter Kit that we will not be using
 
 [[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/9c2803f204272e4e5ffea591848a365b77fac56d)]
 
@@ -497,6 +502,66 @@ to:
         // Deault to 'view404' in that case.
         this.page = page || 'view404';
  ```
+
+##### Create a stub of the shopping lists component
+
+##### Create a stub of the shopping list items component
+
+#### Adding the Shopping List Domain Model
+
+##### Install the shopping list domain model
+
+##### Create a component to encapsulate the shopping list domain model
+
+##### Use the shopping list domain model for one-way data binding of shopping lists
+
+##### Create an empty state indicator for shopping lists
+
+##### Add stub data to the shopping lists component
+
+##### Add a loading spinner to the shopping lists component
+
+#### Adding a PouchDB Database
+
+##### Install PouchDB and pouchdb-find
+
+##### Create a component to encapsulate PouchDB with pouchdb-find
+
+##### Create a shared database property within the app component
+
+##### Use the shopping list repository to find a list of shopping lists
+
+##### Use PouchDB to listen for and propagate changes to shopping lists
+
+##### Create a dialog with a form for creating a new shopping list
+
+##### Create a new shopping list when the create new shopping list form is submitted
+
+#### Completing the App
+
+##### Use the shopping list domain model for one-way data binding of shopping list items
+
+##### Create an empty state indicator for shopping list items
+
+##### Add stub data to the shopping list items component
+
+##### Add a loading spinner to the shopping list items component
+
+##### Observe route changes in shopping list items component
+
+##### Use the shopping list repository to find a list of shopping list items
+
+##### Use PouchDB to listen for and propagate changes to shopping list items
+
+##### Create a dialog with a form for creating a new shopping list item
+
+##### Create a new shopping list item when the create new shopping list item form is submitted
+
+##### Update database when a list item is checked or unchecked
+
+### Syncing Data
+
+#### Enable live replication with a remote database
 
 ## Workshop
 
