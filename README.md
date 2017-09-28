@@ -181,6 +181,13 @@ Shopping List is an Offline First demo Progressive Web App built using Polymer a
   * Get Involved in the Offline First Community!
   * Further Reading and Resources
 
+### Prerequisite Knowledge & Skills
+
+* Ability to write JavaScript at a novice level, at minimum.
+* A basic understanding of [JavaScript promises](https://pouchdb.com/2015/05/18/we-have-a-problem-with-promises.html).
+* A basic understanding of HTML.
+* Ability to work with an application programming interface (API).
+
 ## Workshop
 
 TBD
