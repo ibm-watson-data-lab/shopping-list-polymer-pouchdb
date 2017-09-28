@@ -418,6 +418,86 @@ to:
 
 The `src/my-app.html` file serves as the [app shell](https://www.polymer-project.org/2.0/toolbox/server#app-shell), which is responsible for routing within your app and may also include the main navigation elements for your app.
 
+#### Remove views from the Starter Kit that we will not be using
+
+[[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/9c2803f204272e4e5ffea591848a365b77fac56d)]
+
+The Starter Kit comes with three example views (`view1`, `view2`, and `view3`). We will delete these views (and a corresponding test) as we will not be using them:
+
+```
+$ rm src/my-view1.html
+$ rm src/my-view2.html
+$ rm src/my-view3.html
+$ rm test/my-view1.html
+```
+
+**Note:** As mentioned previously, the four `$` instances above indicate four separate commands for you to type (but do _not_ type the `$` at the beginning of each line), hitting enter after typing each of the four separate commands.
+
+--
+
+Remove the following three lines from `polymer.json`:
+
+```javascript
+    "src/my-view1.html",
+    "src/my-view2.html",
+    "src/my-view3.html",
+```
+
+The `polymer.json` file [stores information about your project structure and your desired build configuration(s)](https://www.polymer-project.org/2.0/docs/tools/polymer-json). [The `fragments` property](https://www.polymer-project.org/2.0/docs/tools/polymer-json#fragments) (the property from which we are removing the references to the deleted views) is a way to specify components that may be lazy-loaded.
+
+--
+
+Remove the following three lines from `src/my-app.html`:
+
+```html
+<link rel="lazy-import" href="my-view1.html">
+<link rel="lazy-import" href="my-view2.html">
+<link rel="lazy-import" href="my-view3.html">
+```
+
+The above lines lazy-load the referenced components on demand.
+
+--
+
+Also in `src/my-app.html` remove the following three lines:
+
+```html
+          <a name="view1" href="[[rootPath]]view1">View One</a>
+          <a name="view2" href="[[rootPath]]view2">View Two</a>
+          <a name="view3" href="[[rootPath]]view3">View Three</a>
+```
+
+The above lines represent navigational links to the referenced routes.
+
+--
+
+Still in `src/my-app.html` remove the following three lines:
+
+```html
+          <my-view1 name="view1"></my-view1>
+          <my-view2 name="view2"></my-view2>
+          <my-view3 name="view3"></my-view3>
+```
+
+The above lines represent the pages for the referenced components.
+
+--
+
+Finally in `src/my-app.html` change:
+
+
+```javascript
+        // Deault to 'view1' in that case.
+        this.page = page || 'view1';
+```
+
+to:
+
+```javascript
+        // Deault to 'view404' in that case.
+        this.page = page || 'view404';
+ ```
+
 ## Workshop
 
 TBD
