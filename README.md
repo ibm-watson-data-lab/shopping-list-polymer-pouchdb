@@ -828,6 +828,117 @@ The easiest way to use the domain model in your app is by encapsulating it in it
 
 ##### Use the shopping list domain model for one-way data binding of shopping lists
 
+[[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/dcd7ecf33ba4b8d905cd481909601a8b8210295f)]
+
+Now we will replace the stubbed out shopping list in `src/my-lists.html` with a one-way [data binding](https://www.polymer-project.org/2.0/docs/devguide/data-binding) to a **List of Shopping Lists**.
+
+In `src/my-lists.html` add the following line to import the shopping list model component after `<link rel="import" href="../bower_components/iron-icons/iron-icons.html">`:
+
+```html
+<link rel="import" href="shopping-list-model.html">
+```
+
+Also in `src/my-lists.html` replace:
+
+```html
+    <paper-card heading="Groceries">
+    </paper-card>
+```
+
+with:
+
+```html
+    <template is="dom-repeat" items="[[listOfShoppingListsArray]]">
+      <a name="index" href="[[rootPath]]items/[[item._id]]">
+        <paper-card heading="[[item.title]]">
+        </paper-card>
+      </a>
+    </template>
+ ```
+
+An explanation of what this does:
+
+* The first line is a [template repeater](https://www.polymer-project.org/2.0/docs/devguide/templates#dom-repeat) (`dom-repeat`) which binds to the `listOfShoppingListsArray` property and creates a new instance of the template contents for each element in the array, creating an `item` and an `index` property which can be used in each instance
+* The second line provides a hyperlink to view the **List of Shopping List Items** for the current **Shopping List**, using the `item._id` property
+* The third line creates a `paper-card` with a `heading` property having the value of the current `item.title` property
+* Note that use of double square brackets (`[[ ]]`) which indicates one-way data binding, versus double curly brackets (`{{ }}`) which are used for two-way data binding
+
+Next we need to declare the `listOfShoppingListsArray` property in order for the above template repeater to have something to which to bind. We will be declaring the `listOfShoppingListsArray` property as a *computed* property (a property that has its value computed based on a function). We will compute the `listOfShoppingListsArray` property's value using the `toArray()` method of the **List of Shopping Lists** Immutable.js List object. We will use the **Shopping List Factory** to create an empty **List of Shopping Lists** for now.
+
+First let's set up our property declarations. In `src/my-lists.html` after `static get is() { return "my-lists"; }` add:
+
+```javascript
+      static get properties() {
+        return {
+        };
+      }
+```
+
+Add the following property declaration:
+
+```javascript
+          shoppingListFactory: {
+            type: Object,
+            readOnly: true,
+            notify: false,
+            value: function() {
+              return new ShoppingListModel.ShoppingListFactory();
+            }
+          },
+```
+
+An explanation:
+
+* The property name is `shoppingListFactory`
+* The property type is `Object`
+* The property is read only, meaning it only produces data and never consumes data
+* Since we don't intend to change the property value, we don't need to be notified with an event when the property value changes
+* The initial value of the `shoppingListFactory` property will be a new `ShoppingListFactory` object
+
+Add another property declaration:
+
+```javascript
+          listOfShoppingLists: {
+            type: Object,
+            readOnly: true,
+            notify: true,
+            value: function() {
+              return this.shoppingListFactory.newListOfShoppingLists();
+            }
+          },
+```
+
+An explanation:
+
+* The above property represents the current **List of Shopping Lists** for the `MyLists` component
+* The property's initial value is an empty **List of Shopping Lists**, but its value can be changed using a method named `_setListOfShoppingLists`
+
+Add the `listOfShoppingListsArray` property declaration (the property to which our template repeater is bound):
+
+```javascript
+          listOfShoppingListsArray: {
+            type: Array,
+            readOnly: true,
+            notify: true,
+            computed: "_listOfShoppingListsArray(listOfShoppingLists)"
+          },
+```
+
+An explanation:
+
+* The `computed` field indicates the name of the method to be called in order to compute the value of `listOfShoppingListsArray` (we still need to write this method)
+* The `_listOfShoppingListsArray` method takes a `listOfShoppingLists` parameter, which means the value of the `listOfShoppingLists` property will be passed to this method and the `listOfShoppingListsArray` value will be re-computed whenever the `listOfShoppingLists` property value changes
+
+Finally let's add the `_listOfShoppingListsArray` method after the property declarations block:
+
+```javascript
+      _listOfShoppingListsArray(listOfShoppingLists) {
+        return listOfShoppingLists.toArray();
+      }
+```
+
+--
+
 ##### Create an empty state indicator for shopping lists
 
 ##### Add stub data to the shopping lists component
