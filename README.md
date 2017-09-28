@@ -628,6 +628,138 @@ to:
 
 ##### Create a stub of the shopping list items component
 
+[[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/3fd8ea99b0e79aa4016dfc6acbdc8e71ff492d02)]
+
+Install the [`paper-listbox`](https://www.webcomponents.org/element/PolymerElements/paper-listbox) element:
+
+```
+$ bower install --save PolymerElements/paper-listbox#^2.0.0
+```
+
+Install the [`paper-item`](https://www.webcomponents.org/element/PolymerElements/paper-item) element:
+
+```
+$ bower install --save PolymerElements/paper-item#^2.0.0
+```
+
+Install the [`paper-checkbox`](https://www.webcomponents.org/element/PolymerElements/paper-checkbox) element:
+
+```
+$ bower install --save PolymerElements/paper-checkbox#^2.0.0
+```
+
+Create a new file named `my-items.html` in the `src` directory (`src/my-items.html`). This will be a new component called `MyItems`. Here is the content for this new file:
+
+
+```html
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../bower_components/paper-item/paper-item-body.html">
+<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+
+<dom-module id="my-items">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      paper-item[data-checked] {
+        text-decoration: line-through;
+        color: var(--paper-item-disabled-color, var(--disabled-text-color));
+      }
+
+      paper-fab {
+        position: fixed;
+        right: 16px;
+        bottom: 16px;
+      }
+    </style>
+
+    <paper-listbox>
+      <paper-item data-checked>
+        <paper-checkbox checked></paper-checkbox>
+        <paper-item-body>
+          <div>Mangos</div>
+        </paper-item-body>
+      </paper-item>
+      <paper-item>
+        <paper-checkbox ></paper-checkbox>
+        <paper-item-body>
+          <div>Oranges</div>
+        </paper-item-body>
+      </paper-item>
+      <paper-item>
+        <paper-checkbox></paper-checkbox>
+        <paper-item-body>
+          <div>Pears</div>
+        </paper-item-body>
+      </paper-item>
+    </paper-listbox>
+
+    <paper-fab mini icon="add"></paper-fab>
+
+  </template>
+  <script>
+    class MyItems extends Polymer.Element {
+
+      static get is() { return "my-items"; }
+
+    }
+    window.customElements.define(MyItems.is, MyItems);
+  </script>
+</dom-module>
+```
+
+This new `MyItems` component:
+
+* Is a Polymer element
+* Is a Web Component by extension
+* Contains a `paper-listbox` element with `paper-item` elements ([Material Design lists](https://material.io/guidelines/components/lists.html)) representing stubbed out shopping list items, one of which is checked
+* Contains a `paper-fab` ([Material Design floating action button](https://material.io/guidelines/components/buttons-floating-action-button.html)) element that will be used later for adding a new shopping list item
+
+--
+
+Add the following line to the `fragments` property of the `polymer.json` after the line containing `"src/my-lists.html",`:
+
+```javascript
+    "src/my-items.html",
+```
+--
+
+Add the following line to the `src/my-app.html` file after the line containing `<link rel="lazy-import" href="my-lists.html">
+` (this will allow for lazy loading of our new `MyItems` component):
+
+```html
+<link rel="lazy-import" href="my-items.html">
+```
+
+--
+
+Add the following line to the `src/my-app.html` file after the line containing `<my-lists name="lists"></my-lists>` (this will add our new `MyItems` component to the app while binding its route to the app's subroute):
+
+```html
+          <my-items name="items" route="{{subroute}}"></my-items>
+```
+
+--
+
+Now let's take a look at our work so far! Start the Polymer development server:
+
+```
+$ polymer serve
+info:    Files in this directory are available under the following URLs
+      applications: http://127.0.0.1:8081
+      reusable components: http://127.0.0.1:8081/components/polymer-starter-kit/
+```
+
+You should now be able to browse to `http://127.0.0.1:8081` in your web browser and see the Shopping List app with a stubbed out shopping list and shopping list items (you will need to manual navigate to the `/items` route for now to preview this page). When you're done, close the browser tab containing the Shopping List app. Back in your terminal, use `Ctrl-C` to cancel the `polymer serve` command and return you to the command prompt.
+
+**Note:** Consider testing your work in [Google Chrome](https://www.google.com/chrome/) as Chrome tends to have good support for web platform features used by Progressive Web Apps, plus Chrome has several useful [developer tools](https://developer.chrome.com/devtools).
+
 #### Adding the Shopping List Domain Model
 
 ##### Install the shopping list domain model
