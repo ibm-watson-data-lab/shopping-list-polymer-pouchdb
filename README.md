@@ -790,6 +790,30 @@ You should now be able to browse to `http://127.0.0.1:8081` in your web browser 
 
 ##### Install the shopping list domain model
 
+[[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/403a6be2354bb9c992e184bdc98bc261bf247f0c)]
+
+The shopping list domain model is [published to npm](https://www.npmjs.com/package/ibm-shopping-list-model). However, we are using Bower to install our app's frontend dependencies. Fortunately there is a [Bower npm resolver](https://github.com/mjeanroy/bower-npm-resolver) that we can use to bridge this gap. Install the Bower npm resolver:
+
+```
+npm install -g bower-npm-resolver
+```
+
+Configure Bower to use the npm resolver by creating a `.bowerrc` file and adding the following content:
+
+```javascript
+ {
+  "resolvers": [
+    "bower-npm-resolver"
+  ]
+}
+```
+
+You should then be able to install the shopping list model using Bower:
+
+```
+bower install --save npm:ibm-shopping-list-model
+```
+
 ##### Create a component to encapsulate the shopping list domain model
 
 ##### Use the shopping list domain model for one-way data binding of shopping lists
