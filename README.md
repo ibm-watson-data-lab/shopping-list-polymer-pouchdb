@@ -315,7 +315,7 @@ You will see a bunch of additional output as the Polymer CLI installs Bower depe
 
 **Note:** Polymer 2.0 uses Bower to manage frontend dependencies even though Bower is deprecated. [Polymer 3.0 is moving from Bower to npm.](https://www.polymer-project.org/blog/2017-08-22-npm-modules)
 
-Start the Polymer Development server:
+Start the Polymer development server:
 
 ```
 $ polymer serve
