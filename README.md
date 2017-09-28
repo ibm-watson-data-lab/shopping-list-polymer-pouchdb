@@ -762,6 +762,32 @@ You should now be able to browse to `http://127.0.0.1:8081` in your web browser 
 
 #### Adding the Shopping List Domain Model
 
+[A domain model for the Shopping List app has already been implemented for you in JavaScript.](https://github.com/ibm-watson-data-lab/shopping-list-model-js) Rather than writing the domain logic and persistence logic yourself, you can instead use this domain model implementation in your Shopping List app. The domain model includes the following:
+
+* **Shopping List Factory** (`ShoppingListFactory`)
+  * `newShoppingList(values)`: Makes a new **Shopping List** entity (an [Immutable.js Record](https://facebook.github.io/immutable-js/docs/#/Record)) based on the supplied values
+  * `newListOfShoppingLists(shoppingLists)`: Makes a new **List of Shopping Lists** (an [Immutable.js List](https://facebook.github.io/immutable-js/docs/#/List)) out of the supplied collection-like object
+  * `newShoppingListItem(values, shoppingList)`: Makes a new **Shopping List Item** entity  (an [Immutable.js Record](https://facebook.github.io/immutable-js/docs/#/Record)) based on the supplied values
+  * `newListOfShoppingListItems(shoppingListItems)`:  Makes a new **List of Shopping List Items** (an [Immutable.js List](https://facebook.github.io/immutable-js/docs/#/List)) out of the supplied collection-like object
+* **Shopping List Repository for PouchDB** (`ShoppingListRepositoryPouchDB`)
+  * `constructor(db)`: Constructs a new **Shopping List Repository for PouchDB** that uses the supplied PouchDB database
+  * `ensureIndexes()`: Returns a Promise that resolves with an assurance that indexes needed for [Mango queries](https://pouchdb.com/guides/mango-queries.html) are in place
+  * Methods for Persisting **Shopping Lists**
+     * `put(shoppingList)`: Returns a Promise that resolves to a **Shopping List** entity persisted to PouchDB
+     * `putBulk(shoppingLists)`: Returns a Promise that resolves to a **List of Shopping Lists** persisted to PouchDB
+     * `get(shoppingListId)`: Returns a Promise that resolves to a **Shopping List** entity retrieved from PouchDB matching the supplied identifier
+     * `find(request)`: Returns a Promise that resolves to a **List of Shopping Lists** retrieved from PouchDB matching the supplied Mango query request
+     * `delete(shoppingList)`: Returns a Promise that resolves to a **Shopping List** entity deleted from PouchDB
+  * Methods for Persisting **Shoping List Items**
+     * `putItem(shoppingListItem)`: Returns a Promise that resolves to a **Shopping List Item** entity persisted to PouchDB
+     * `putItemsBulk(shoppingListItems)`: Returns a Promise that resolves to a **List of Shopping List Items** persisted to PouchDB
+     * `getItem(shoppingListItemId)`: Returns a Promise that resolves to a **Shopping List Item** entity retrieved from PouchDB matching the supplied identifier
+     * `findItems(request)`: Returns a Promise that resolves to a **List of Shopping List Items** retrieved from PouchDB matching the supplied Mango query request
+     * `findItemsCountByList(request, fields)`: Returns a Promise that resolves to the count of a **List of Shopping List Items** grouped by **Shopping List** retrieved from PouchDB matching the supplied Mango query request
+     * `deleteItem(shoppingListItem)`: Returns a Promise that resolves to a **Shopping List Item** entity deleted from PouchDB
+     * `deleteItemsBulk(shoppingListItems)`: Returns a Promise that resolves to a **List of Shopping List Items** deleted from PouchDB
+     * `deleteItemsBulkByFind(request)`: Returns a Promise that resolves to a **List of Shopping List Items** deleted from PouchDB matching the supplied Mango query request.
+
 ##### Install the shopping list domain model
 
 ##### Create a component to encapsulate the shopping list domain model
