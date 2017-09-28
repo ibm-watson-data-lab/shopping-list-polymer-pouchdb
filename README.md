@@ -245,6 +245,8 @@ A step-by-step walkthrough of the tutorial:
 
 ### Initial Set Up
 
+#### Prerequisites
+
 In a terminal, check for Node.js version 6 or higher:
 
 ```
@@ -272,6 +274,10 @@ Install Polymer CLI:
 ```
 $ npm install -g polymer-cli
 ```
+
+### Initialize the app using the Polymer App Toolbox - Starter Kit
+
+[[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/8d28ee041c027943163ea99a709aa223ceb2c700)]
 
 Create a new directory for your project:
 
