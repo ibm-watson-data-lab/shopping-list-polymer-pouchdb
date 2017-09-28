@@ -162,7 +162,7 @@ Shopping List is an Offline First demo Progressive Web App built using Polymer a
 * Tutorial Outline
 * Tutorial Steps
 * Initial Set Up
-* Creating the Polymer App
+* Creating the Shopping List Polymer App
 * Adding a PouchDB Database
 * Syncing Data
   * Configure a Database
@@ -327,6 +327,96 @@ You should now be able to browse to `http://127.0.0.1:8081` in your web browser 
 * Uses a [Service Worker to cache content and assets for offline access](https://www.polymer-project.org/2.0/toolbox/service-worker)
 
 Close the browser tab containing the Starter Kit app. Back in your terminal, use `Ctrl-C` to cancel the `polymer serve` command and return you to the command prompt.
+
+### Creating the Shopping List Polymer App
+
+#### Update the app title, description, and related metadata
+
+[[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/3989f05a757ae8d4c120a9ee4402c71fd2f680f4)]
+
+Our first step in transforming this app from the Starter Kit into a Shopping List app is to update the app title, description, and related metadata. In `manifest.json` change:
+
+```javascript
+  "name": "My App",
+  "short_name": "My App",
+  "description": "My App description",
+```
+
+to:
+
+```javascript
+  "name": "Shopping List",
+  "short_name": "Shopping List",
+  "description": "Shopping List is an Offline First demo Progressive Web App built using Polymer and PouchDB.",
+```
+
+**Note:** When viewing and editing files, you will want to use a text editor such as [Sublime Text](https://www.sublimetext.com/) or [Atom](https://atom.io/).
+
+The `manifest.json` file [provides basic metadata about your app to web browsers](https://developer.mozilla.org/en-US/Add-ons/WebExtensions/manifest.json).
+
+--
+
+In `index.html` change:
+
+```html
+    <title>My App</title>
+    <meta name="description" content="My App description">
+```
+
+to:
+
+```html
+    <title>Shopping List</title>
+    <meta name="description" content="Shopping List is an Offline First demo Progressive Web App built using Polymer and PouchDB.">
+```
+
+--
+
+Also in `index.html` change:
+
+```html
+    <meta name="application-name" content="My App">
+```
+
+to:
+
+```html
+    <meta name="application-name" content="Shopping List">
+```
+
+--
+
+Still in `index.html` change:
+
+```html
+    <meta name="apple-mobile-web-app-title" content="My App">
+```
+
+to:
+
+```html
+    <meta name="apple-mobile-web-app-title" content="Shopping List">
+```
+
+The `index.html` file serves as the [app entrypoint](https://www.polymer-project.org/2.0/toolbox/server#app-entrypoint), which is responsible for instantiating the app shell.
+
+--
+
+In `src/my-app.html` change:
+
+```html
+            <div main-title>My App</div>
+```
+
+to:
+
+```html
+            <div main-title>Shopping List</div>
+```
+
+**Note:** A forward slash (`/`) in a file reference indicates that the file or directory following the forward slash is within the preceding directory. For example, `src/my-app.html` means that the `my-app.html` file is within the `src` directory.
+
+The `src/my-app.html` file serves as the [app shell](https://www.polymer-project.org/2.0/toolbox/server#app-shell), which is responsible for routing within your app and may also include the main navigation elements for your app.
 
 ## Workshop
 
