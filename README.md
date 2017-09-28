@@ -243,6 +243,85 @@ A step-by-step walkthrough of the tutorial:
 28. Update database when a list item is checked or unchecked
 29. Enable live replication with a remote database
 
+### Initial Set Up
+
+In a terminal, check for Node.js version 6 or higher:
+
+```
+$ node -v
+v8.6.0
+```
+
+**Note:** The `$` in the above instruction (and in all subsequent examples) indicates the start of a command prompt in a terminal. Do _not_ type the leading `$` into your command prompt. Multiple lines beginning with a `$` in subsequent instructions indicate the start of a new command (i.e. hit "enter" after the previous command and then type the new command). Subsequent lines _not_ beginning with a `$` in examples like the one above indicate output from the previous command. You should _not_ type these lines.
+
+Install Node.js if it is not already installed (or upgrade Node.js if you have a version earlier than 6):
+
+* [Download Node.js](https://nodejs.org/en/download/) or
+* [Install Node.js via a package manager](https://nodejs.org/en/download/package-manager/)
+
+Install Bower:
+
+```
+$ npm install -g bower
+```
+
+**Note:** If the above command results in an `EACCES` error then read the documentation on [fixing npm permissions](https://docs.npmjs.com/getting-started/fixing-npm-permissions).
+
+Install Polymer CLI:
+
+```
+$ npm install -g polymer-cli
+```
+
+Create a new directory for your project:
+
+```
+$ mkdir shopping-list-polymer-pouchdb
+```
+
+Change into your new directory:
+
+```
+$ cd shopping-list-polymer-pouchdb
+```
+
+Run the following command for initializing a new Polymer project using the `polymer-2-starter-kit` template:
+
+```
+$ polymer init polymer-2-starter-kit
+info:    Running template polymer-init-polymer-2-starter-kit:app...
+info:    Finding latest ^3.0.0 release of PolymerElements/polymer-starter-kit
+info:    Downloading v3.1.0 of PolymerElements/polymer-starter-kit
+info:    Unpacking template files
+info:    Finished writing template files
+
+
+I'm all done. Running bower install for you to install the required dependencies. If this fails, try running the command yourself.
+```
+
+**Note:** As mentioned previously, subsequent lines _not_ beginning with a `$` in examples like the one above indicate output from the previous command. You should _not_ type these lines.
+
+You will see a bunch of additional output as the Polymer CLI installs Bower dependencies.
+
+**Note:** Polymer 2.0 uses Bower to manage frontend dependencies even though Bower is deprecated. [Polymer 3.0 is moving from Bower to npm.](https://www.polymer-project.org/blog/2017-08-22-npm-modules)
+
+Start the Polymer Development server:
+
+```
+$ polymer serve
+info:    Files in this directory are available under the following URLs
+      applications: http://127.0.0.1:8081
+      reusable components: http://127.0.0.1:8081/components/polymer-starter-kit/
+```
+
+You should now be able to browse to `http://127.0.0.1:8081` in your web browser and see the Starter Kit app. The Starter Kit app:
+
+* Uses a [responsive, drawer-based app layout](https://www.polymer-project.org/2.0/toolbox/app-layout)
+* Uses [modular, client-side routing](https://www.polymer-project.org/2.0/toolbox/routing)
+* Uses a [Service Worker to cache content and assets for offline access](https://www.polymer-project.org/2.0/toolbox/service-worker)
+
+Close the browser tab containing the Starter Kit app. Back in your terminal, use `Ctrl-C` to cancel the `polymer serve` command and return you to the command prompt.
+
 ## Workshop
 
 TBD
