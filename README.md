@@ -816,6 +816,16 @@ bower install --save npm:ibm-shopping-list-model
 
 ##### Create a component to encapsulate the shopping list domain model
 
+[[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/2c029d8ba590753f429d46587ba6352de77de336)]
+
+The easiest way to use the domain model in your app is by encapsulating it in its own component. This will allow you to import the component wherever it is needed. Create a `shopping-list-model.html` file in the `src` directory (`src/shopping-list-model.html`) and add the following content:
+
+```html
+<dom-module id="shopping-list-model">
+  <script src="../bower_components/ibm-shopping-list-model/dist/bundle.es6.js"></script>
+</dom-module>
+```
+
 ##### Use the shopping list domain model for one-way data binding of shopping lists
 
 ##### Create an empty state indicator for shopping lists
