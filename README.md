@@ -506,6 +506,126 @@ to:
 
 ##### Create a stub of the shopping lists component
 
+[[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/aeda633ad83a1604074dce04e5b7845c55bc788c)]
+
+Install the [`paper-card`](https://www.webcomponents.org/element/PolymerElements/paper-card) element:
+
+```
+$ bower install --save PolymerElements/paper-card#^2.0.0
+```
+
+Install the [`paper-fab`](https://www.webcomponents.org/element/PolymerElements/paper-fab) element:
+
+```
+$ bower install --save PolymerElements/paper-fab#^2.0.0
+```
+
+Install the [`iron-icons`](https://www.webcomponents.org/element/PolymerElements/iron-icons) element:
+
+```
+$ bower install --save PolymerElements/iron-icons#^2.0.0
+```
+
+Create a new file named `my-lists.html` in the `src` directory (`src/my-lists.html`). This will be a new component called `MyLists`. Here is the content for this new file:
+
+
+```html
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+
+<dom-module id="my-lists">
+  <template>
+    <style>
+      :host {
+        display: block;
+        padding: 8px 8px;
+      }
+
+      paper-card {
+        width: 100%;
+      }
+
+      paper-fab {
+        position: fixed;
+        right: 16px;
+        bottom: 16px;
+      }
+    </style>
+
+    <paper-card heading="Groceries">
+    </paper-card>
+
+    <paper-fab mini icon="add"></paper-fab>
+
+  </template>
+  <script>
+
+    class MyLists extends Polymer.Element {
+
+      static get is() { return "my-lists"; }
+
+    }
+    window.customElements.define(MyLists.is, MyLists);
+  </script>
+</dom-module>
+```
+
+This new `MyLists` component:
+
+* Is a Polymer element
+* Is a Web Component by extension
+* Contains a `paper-card` ([Material Design card](https://material.io/guidelines/components/cards.html)) element representing a stubbed out shopping list titled "Groceries"
+* Contains a `paper-fab` ([Material Design floating action button](https://material.io/guidelines/components/buttons-floating-action-button.html)) element that will be used later for adding a new shopping list
+
+--
+
+Add the following line to the `fragments` property of the `polymer.json` before the line containing `"src/my-view404.html"`:
+
+```javascript
+    "src/my-lists.html",
+```
+--
+
+Add the following line to the `src/my-app.html` file before the line containing `<link rel="lazy-import" href="my-view404.html">` (this will allow for lazy loading of our new `MyLists` component):
+
+```html
+<link rel="lazy-import" href="my-lists.html">
+```
+
+--
+
+Add the following line to the `src/my-app.html` file between the opening and closing `<iron-selector>` tags (this will add a link to our new `MyLists` component in the app's navigation):
+
+```html
+          <a name="index" href="[[rootPath]]lists">Lists</a>
+```
+
+--
+
+Add the following line to the `src/my-app.html` file before the line containing `<my-view404 name="view404"></my-view404>` (this will add our new `MyLists` component to the app):
+
+```html
+          <my-lists name="lists"></my-lists>
+```
+
+--
+
+Finally, let's change the default view from `view404` to `lists`. In the `src/my-app.html` file change:
+
+```html
+        // Deault to 'view404' in that case.
+        this.page = page || 'view404';
+```
+
+to:
+
+```html
+        // Deault to 'lists' in that case.
+        this.page = page || 'lists';
+```
+
 ##### Create a stub of the shopping list items component
 
 #### Adding the Shopping List Domain Model
