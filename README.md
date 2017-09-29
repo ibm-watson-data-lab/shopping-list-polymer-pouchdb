@@ -1205,6 +1205,52 @@ The only difference between the two is the addition of a `db="[[db]]"` attribute
 
 [[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/d9e5658836e6e0e4ddb42983fb068c524ac41325)]
 
+In `src/my-lists.html` declare a `shoppingListRepository` property for our **Shopping List Repository** instance:
+
+```javascript
+          shoppingListRepository: {
+            type: Object,
+            readOnly: true,
+            notify: false,
+            value: function() {
+              return new ShoppingListModel.ShoppingListRepositoryPouchDB(this.db);
+            }
+          },
+```
+
+In `src/my-lists.html` create a `_findListOfShoppingLists()` method for finding a **List of Shopping Lists** in PouchDB (via the **Shopping List Repository**) and updating the `listOfShoppingLists` property accordingly:
+
+```
+      _findListOfShoppingLists() {
+        this.loading = true;
+        this.shoppingListRepository.find().then(listOfShoppingLists => {
+          this._setListOfShoppingLists(listOfShoppingLists);
+          this.loading = false;
+        });
+      }
+```
+
+In `src/my-lists.html` *remove* the `ready()` method that creates stub data and replace it with the following `ready()` method that ensures that the indexes needed for Mango queries are in place and triggers a database query when the component is ready:
+
+```javascript
+      ready() {
+        super.ready();
+        this.shoppingListRepository.ensureIndexes();
+        this._findListOfShoppingLists();
+      }
+```
+
+Let's test our work so far. Start the Polymer development server:
+
+```
+$ polymer serve
+info:    Files in this directory are available under the following URLs
+      applications: http://127.0.0.1:8081
+      reusable components: http://127.0.0.1:8081/components/polymer-starter-kit/
+```
+
+You should now be able to browse to `http://127.0.0.1:8081` in your web browser and see the Shopping List app. You may notice the loading spinner displayed briefly, after which you should see the empty state indicator. When you're done, close the browser tab containing the Shopping List app. Back in your terminal, use `Ctrl-C` to cancel the `polymer serve` command and return you to the command prompt.
+
 ##### Use PouchDB to listen for and propagate changes to shopping lists
 
 [[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/d4748572400107b672c9b35155fb968495234f9a)]
