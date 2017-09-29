@@ -1382,6 +1382,44 @@ In `src/my-lists.html` add the `_listAdd()` method to open the dialog that will 
 
 [[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/215e835f1efb6fda2953487b0ea031961e7ba394)]
 
+The final step to be able to create a new **Shopping List** entity is to wire up the form submission. In `src/my-lists.html` add an `on-click` handler to the "Save" button in the form, replacing:
+
+```html
+        <paper-button dialog-confirm raised>Save</paper-button>
+```
+
+with:
+
+```html
+        <paper-button dialog-confirm raised on-click="_listAddFormSubmit">Save</paper-button>
+```
+
+In `src/my-lists.html` add the `_listAddFormSubmit()` method to handle the form submission when the "Save" button is clicked:
+
+```javascript
+      _listAddFormSubmit() {
+        let shoppingList = this.shoppingListFactory.newShoppingList({
+          title: this.newList.title
+        });
+        this.shoppingListRepository.put(shoppingList).then(shoppingList => {
+          this.$.listAddForm.reset();
+          this.newList = {};
+          this.$.listAddDialog.close();
+        });
+      }
+```
+
+Let's try it out! Start the Polymer development server:
+
+```
+$ polymer serve
+info:    Files in this directory are available under the following URLs
+      applications: http://127.0.0.1:8081
+      reusable components: http://127.0.0.1:8081/components/polymer-starter-kit/
+```
+
+You should now be able to browse to `http://127.0.0.1:8081` in your web browser and see the Shopping List app. Click the floating action button on the shopping lists page. Enter a title for your new shopping list. Click "Save" and the dialog should close. You should now see your new **Shopping List** in the **List of Shopping Lists** rather than the empty state indicator. When you're done, close the browser tab containing the Shopping List app. Back in your terminal, use `Ctrl-C` to cancel the `polymer serve` command and return you to the command prompt.
+
 #### Completing the App
 
 ##### Use the shopping list domain model for one-way data binding of shopping list items
