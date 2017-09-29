@@ -1850,6 +1850,73 @@ In `src/my-items.html` at the end of the `ready()` method add the following code
 
 [[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/75561467a879aecea4e0055d5da074386bf952ca)]
 
+We will now add the ability to create new **Shopping List Item** entities. First we will create a dialog and a form for creating a new **Shopping List Item**. Then in the next section we will write the code for handling the submission of this form.
+
+In `src/my-items.html` add the following lines to import the `paper-dialog`, `iron-form`, `paper-input`, and `paper-button` components after `<link rel="import" href="../bower_components/paper-spinner/paper-spinner.html">`:
+
+```html
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../bower_components/iron-form/iron-form.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+```
+
+Add the following style to the `<style>` section of the `MyItems` component (`src/v`) in order to style the dialog:
+
+```css
+      paper-dialog {
+        width: 332px;
+        padding: 8px;
+      }
+```
+
+In `src/my-items.html` add the the following code for the dialog after `<paper-fab mini icon="add"></paper-fab>`:
+
+```html
+    <paper-dialog id="listItemAddDialog">
+      <h2>New List Item</h2>
+      <paper-dialog-scrollable>
+        <iron-form id="listItemAddForm">
+          <paper-input id="newListItemTitle" name="title" label="Title" value="{{newListItem.title}}" required autofocus></paper-input>
+        </iron-form>
+      </paper-dialog-scrollable>
+      <div class="buttons">
+        <paper-button dialog-dismiss raised>Cancel</paper-button>
+        <paper-button dialog-confirm raised>Save</paper-button>
+      </div>
+    </paper-dialog>
+```
+
+In `src/my-items.html` declare a `newListItem` property to represent the new **Shopping List Item** entity as entered by the app user:
+
+```javascript
+          newListItem: {
+            type: Object,
+            notify: false,
+            value: {}
+          },
+```
+
+In `src/my-items.html` add an `on-click` handler to the floating action button, replacing:
+
+```html
+    <paper-fab mini icon="add"></paper-fab>
+```
+
+with:
+
+```
+    <paper-fab mini icon="add" on-click="_listItemAdd"></paper-fab>
+```
+
+In `src/my-items.html` add the `_listItemAdd()` method to open the dialog that will be called when the floating action button is clicked:
+
+```
+      _listItemAdd() {
+        this.$.listItemAddDialog.open();
+      }
+```
+
 ##### Create a new shopping list item when the create new shopping list item form is submitted
 
 [[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/4c4fd6efa193da43f91f4f271811d3e5ef7d6f49)]
