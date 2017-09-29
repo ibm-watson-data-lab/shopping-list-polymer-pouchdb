@@ -1151,6 +1151,15 @@ $ bower install --save pouchdb-find
 
 [[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/ae61c5ab99cc0c476b03020de7a0f9ba86ef308b)]
 
+The easiest way to use PouchDB and pouchdb-find in your app is by encapsulating the two libraries in their own component. This will allow you to import the component wherever it is needed. Create a `pouchdb.html` file in the `src` directory (`src/pouchdb.html`) and add the following content:
+
+```html
+<dom-module id="pouchdb">
+  <script src="../bower_components/pouchdb/dist/pouchdb.js"></script>
+  <script src="../bower_components/pouchdb-find/dist/pouchdb.find.js"></script>
+</dom-module>
+```
+
 ##### Create a shared database property within the app component
 
 [[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/ca335b5a326bba0e8b07adf7a7ed27454b075bd5)]
