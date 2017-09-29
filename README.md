@@ -1135,6 +1135,18 @@ In the next steps we will install and use a [PouchDB](https://pouchdb.com/) data
 
 [[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/f43025130b2bc44b066dfb4d2e7d6bbba5a1493a)]
 
+Install PouchDB:
+
+```
+$ bower install --save pouchdb
+```
+
+Install the pouchdb-find plugin which will give us the ability to perform [Mango queries](https://pouchdb.com/guides/mango-queries.html) (a query language inspired by MongoDB):
+
+```
+$ bower install --save pouchdb-find
+```
+
 ##### Create a component to encapsulate PouchDB with pouchdb-find
 
 [[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/ae61c5ab99cc0c476b03020de7a0f9ba86ef308b)]
