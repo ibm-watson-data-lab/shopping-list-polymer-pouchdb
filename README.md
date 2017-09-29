@@ -1424,6 +1424,132 @@ You should now be able to browse to `http://127.0.0.1:8081` in your web browser 
 
 [[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/276fcddf697528be868c57a0d1d2f7395920df89)]
 
+Now we will replace the stubbed out shopping list items in `src/my-items.html` with a one-way [data binding](https://www.polymer-project.org/2.0/docs/devguide/data-binding) to a **List of Shopping List Items**.
+
+In `src/my-items.html` add the following line to import the shopping list model component after `<link rel="import" href="../bower_components/iron-icons/iron-icons.html">`:
+
+```html
+<link rel="import" href="shopping-list-model.html">
+```
+
+Also in `src/my-items.html` replace:
+
+```html
+    <paper-listbox>
+      <paper-item data-checked>
+        <paper-checkbox checked></paper-checkbox>
+        <paper-item-body>
+          <div>Mangos</div>
+        </paper-item-body>
+      </paper-item>
+      <paper-item>
+        <paper-checkbox ></paper-checkbox>
+        <paper-item-body>
+          <div>Oranges</div>
+        </paper-item-body>
+      </paper-item>
+      <paper-item>
+        <paper-checkbox></paper-checkbox>
+        <paper-item-body>
+          <div>Pears</div>
+        </paper-item-body>
+      </paper-item>
+    </paper-listbox>
+```
+
+with:
+
+```html
+    <template is="dom-if" if="[[!listOfShoppingListItemsIsEmpty]]">
+      <paper-listbox>
+        <template is="dom-repeat" items="[[listOfShoppingListItemsArray]]">
+          <paper-item data-checked$="[[item.checked]]">
+            <paper-checkbox data-id$="[[item._id]]" checked="[[item.checked]]"></paper-checkbox>
+            <paper-item-body>
+              <div>[[item.title]]</div>
+            </paper-item-body>
+            <iron-icon icon="more-vert"></iron-icon>
+          </paper-item>
+        </template>
+      </paper-listbox>
+    </template>
+```
+
+Next we need to declare the `listOfShoppingListItemsArray` property in order for the above template repeater to have something to which to bind. We will be declaring the `listOfShoppingListItemsArray` property as a *computed* property (a property that has its value computed based on a function). We will compute the `listOfShoppingListItemsArray` property's value using the `toArray()` method of the **List of Shopping List Items** Immutable.js List object. We will use the **Shopping List Factory** to create an empty **List of Shopping List Items** for now.
+
+First let's set up our property declarations. In `src/my-items.html` after `static get is() { return "my-items"; }` add:
+
+```javascript
+      static get properties() {
+        return {
+        };
+      }
+```
+
+Add the following property declaration:
+
+```javascript
+          shoppingListFactory: {
+            type: Object,
+            readOnly: true,
+            notify: false,
+            value: function() {
+              return new ShoppingListModel.ShoppingListFactory();
+            }
+          },
+```
+
+Add another property declaration:
+
+```javascript
+          listOfShoppingListItems: {
+            type: Object,
+            readOnly: true,
+            notify: true,
+            value: function() {
+              return this.shoppingListFactory.newListOfShoppingListItems();
+            }
+          },
+```
+
+Add the `listOfShoppingListItemsArray` property declaration (the property to which our template repeater is bound):
+
+```javascript
+          listOfShoppingListItemsArray: {
+            type: Array,
+            readOnly: true,
+            notify: true,
+            computed: "_listOfShoppingListItemsArray(listOfShoppingListItems)"
+          },
+```
+
+Add the `_listOfShoppingListItemsArray` method after the property declarations block:
+
+```javascript
+      _listOfShoppingListItemsArray(listOfShoppingListItems) {
+        return listOfShoppingListItems.toArray();
+      }
+```
+
+Add the `listOfShoppingListItemsIsEmpty` property declaration (the property to which our conditional template is bound):
+
+```javascript
+          listOfShoppingListItemsIsEmpty: {
+            type: Boolean,
+            readOnly: true,
+            notify: true,
+            computed: "_listOfShoppingListItemsIsEmpty(listOfShoppingListItems)"
+          },
+```
+
+Finally let's add the `_listOfShoppingListItemsIsEmpty` method after the `_listOfShoppingListItemsArray` method:
+
+```javascript
+      _listOfShoppingListItemsIsEmpty(listOfShoppingListItems) {
+        return listOfShoppingListItems.isEmpty();
+      }
+```
+
 ##### Create an empty state indicator for shopping list items
 
 [[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/33c9380df827c0463bea5e3e8aa244db92fa374f)]
