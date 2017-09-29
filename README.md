@@ -1826,7 +1826,7 @@ In `src/my-items.html` add the following lines to import the `paper-dialog`, `ir
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 ```
 
-Add the following style to the `<style>` section of the `MyItems` component (`src/v`) in order to style the dialog:
+Add the following style to the `<style>` section of the `MyItems` component (`src/my-items.html`) in order to style the dialog:
 
 ```css
       paper-dialog {
