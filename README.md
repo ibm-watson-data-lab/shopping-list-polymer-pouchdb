@@ -1619,6 +1619,75 @@ You should now be able to browse to `http://127.0.0.1:8081` in your web browser 
 
 [[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/3e00ea78a1e2fe57c6fa3f103caae6506e852ce2)]
 
+We should display a [loading spinner](https://material.io/guidelines/components/progress-activity.html) when the `MyItems` component is loading its **List of Shopping List Items**. This will become more important when we are loading data from a database. Even then, since this is an Offline First app it should load data very fast as all data access happens locally.
+
+In `src/my-items.html` add the following line to import the `paper-spinner` component after `<link rel="import" href="../bower_components/iron-icons/iron-icons.html">`:
+
+```html
+<link rel="import" href="../bower_components/paper-spinner/paper-spinner.html">
+```
+
+Add the following style to the `<style>` section of `src/my-items.html` in order to style the loading spinner:
+
+```css
+      #paperSpinnerContainer {
+        text-align: center;
+        margin-top: 120px;
+      }
+```
+
+Within `src/my-items.html` add the loading spinner wrapped in a conditional template bound to the `loading` property (which we still need to create):
+
+```html
+    <template is="dom-if" if="[[loading]]">
+      <div id="paperSpinnerContainer">
+        <paper-spinner active></paper-spinner>
+      </div>
+    </template>
+```
+
+Within `src/my-items.html` wrap the empty state indicator and the conditional template for displaying a **List of Shopping List Items** in another conditional template bound to the negated state of the `loading` property (only the first and last lines in the below code snippet are new):
+
+```html
+    <template is="dom-if" if="[[!loading]]">
+
+      <template is="dom-if" if="[[listOfShoppingListItemsIsEmpty]]">
+        <div class="empty-state">You have no shopping list items</div>
+      </template>
+
+      <template is="dom-if" if="[[!listOfShoppingListItemsIsEmpty]]">
+        <paper-listbox>
+          <template is="dom-repeat" items="[[listOfShoppingListItemsArray]]">
+            <paper-item data-checked$="[[item.checked]]">
+              <paper-checkbox data-id$="[[item._id]]" checked="[[item.checked]]"></paper-checkbox>
+              <paper-item-body>
+                <div>[[item.title]]</div>
+              </paper-item-body>
+              <iron-icon icon="more-vert"></iron-icon>
+            </paper-item>
+          </template>
+        </paper-listbox>
+      </template>
+
+    </template>
+```
+
+Within `src/my-items.html` add the `loading` property declaration (the property to which our conditional templates are bound):
+
+```javascript
+          loading: {
+            type: Boolean,
+            notify: true,
+            value: true
+          },
+```
+
+Let's stop the loading indicator once we've set our **List of Shopping List Items**. Within `src/my-items.html` add the following as the last line of the `ready()` method:
+
+```javascript
+        this.loading = false;
+```
+
 ##### Observe route changes in shopping list items component
 
 [[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/d7c2b79c4b7afa58e2d2e59392796e5ecb6558dc)]
