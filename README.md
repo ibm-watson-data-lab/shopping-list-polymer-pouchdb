@@ -1577,6 +1577,44 @@ Add the empty state indicator before `<template is="dom-if" if="[[!listOfShoppin
 
 [[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/76ac923003ec870aadb3f9981ea1a9afb0a7ffa0)]
 
+Let's add some stub data to the `MyItems` component so that we can see the data binding in action. Add the following to the `src/my-items.html` file after the `_listOfShoppingListItemsIsEmpty(listOfShoppingListItems)` method:
+
+```javascript
+      ready() {
+        super.ready();
+        let shoppingList = this.shoppingListFactory.newShoppingList({
+          title: "Groceries"
+        });
+        let shoppingListItem01 = this.shoppingListFactory.newShoppingListItem({
+          title: "Mangos",
+          checked: true
+        }, shoppingList);
+        let shoppingListItem02 = this.shoppingListFactory.newShoppingListItem({
+          title: "Oranges"
+        }, shoppingList);
+        let shoppingListItem03 = this.shoppingListFactory.newShoppingListItem({
+          title: "Pears"
+        }, shoppingList);
+        let listOfShoppingListItems = this.shoppingListFactory.newListOfShoppingListItems([
+          shoppingListItem01,
+          shoppingListItem02,
+          shoppingListItem03
+        ]);
+        this._setListOfShoppingListItems(listOfShoppingListItems);
+      }
+```
+
+Let's take a look at our `MyItems` component with stub data. Start the Polymer development server:
+
+```
+$ polymer serve
+info:    Files in this directory are available under the following URLs
+      applications: http://127.0.0.1:8081
+      reusable components: http://127.0.0.1:8081/components/polymer-starter-kit/
+```
+
+You should now be able to browse to `http://127.0.0.1:8081` in your web browser and see the Shopping List app. Create a **Shopping List** if one hasn't already been created. Click on any **Shopping List** and you should see "Mangos", "Oranges," and "Pears" on the shopping list items page. When you're done, close the browser tab containing the Shopping List app. Back in your terminal, use `Ctrl-C` to cancel the `polymer serve` command and return you to the command prompt.
+
 ##### Add a loading spinner to the shopping list items component
 
 [[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/3e00ea78a1e2fe57c6fa3f103caae6506e852ce2)]
