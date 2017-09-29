@@ -1824,6 +1824,28 @@ In `src/my-items.html` *remove* the `ready()` method that creates stub data and 
 
 [[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/7137c6870e353e6dc65f0215b9022af8a19c7d25)]
 
+We should update our **List of Shopping List Items** displayed when data changes within PouchDB after the initial load of the `MyItems` component. Fortunately PouchDB provides an [API for listening to database changes](https://pouchdb.com/api.html#changes). In `src/my-items.html` declare a `dbChanges` property that we can use if we want to cancel our listeners or add listeners:
+
+```javascript
+          dbChanges: {
+            type: Object,
+            notify: false
+          },
+```
+
+In `src/my-items.html` at the end of the `ready()` method add the following code:
+
+```javascript
+        this.dbChanges = this.db.changes({
+          live: true,
+          selector: {
+            type: "item"
+          }
+        }).on("change", change => {
+          this._findListOfShoppingListItems();
+        });
+```
+
 ##### Create a dialog with a form for creating a new shopping list item
 
 [[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/75561467a879aecea4e0055d5da074386bf952ca)]
