@@ -2001,9 +2001,119 @@ $ docker start 1b4030e0f6b6
 1b4030e0f6b6
 ```
 
-#### Enable live replication with a remote database
+#### Enable Live Replication with a Remote Database
 
 [[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/972470077fd814895f5748cc9906df97605edc92)]
+
+Install the [`paper-toast`](https://www.webcomponents.org/element/PolymerElements/paper-toast) element:
+
+```
+$ bower install --save PolymerElements/paper-toast#^2.0.0
+```
+
+In `src/my-app.html` add the following line to import the `paper-toast` component after `<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">`:
+
+```html
+<link rel="import" href="../bower_components/paper-toast/paper-toast.html">
+```
+
+In `src/my-app.html` add the the following code for the toast right before the closing `</template>` tag:
+
+```html
+    <paper-toast id="toast"></paper-toast>
+```
+
+In `src/my-app.html` declare a `remoteDb` and a `replicationHandler` property:
+
+```javascript
+          remoteDb: {
+            type: Object,
+            readOnly: true,
+            notify: true,
+            value: function() {
+              // Uncomment and change parameter value to enable replication (don't forget to enable CORS)
+              //return new PouchDB("http://admin:password@127.0.0.1:5984/shopping-list");
+            }
+          },
+          replicationHandler: {
+            type: Object,
+            notify: false
+          },
+```
+
+In `src/my-app.html` add a `ready()` method that will start bi-directional replication between the local PouchDB database and the remote database (if defined) and open the toast with text indicating that live replication with remote database has started:
+
+```javascript
+      ready() {
+        super.ready();
+        if (this.remoteDb) {
+         this.replicationHandler = this.db.sync(this.remoteDb, {
+            live: true,
+            retry: true
+          });
+          this.$.toast.text = "Live replication with remote database started";
+          this.$.toast.open();
+        }
+      }
+```
+
+To enable replication, uncomment the `return new PouchDB("…")` line and replace the value passed to the PouchDB constructor with the URL for your remote database. Be sure to create a database named `shopping-list` first.
+
+If you are using a local CouchDB database (replace `admin` and `password` with the values noted in the "Configure a Database" section):
+
+```javascript
+          remoteDb: {
+            type: Object,
+            readOnly: true,
+            notify: true,
+            value: function() {
+              // Uncomment and change parameter value to enable replication (don't forget to enable CORS)
+              return new PouchDB("http://admin:password@127.0.0.1:5984/shopping-list");
+            }
+          },
+```
+
+If you are using an IBM Cloudant database (replace `username`, `password`, and `uniqueid` with the values noted in the "Configure a Database" section):
+
+```javascript
+          remoteDb: {
+            type: Object,
+            readOnly: true,
+            notify: true,
+            value: function() {
+              // Uncomment and change parameter value to enable replication (don't forget to enable CORS)
+              return new PouchDB("https://username:password@uniqueid-bluemix.cloudant.com/shopping-list");
+            }
+          },
+```
+
+If you are using a Cloudant Developer Edition database (replace `admin` and `pass` with the values noted in the "Configure a Database" section):
+
+```javascript
+          remoteDb: {
+            type: Object,
+            readOnly: true,
+            notify: true,
+            value: function() {
+              // Uncomment and change parameter value to enable replication (don't forget to enable CORS)
+              return new PouchDB("http://admin:pass@localhost:8080/shopping-list");
+            }
+          },
+```
+
+
+Let's take a look at our finished Shopping List app, with database replication. Start the Polymer development server:
+
+```
+$ polymer serve
+info:    Files in this directory are available under the following URLs
+      applications: http://127.0.0.1:8081
+      reusable components: http://127.0.0.1:8081/components/polymer-starter-kit/
+```
+
+You should now be able to browse to `http://127.0.0.1:8081` in your web browser and see the Shopping List app. When you open the app, a toast should open indicating that database replication has started. Open the app in another browser window and place both app instances side-by-side. As you create **Shopping Lists**, create **Shopping List Items**, or check or uncheck **Shopping List Items** you should see the data flow between the two app instances. When you're done, close the browser tab containing the Shopping List app. Back in your terminal, use `Ctrl-C` to cancel the `polymer serve` command and return you to the command prompt.
+
+Congratulations! You have built an Offline First Progressive Web App with Polymer and PouchDB that replicates its data with a remote database.
 
 ## Workshop
 
