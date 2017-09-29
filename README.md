@@ -1420,6 +1420,8 @@ You should now be able to browse to `http://127.0.0.1:8081` in your web browser 
 
 #### Completing the App
 
+The instructions in this section are for the `MyItems` component and are similar to the previous steps completed for the `MyLists` component. New concepts covered in this section include observing route changes in Polymer (in order to display the **List of Shopping List Items** for the currently-selected **Shopping List**) and updating a document in the PouchDB database (via the **Shopping List Repository**) based on user action.
+
 ##### Use the shopping list domain model for one-way data binding of shopping list items
 
 [[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/276fcddf697528be868c57a0d1d2f7395920df89)]
