@@ -360,8 +360,6 @@ to:
 
 The `manifest.json` file [provides basic metadata about your app to web browsers](https://developer.mozilla.org/en-US/Add-ons/WebExtensions/manifest.json).
 
---
-
 In `index.html` change:
 
 ```html
@@ -376,8 +374,6 @@ to:
     <meta name="description" content="Shopping List is an Offline First demo Progressive Web App built using Polymer and PouchDB.">
 ```
 
---
-
 Also in `index.html` change:
 
 ```html
@@ -389,8 +385,6 @@ to:
 ```html
     <meta name="application-name" content="Shopping List">
 ```
-
---
 
 Still in `index.html` change:
 
@@ -405,8 +399,6 @@ to:
 ```
 
 The `index.html` file serves as the [app entrypoint](https://www.polymer-project.org/2.0/toolbox/server#app-entrypoint), which is responsible for instantiating the app shell.
-
---
 
 In `src/my-app.html` change:
 
@@ -439,8 +431,6 @@ $ rm test/my-view1.html
 
 **Note:** As mentioned previously, the four `$` instances above indicate four separate commands for you to type (but do _not_ type the `$` at the beginning of each line), hitting enter after typing each of the four separate commands.
 
---
-
 Remove the following three lines from `polymer.json`:
 
 ```javascript
@@ -450,8 +440,6 @@ Remove the following three lines from `polymer.json`:
 ```
 
 The `polymer.json` file [stores information about your project structure and your desired build configuration(s)](https://www.polymer-project.org/2.0/docs/tools/polymer-json). [The `fragments` property](https://www.polymer-project.org/2.0/docs/tools/polymer-json#fragments) (the property from which we are removing the references to the deleted views) is a way to specify components that may be lazy-loaded.
-
---
 
 Remove the following three lines from `src/my-app.html`:
 
@@ -463,8 +451,6 @@ Remove the following three lines from `src/my-app.html`:
 
 The above lines lazy-load the referenced components on demand.
 
---
-
 Also in `src/my-app.html` remove the following three lines:
 
 ```html
@@ -475,8 +461,6 @@ Also in `src/my-app.html` remove the following three lines:
 
 The above lines represent navigational links to the referenced routes.
 
---
-
 Still in `src/my-app.html` remove the following three lines:
 
 ```html
@@ -486,8 +470,6 @@ Still in `src/my-app.html` remove the following three lines:
 ```
 
 The above lines represent the pages for the referenced components.
-
---
 
 Finally in `src/my-app.html` change:
 
@@ -579,14 +561,11 @@ This new `MyLists` component:
 * Contains a `paper-card` ([Material Design card](https://material.io/guidelines/components/cards.html)) element representing a stubbed out shopping list titled "Groceries"
 * Contains a `paper-fab` ([Material Design floating action button](https://material.io/guidelines/components/buttons-floating-action-button.html)) element that will be used later for adding a new shopping list
 
---
-
 Add the following line to the `fragments` property of the `polymer.json` before the line containing `"src/my-view404.html"`:
 
 ```javascript
     "src/my-lists.html",
 ```
---
 
 Add the following line to the `src/my-app.html` file before the line containing `<link rel="lazy-import" href="my-view404.html">` (this will allow for lazy loading of our new `MyLists` component):
 
@@ -594,23 +573,17 @@ Add the following line to the `src/my-app.html` file before the line containing 
 <link rel="lazy-import" href="my-lists.html">
 ```
 
---
-
 Add the following line to the `src/my-app.html` file between the opening and closing `<iron-selector>` tags (this will add a link to our new `MyLists` component in the app's navigation):
 
 ```html
           <a name="index" href="[[rootPath]]lists">Lists</a>
 ```
 
---
-
 Add the following line to the `src/my-app.html` file before the line containing `<my-view404 name="view404"></my-view404>` (this will add our new `MyLists` component to the app):
 
 ```html
           <my-lists name="lists"></my-lists>
 ```
-
---
 
 Finally, let's change the default view from `view404` to `lists`. In the `src/my-app.html` file change:
 
@@ -721,14 +694,11 @@ This new `MyItems` component:
 * Contains a `paper-listbox` element with `paper-item` elements ([Material Design lists](https://material.io/guidelines/components/lists.html)) representing stubbed out shopping list items, one of which is checked
 * Contains a `paper-fab` ([Material Design floating action button](https://material.io/guidelines/components/buttons-floating-action-button.html)) element that will be used later for adding a new shopping list item
 
---
-
 Add the following line to the `fragments` property of the `polymer.json` after the line containing `"src/my-lists.html",`:
 
 ```javascript
     "src/my-items.html",
 ```
---
 
 Add the following line to the `src/my-app.html` file after the line containing `<link rel="lazy-import" href="my-lists.html">
 ` (this will allow for lazy loading of our new `MyItems` component):
@@ -737,15 +707,11 @@ Add the following line to the `src/my-app.html` file after the line containing `
 <link rel="lazy-import" href="my-items.html">
 ```
 
---
-
 Add the following line to the `src/my-app.html` file after the line containing `<my-lists name="lists"></my-lists>` (this will add our new `MyItems` component to the app while binding its route to the app's subroute):
 
 ```html
           <my-items name="items" route="{{subroute}}"></my-items>
 ```
-
---
 
 Now let's take a look at our work so far! Start the Polymer development server:
 
