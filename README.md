@@ -172,8 +172,7 @@ Shopping List is an Offline First demo Progressive Web App built using Polymer a
      * Option 1: Apache CouchDB
      * Option 2: IBM Cloudant
      * Option 3: Cloudant Developer Edition
-  * Configure Remote Database Credentials
-  * Trigger Database Replication
+  * Enable Live Replication with a Remote Database
 * Adding Multi-User / Multi-Device Features with Hoodie
   * Installing Hoodie
   * Configuring Hoodie
