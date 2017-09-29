@@ -1004,6 +1004,8 @@ You should now be able to browse to `http://127.0.0.1:8081` in your web browser 
 
 ##### Add stub data to the shopping lists component
 
+[[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/3b2e4c4a192ad1a04df260ffd4bac7bd78d0dc8a)]
+
 Let's add some stub data to the `MyLists` component so that we can see the data binding in action. Add the following to the `src/my-lists.html` file after the `_listOfShoppingListsIsEmpty(listOfShoppingLists)` method:
 
 ```javascript
@@ -1044,47 +1046,164 @@ You should now be able to browse to `http://127.0.0.1:8081` in your web browser 
 
 ##### Add a loading spinner to the shopping lists component
 
+[[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/e547226424f45fd32ef2a376f9e07d201d9ecb0a)]
+
+We should display a [loading spinner](https://material.io/guidelines/components/progress-activity.html) when the `MyLists` component is loading its **List of Shopping Lists**. This will become more important when we are loading data from a database. Even then, since this is an Offline First app it should load data very fast as all data access happens locally.
+
+Install the [`paper-spinner`](https://www.webcomponents.org/element/PolymerElements/paper-spinner) element:
+
+```
+$ bower install --save PolymerElements/paper-spinner#^2.0.0
+```
+
+In `src/my-lists.html` add the following line to import the `paper-spinner` component after `<link rel="import" href="../bower_components/iron-icons/iron-icons.html">`:
+
+```html
+<link rel="import" href="../bower_components/paper-spinner/paper-spinner.html">
+```
+
+Add the following style to the `<style>` section of `src/my-lists.html` in order to style the loading spinner:
+
+```css
+      #paperSpinnerContainer {
+        text-align: center;
+        margin-top: 120px;
+      }
+```
+
+Within `src/my-lists.html` add the loading spinner wrapped in a conditional template bound to the `loading` property (which we still need to create):
+
+```html
+    <template is="dom-if" if="[[loading]]">
+      <div id="paperSpinnerContainer">
+        <paper-spinner active></paper-spinner>
+      </div>
+    </template>
+```
+
+Within `src/my-lists.html` wrap the empty state indicator and the template repeater in a second conditional template bound to the negated state of the `loading` property (only the first and last lines in the below code snippet are new):
+
+```html
+    <template is="dom-if" if="[[!loading]]">
+
+      <template is="dom-if" if="[[listOfShoppingListsIsEmpty]]">
+        <div class="empty-state">You have no shopping lists</div>
+      </template>
+
+      <template is="dom-repeat" items="[[listOfShoppingListsArray]]">
+        <a name="index" href="[[rootPath]]items/[[item._id]]">
+          <paper-card heading="[[item.title]]">
+          </paper-card>
+        </a>
+      </template>
+
+    </template>
+```
+
+Within `src/my-lists.html` add the `loading` property declaration (the property to which our conditional templates are bound):
+
+```javascript
+          loading: {
+            type: Boolean,
+            notify: true,
+            value: true
+          },
+```
+
+Let's take a look at our `MyLists` component with a loading spinner. Start the Polymer development server:
+
+```
+$ polymer serve
+info:    Files in this directory are available under the following URLs
+      applications: http://127.0.0.1:8081
+      reusable components: http://127.0.0.1:8081/components/polymer-starter-kit/
+```
+
+You should now be able to browse to `http://127.0.0.1:8081` in your web browser and see the Shopping List app with a loading spinner on the shopping lists page that will continue to spin indefinitely. When you're done, close the browser tab containing the Shopping List app. Back in your terminal, use `Ctrl-C` to cancel the `polymer serve` command and return you to the command prompt.
+
+Let's stop the loading indicator once we've set our **List of Shopping Lists**. Within `src/my-lists.html` add the following as the last line of the `ready()` method:
+
+```javascript
+        this.loading = false;
+```
+
 #### Adding a PouchDB Database
 
 ##### Install PouchDB and pouchdb-find
 
+[[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/f43025130b2bc44b066dfb4d2e7d6bbba5a1493a)]
+
 ##### Create a component to encapsulate PouchDB with pouchdb-find
+
+[[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/ae61c5ab99cc0c476b03020de7a0f9ba86ef308b)]
 
 ##### Create a shared database property within the app component
 
+[[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/ca335b5a326bba0e8b07adf7a7ed27454b075bd5)]
+
 ##### Use the shopping list repository to find a list of shopping lists
+
+[[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/d9e5658836e6e0e4ddb42983fb068c524ac41325)]
 
 ##### Use PouchDB to listen for and propagate changes to shopping lists
 
+[[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/d4748572400107b672c9b35155fb968495234f9a)]
+
 ##### Create a dialog with a form for creating a new shopping list
 
+[[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/734f666802ed43b1c890d1f91cc21c2913279838)]
+
 ##### Create a new shopping list when the create new shopping list form is submitted
+
+[[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/215e835f1efb6fda2953487b0ea031961e7ba394)]
 
 #### Completing the App
 
 ##### Use the shopping list domain model for one-way data binding of shopping list items
 
+[[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/276fcddf697528be868c57a0d1d2f7395920df89)]
+
 ##### Create an empty state indicator for shopping list items
+
+[[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/33c9380df827c0463bea5e3e8aa244db92fa374f)]
 
 ##### Add stub data to the shopping list items component
 
+[[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/76ac923003ec870aadb3f9981ea1a9afb0a7ffa0)]
+
 ##### Add a loading spinner to the shopping list items component
+
+[[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/3e00ea78a1e2fe57c6fa3f103caae6506e852ce2)]
 
 ##### Observe route changes in shopping list items component
 
+[[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/d7c2b79c4b7afa58e2d2e59392796e5ecb6558dc)]
+
 ##### Use the shopping list repository to find a list of shopping list items
+
+[[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/526d0a4753ab1537f9a34c45eb7fb18779dc273d)]
 
 ##### Use PouchDB to listen for and propagate changes to shopping list items
 
+[[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/7137c6870e353e6dc65f0215b9022af8a19c7d25)]
+
 ##### Create a dialog with a form for creating a new shopping list item
+
+[[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/75561467a879aecea4e0055d5da074386bf952ca)]
 
 ##### Create a new shopping list item when the create new shopping list item form is submitted
 
+[[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/4c4fd6efa193da43f91f4f271811d3e5ef7d6f49)]
+
 ##### Update database when a list item is checked or unchecked
+
+[[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/0b5a35dd6c6fe309df6da8e23f249eaa3da34ea3)]
 
 ### Syncing Data
 
 #### Enable live replication with a remote database
+
+[[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/972470077fd814895f5748cc9906df97605edc92)]
 
 ## Workshop
 
