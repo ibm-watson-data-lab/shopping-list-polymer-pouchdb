@@ -1692,6 +1692,39 @@ Let's stop the loading indicator once we've set our **List of Shopping List Item
 
 [[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/d7c2b79c4b7afa58e2d2e59392796e5ecb6558dc)]
 
+When a user selects a **Shopping List** from a **List of Shopping Lists** in the app this will trigger a route change. We need to observe route changes in our `MyItems` component and update our **List of Shopping List Items** to match the currently-selected **Shopping List**.
+
+In `src/my-items.html` after `static get is() { return "my-items"; }` (and before the property declarations block) declare the following observer:
+
+```javascript
+      static get observers() {
+        return [
+          "_routeChanged(route.*)"
+        ]
+      }
+```
+
+In `src/my-items.html` add a `shoppingListId` property declaration the value of which will represent the identifier for the currently-selected **Shopping List** entity:
+
+```javascript
+          shoppingListId: {
+            type: String,
+            readOnly: true,
+            notify: true
+          },
+```
+
+In `src/my-items.html` add the `_routeChanged(route)` method which will be called whenever the route changes in Polymer and will set the value of the `shoppingListId` property accordingly:
+
+```javascript
+      _routeChanged(route) {
+        if (route.base.prefix !== this.rootPath + "items") {
+          return;
+        }
+        this._setShoppingListId(route.base.path.replace(/\//g, ""));
+      }
+```
+
 ##### Use the shopping list repository to find a list of shopping list items
 
 [[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/526d0a4753ab1537f9a34c45eb7fb18779dc273d)]
