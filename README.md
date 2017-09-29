@@ -942,6 +942,66 @@ Finally let's add the `_listOfShoppingListsArray` method after the property decl
 
 ##### Create an empty state indicator for shopping lists
 
+[[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/2a83a42c0d87a8e895af85aa940a118f002dda99)]
+
+When the **List of Shopping Lists** is empty we should display an [empty state](https://material.io/guidelines/patterns/empty-states.html) indicator. Add the following style to the `<style>` section of the `MyLists` component (`src/my-lists.html`) in order to style the empty state indicator:
+
+```css
+      div.empty-state {
+        text-align: center;
+        margin-top: 120px;
+      }
+```
+
+Add the empty state indicator before `<template is="dom-repeat" items="[[listOfShoppingListsArray]]">`:
+
+```html
+    <template is="dom-if" if="[[listOfShoppingListsIsEmpty]]">
+      <div class="empty-state">You have no shopping lists</div>
+    </template>
+```
+An explanation:
+
+* The first line is a [conditional templates](https://www.polymer-project.org/2.0/docs/devguide/templates#dom-if) (`dom-if`) which binds to the `listOfShoppingListsIsEmpty` property and only displays the template contents if the property's value is `true`.
+* Note that use of double square brackets (`[[ ]]`) again which indicates one-way data binding, versus double curly brackets (`{{ }}`) which are used for two-way data binding
+
+Add the `listOfShoppingListsIsEmpty` property declaration (the property to which our conditional template is bound):
+
+```javascript
+          listOfShoppingListsIsEmpty: {
+            type: Boolean,
+            readOnly: true,
+            notify: true,
+            computed: "_listOfShoppingListsIsEmpty(listOfShoppingLists)"
+          },
+```
+
+An explanation:
+
+* The `computed` field indicates the name of the method to be called in order to compute the value of `listOfShoppingListsIsEmpty` (we still need to write this method)
+* The `_listOfShoppingListsIsEmpty` method takes a `listOfShoppingLists` parameter, which means the value of the `listOfShoppingLists` property will be passed to this method and the `listOfShoppingListsIsEmpty` value will be re-computed whenever the `listOfShoppingLists` property value changes
+
+Finally let's add the `_listOfShoppingListsIsEmpty` method after our `_listOfShoppingListsArray(listOfShoppingLists)` method :
+
+```javascript
+      _listOfShoppingListsIsEmpty(listOfShoppingLists) {
+        return listOfShoppingLists.isEmpty();
+      }
+```
+
+All the `_listOfShoppingListsIsEmpty` method does is return the result of calling the `isEmpty()` method on the Immutable.js List object that represents the **List of Shopping Lists**.
+
+Let's take a look at our empty state indicator. Start the Polymer development server:
+
+```
+$ polymer serve
+info:    Files in this directory are available under the following URLs
+      applications: http://127.0.0.1:8081
+      reusable components: http://127.0.0.1:8081/components/polymer-starter-kit/
+```
+
+You should now be able to browse to `http://127.0.0.1:8081` in your web browser and see the Shopping List app with an empty state indicator on the shopping lists page. When you're done, close the browser tab containing the Shopping List app. Back in your terminal, use `Ctrl-C` to cancel the `polymer serve` command and return you to the command prompt.
+
 ##### Add stub data to the shopping lists component
 
 ##### Add a loading spinner to the shopping lists component
