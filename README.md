@@ -1947,6 +1947,60 @@ In `src/my-items.html` add the `_checkedChanged(event)` method to handle the eve
 
 ### Syncing Data
 
+#### Configure a Database
+
+##### Option 1: Apache CouchDB
+
+[Install CouchDB 2.1](http://docs.couchdb.org/en/2.1.0/install/index.html). Instructions are available for installing CouchDB 2.1 on Unix-like systems, on Windows, on Mac OS X, on FreeBSD, and via other methods.
+
+Configure CouchDB for a [single-node setup](http://docs.couchdb.org/en/2.1.0/install/setup.html#single-node-setup), as opposed to a cluster setup. Once you have finished setting up CouchDB, you should be able to access CouchDB at `http://127.0.0.1:5984/`. Ensure that CouchDB is running and take note of your admin username and password.
+
+##### Option 2: IBM Cloudant
+
+Sign up for an [IBM Bluemix](https://console.ng.bluemix.net/) account, if you do not already have one.
+
+Once you are logged in to Bluemix, create a new Cloudant instance on the [Cloudant NoSQL DB Bluemix Catalog](https://console.ng.bluemix.net/catalog/services/cloudant-nosql-db) page. This should take you to a page representing the newly-created service instance. Click the "service credentials" link. You should have one set of service credentials listed. Click "view credentials" which should show you a JSON object containing your service credentials. Copy the value for the `url` key to your clipboard (the value will be in the form of `https://username:password@uniqueid-bluemix.cloudant.com`).
+
+##### Option 3: Cloudant Developer Edition
+
+Download and install [Docker](https://www.docker.com/) (version 1.9 or above is recommended). Once Docker is installed, download the [Cloudant Developer Edition](https://hub.docker.com/r/ibmcom/cloudant-developer/) from Docker Hub (this is a fairly large image, so the download may take some time):
+
+```
+$ docker pull ibmcom/cloudant-developer
+```
+
+Start the Docker container:
+
+```
+docker run --detach --volume cloudant:/srv --name cloudant-developer --publish 8080:80 --hostname cloudant.dev ibmcom/cloudant-developer
+```
+
+**Note:** Instructions are available on the [Cloudant Developer Edition](https://hub.docker.com/r/ibmcom/cloudant-developer/) for starting the container via Docker Compose.
+
+If you want to stop the Docker container, first list the containers:
+
+```
+$ docker ps --all
+CONTAINER ID        IMAGE                       COMMAND                  CREATED             STATUS              PORTS                  NAMES
+1b4030e0f6b6        ibmcom/cloudant-developer   "supervisord -c /e..."   About an hour ago   Up 2 minutes        0.0.0.0:8080->80/tcp   cloudant
+```
+
+**Note:** Your output will appear different than the example above.
+
+Find the container ID corresponding to the `ibmcom/cloudant-developer` image and run the following command to stop the container (replacing the container ID with your container ID):
+
+```
+$ docker stop 1b4030e0f6b6
+1b4030e0f6b6
+```
+
+To start the container again run (replacing the container ID with your container ID):
+
+```
+$ docker start 1b4030e0f6b6
+1b4030e0f6b6
+```
+
 #### Enable live replication with a remote database
 
 [[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/972470077fd814895f5748cc9906df97605edc92)]
