@@ -1952,6 +1952,34 @@ In `src/my-items.html` add the `_listItemAddFormSubmit()` method to handle the f
 
 [[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/0b5a35dd6c6fe309df6da8e23f249eaa3da34ea3)]
 
+Whenever a **Shopping List Item** is checked or unchecked we want to update the corresponding PouchDB document (via the **Shopping List Repository**). In `src/my-items.html` add an `on-checked-changed` handler to the `paper-checkbox` element, replacing:
+
+```html
+              <paper-checkbox data-id$="[[item._id]]" checked="[[item.checked]]"></paper-checkbox>
+```
+
+with:
+
+```html
+              <paper-checkbox data-id$="[[item._id]]" checked="[[item.checked]]" on-checked-changed="_checkedChanged"></paper-checkbox>
+```
+
+In `src/my-items.html` add the `_checkedChanged(event)` method to handle the event for checking or unchecking a **Shopping List Item** and update the corresponding document in PouchDB:
+
+```javascript
+      _checkedChanged(event) {
+        let id = event.currentTarget.dataset.id;
+        let checked = event.detail.value;
+        let listItem = this.listOfShoppingListItems.find(item => {
+          return item._id === id;
+        });
+        if (listItem && listItem.checked !== checked) {
+          listItem = listItem.set("checked", checked);
+          this.shoppingListRepository.putItem(listItem);
+        }
+      }
+```
+
 ### Syncing Data
 
 #### Enable live replication with a remote database
