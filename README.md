@@ -1556,6 +1556,23 @@ Finally let's add the `_listOfShoppingListItemsIsEmpty` method after the `_listO
 
 [[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/33c9380df827c0463bea5e3e8aa244db92fa374f)]
 
+When the **List of Shopping List Items** is empty we should display an [empty state](https://material.io/guidelines/patterns/empty-states.html) indicator. Add the following style to the `<style>` section of the `MyItems` component (`src/my-items.html`) in order to style the empty state indicator:
+
+```css
+      div.empty-state {
+        text-align: center;
+        margin-top: 120px;
+      }
+```
+
+Add the empty state indicator before `<template is="dom-if" if="[[!listOfShoppingListItemsIsEmpty]]">`:
+
+```html
+    <template is="dom-if" if="[[listOfShoppingListItemsIsEmpty]]">
+      <div class="empty-state">You have no shopping list items</div>
+    </template>
+```
+
 ##### Add stub data to the shopping list items component
 
 [[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/76ac923003ec870aadb3f9981ea1a9afb0a7ffa0)]
