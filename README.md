@@ -893,7 +893,8 @@ An explanation:
 * The property type is `Object`
 * The property is read only, meaning it only produces data and never consumes data
 * Since we don't intend to change the property value, we don't need to be notified with an event when the property value changes
-* The initial value of the `shoppingListFactory` property will be a new `ShoppingListFactory` object
+* Earlier we imported a bundle from the shopping list domain model that makes a library named `ShoppingListModel` available in the global context
+* The initial value of the `shoppingListFactory` property will be a new `ShoppingListFactory` object (accessed via the `ShoppingListModel` library in the global context)
 
 Add another property declaration:
 
