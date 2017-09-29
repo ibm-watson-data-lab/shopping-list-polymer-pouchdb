@@ -808,7 +808,7 @@ Configure Bower to use the npm resolver by creating a `.bowerrc` file and adding
 }
 ```
 
-You should then be able to install the shopping list model using Bower:
+You should now be able to install the shopping list model using Bower:
 
 ```
 bower install --save npm:ibm-shopping-list-model
