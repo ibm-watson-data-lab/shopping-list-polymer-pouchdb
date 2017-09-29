@@ -1129,6 +1129,8 @@ Let's stop the loading indicator once we've set our **List of Shopping Lists**. 
 
 #### Adding a PouchDB Database
 
+In the next steps we will install and use a [PouchDB](https://pouchdb.com/) database to persist data within the frontend app. PouchDB is a JavaScript database that syncs. PouchDB stores its data in IndexedDB (other adapters, such as WebSQL, are available for environments that don't support IndexedDB). Data will be persisted in the browser when the app is closed, and available again when the app is re-opened. Data stored in a PouchDB database can be sync'ed to and from any other database that implements the [CouchDB Replication Protocol](http://docs.couchdb.org/en/2.1.0/replication/protocol.html).
+
 ##### Install PouchDB and pouchdb-find
 
 [[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/f43025130b2bc44b066dfb4d2e7d6bbba5a1493a)]
