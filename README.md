@@ -938,8 +938,6 @@ Finally let's add the `_listOfShoppingListsArray` method after the property decl
       }
 ```
 
---
-
 ##### Create an empty state indicator for shopping lists
 
 [[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/2a83a42c0d87a8e895af85aa940a118f002dda99)]
