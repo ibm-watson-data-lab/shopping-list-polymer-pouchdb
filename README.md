@@ -1255,6 +1255,34 @@ You should now be able to browse to `http://127.0.0.1:8081` in your web browser 
 
 [[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/d4748572400107b672c9b35155fb968495234f9a)]
 
+We should update our **List of Shopping Lists** displayed when data changes within PouchDB after the initial load of the `MyLists` component. Fortunately PouchDB provides an [API for listening to database changes](https://pouchdb.com/api.html#changes). In `src/my-lists.html` declare a `dbChanges` property that we can use if we want to cancel our listeners or add listeners:
+
+```javascript
+          dbChanges: {
+            type: Object,
+            notify: false
+          },
+```
+
+In `src/my-lists.html` at the end of the `ready()` method add the following code:
+
+```javascript
+        this.dbChanges = this.db.changes({
+          live: true,
+          selector: {
+            type: "list"
+          }
+        }).on("change", change => {
+          this._findListOfShoppingLists();
+        });
+```
+
+An explanation:
+
+* The `live` option tells PouchDB we want to be notified of all future changes until cancelled
+* The `selector` option is a Mango selector that allows us to filter by documents matching this selector
+* Whenever a change is received we call the `_findListOfShoppingLists()` method to refresh our **List of Shopping Lists**
+
 ##### Create a dialog with a form for creating a new shopping list
 
 [[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/734f666802ed43b1c890d1f91cc21c2913279838)]
