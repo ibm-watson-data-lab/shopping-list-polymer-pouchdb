@@ -1164,6 +1164,43 @@ The easiest way to use PouchDB and pouchdb-find in your app is by encapsulating 
 
 [[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/ca335b5a326bba0e8b07adf7a7ed27454b075bd5)]
 
+Rather than create a PouchDB database instance in each of our app's components, we will create one database instance that is shared between components.
+
+In `src/my-app.html` add the following line to import the PouchDB component (created in the previous step) after `<link rel="import" href="my-icons.html">`:
+
+```html
+<link rel="import" href="pouchdb.html">
+```
+
+In `src/my-app.html` add the following property declaration:
+
+```javascript
+          db: {
+            type: Object,
+            readOnly: true,
+            notify: false,
+            value: function() {
+              return new PouchDB("shopping-list", { storage: "persistent" });
+            }
+          },
+```
+
+Bind the `db` property to the `MyLists` and `MyItems` components using one-way data binding (which will add a `db` property to each of these components) by changing:
+
+```html
+          <my-lists name="lists"></my-lists>
+          <my-items name="items" route="{{subroute}}"></my-items>
+```
+
+to:
+
+```html
+          <my-lists name="lists" db="[[db]]"></my-lists>
+          <my-items name="items" route="{{subroute}}" db="[[db]]"></my-items>
+```
+
+The only difference between the two is the addition of a `db="[[db]]"` attribute/value pair.
+
 ##### Use the shopping list repository to find a list of shopping lists
 
 [[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/d9e5658836e6e0e4ddb42983fb068c524ac41325)]
