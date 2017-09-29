@@ -1287,6 +1287,97 @@ An explanation:
 
 [[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/734f666802ed43b1c890d1f91cc21c2913279838)]
 
+We obviously need the ability to create new **Shopping List** entities. First we will create a dialog and a form for creating a new **Shopping List**. Then in the next section we will write the code for handling the submission of this form.
+
+Install the [`paper-dialog`](https://www.webcomponents.org/element/PolymerElements/paper-dialog) element:
+
+```
+$ bower install --save PolymerElements/paper-dialog#^2.0.0
+```
+
+Install the [`iron-form`](https://www.webcomponents.org/element/PolymerElements/iron-form) element:
+
+```
+$ bower install --save PolymerElements/iron-form#^2.0.0
+```
+
+Install the [`paper-input`](https://www.webcomponents.org/element/PolymerElements/paper-input) element:
+
+```
+$ bower install --save PolymerElements/paper-input#^2.0.0
+```
+
+Install the [`paper-button`](https://www.webcomponents.org/element/PolymerElements/paper-button) element:
+
+```
+$ bower install --save PolymerElements/paper-button#^2.0.0
+```
+
+In `src/my-lists.html` add the following lines to import the `paper-dialog`, `iron-form`, `paper-input`, and `paper-button` components after `<link rel="import" href="../bower_components/paper-spinner/paper-spinner.html">`:
+
+```html
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../bower_components/iron-form/iron-form.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+```
+
+Add the following style to the `<style>` section of the `MyLists` component (`src/my-lists.html`) in order to style the dialog:
+
+```css
+      paper-dialog {
+        width: 332px;
+        padding: 8px;
+      }
+```
+
+In `src/my-lists.html` add the the following code for the dialog after `<paper-fab mini icon="add"></paper-fab>`:
+
+```html
+    <paper-dialog id="listAddDialog">
+      <h2>New List</h2>
+      <paper-dialog-scrollable>
+        <iron-form id="listAddForm">
+          <paper-input id="newListTitle" name="title" label="Title" value="{{newList.title}}" required autofocus></paper-input>
+        </iron-form>
+      </paper-dialog-scrollable>
+      <div class="buttons">
+        <paper-button dialog-dismiss raised>Cancel</paper-button>
+        <paper-button dialog-confirm raised>Save</paper-button>
+      </div>
+    </paper-dialog>
+```
+
+In `src/my-lists.html` declare a `newList` property to represent the new **Shopping List** entity as entered by the app user:
+
+```javascript
+          newList: {
+            type: Object,
+            notify: false,
+            value: {}
+          },
+```
+
+In `src/my-lists.html` add an `on-click` handler to the floating action button, replacing:
+
+```html
+    <paper-fab mini icon="add"></paper-fab>
+```
+
+with:
+
+```
+    <paper-fab mini icon="add" on-click="_listAdd"></paper-fab>
+```
+
+In `src/my-lists.html` add the `_listAdd()` method to open the dialog that will be called when the floating action button is clicked:
+
+```
+      _listAdd() {
+        this.$.listAddDialog.open();
+      }
+```
+
 ##### Create a new shopping list when the create new shopping list form is submitted
 
 [[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/215e835f1efb6fda2953487b0ea031961e7ba394)]
