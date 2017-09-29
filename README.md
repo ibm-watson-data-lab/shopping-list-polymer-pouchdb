@@ -856,7 +856,7 @@ with:
     </template>
  ```
 
-An explanation of what this does:
+An explanation:
 
 * The first line is a [template repeater](https://www.polymer-project.org/2.0/docs/devguide/templates#dom-repeat) (`dom-repeat`) which binds to the `listOfShoppingListsArray` property and creates a new instance of the template contents for each element in the array, creating an `item` and an `index` property which can be used in each instance
 * The second line provides a hyperlink to view the **List of Shopping List Items** for the current **Shopping List**, using the `item._id` property
