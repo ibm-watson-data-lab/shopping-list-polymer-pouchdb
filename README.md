@@ -1921,6 +1921,33 @@ In `src/my-items.html` add the `_listItemAdd()` method to open the dialog that w
 
 [[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/4c4fd6efa193da43f91f4f271811d3e5ef7d6f49)]
 
+The final step to be able to create a new **Shopping List Item** entity is to wire up the form submission. In `src/my-items.html` add an `on-click` handler to the "Save" button in the form, replacing:
+
+```html
+        <paper-button dialog-confirm raised>Save</paper-button>
+```
+
+with:
+
+```html
+        <paper-button dialog-confirm raised on-click="_listItemAddFormSubmit">Save</paper-button>
+```
+
+In `src/my-items.html` add the `_listItemAddFormSubmit()` method to handle the form submission when the "Save" button is clicked:
+
+```javascript
+      _listItemAddFormSubmit() {
+        let shoppingListItem = this.shoppingListFactory.newShoppingListItem({
+          title: this.newListItem.title
+        }, this.shoppingList);
+        this.shoppingListRepository.putItem(shoppingListItem).then(shoppingListItem => {
+          this.$.listItemAddForm.reset();
+          this.newListItem = {};
+          this.$.listItemAddDialog.close();
+        });
+      }
+```
+
 ##### Update database when a list item is checked or unchecked
 
 [[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/0b5a35dd6c6fe309df6da8e23f249eaa3da34ea3)]
