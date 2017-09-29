@@ -1729,6 +1729,97 @@ In `src/my-items.html` add the `_routeChanged(route)` method which will be calle
 
 [[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/526d0a4753ab1537f9a34c45eb7fb18779dc273d)]
 
+In `src/my-items.html` declare a `shoppingListRepository` property for our **Shopping List Repository** instance:
+
+```javascript
+          shoppingListRepository: {
+            type: Object,
+            readOnly: true,
+            notify: false,
+            value: function() {
+              return new ShoppingListModel.ShoppingListRepositoryPouchDB(this.db);
+            }
+          },
+```
+
+In `src/my-items.html` declare a `shoppingList` property to represent the currently-selected **Shopping List** entity:
+
+```javascript
+          shoppingList: {
+            type: Object,
+            readOnly: true,
+            notify: true,
+          },
+```
+
+
+In `src/my-items.html` create a `_findShoppingList()` method for finding the currently-selected **Shopping List** in PouchDB (via the **Shopping List Repository**) and updating the `shoppingList` property accordingly:
+
+```
+      _findShoppingList() {
+        if (this.shoppingListId === undefined) {
+          this._setShoppingList(undefined);
+          return;
+        }
+        this.shoppingListRepository.get(this.shoppingListId).then(shoppingList => {
+          this._setShoppingList(shoppingList);
+        });
+      }
+```
+
+
+In `src/my-items.html` create a `_findListOfShoppingListItems()` method for finding a **List of Shopping List Items** for the currently-selected **Shopping List** in PouchDB (via the **Shopping List Repository**) and updating the `listOfShoppingListItems` property accordingly:
+
+```
+      _findListOfShoppingListItems() {
+        this.loading = true;
+        if (this.shoppingListId === undefined) {
+          this._setListOfShoppingListItems(this.shoppingListFactory.newListOfShoppingListItems());
+          return;
+        }
+        this.shoppingListRepository.findItems({
+          selector: {
+            type: "item",
+            list: this.shoppingListId
+          }
+        }).then(listOfShoppingListItems => {
+          this._setListOfShoppingListItems(listOfShoppingListItems);
+          this.loading = false;
+        });
+      }
+```
+
+In `src/my-items.html` add an observer to the `shoppingListId` property (this is a method that will be called whenever the property's value changes) (only the `observer: "_shoppingListIdChanged"` part of the code below is new):
+
+```javascript
+          shoppingListId: {
+            type: String,
+            readOnly: true,
+            notify: true,
+            observer: "_shoppingListIdChanged"
+          },
+```
+
+In `src/my-items.html` add the `_shoppingListIdChanged(newshoppingListId, oldshoppingListId)` method which will call the `_findShoppingList()` and `_findListOfShoppingListItems()` methods when the `shoppingListId` property value has changed:
+
+```javascript
+      _shoppingListIdChanged(newshoppingListId, oldshoppingListId) {
+        this._findShoppingList();
+        this._findListOfShoppingListItems();
+      }
+```
+
+In `src/my-items.html` *remove* the `ready()` method that creates stub data and replace it with the following `ready()` method that ensures that the indexes needed for Mango queries are in place and triggers the database queries when the component is ready:
+
+```javascript
+      ready() {
+        super.ready();
+        this.shoppingListRepository.ensureIndexes();
+        this._findShoppingList();
+        this._findListOfShoppingListItems();
+      }
+```
+
 ##### Use PouchDB to listen for and propagate changes to shopping list items
 
 [[diff](https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb/commit/7137c6870e353e6dc65f0215b9022af8a19c7d25)]
