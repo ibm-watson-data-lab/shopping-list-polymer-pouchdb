@@ -160,7 +160,6 @@ Shopping List is an Offline First demo Progressive Web App built using Polymer a
 * Prerequisite Knowledge & Skills
 * Key Concepts
 * Tutorial Outline
-* Tutorial Steps
 * Initial Set Up
 * Creating the Shopping List Polymer App
   * Building the Basic Components
@@ -211,40 +210,6 @@ Shopping List is an Offline First demo Progressive Web App built using Polymer a
 ### Tutorial Outline
 
 TBD
-
-### Tutorial Steps
-
-A step-by-step walkthrough of the tutorial:
-
-1. Initialize the app using the Polymer App Toolbox - Starter Kit
-2. Update the app title, description, and related metadata
-3. Remove views from the Starter Kit that we will not be using
-4. Create a stub of the shopping lists component
-5. Create a stub of the shopping list items component
-6. Install the shopping list domain model
-7. Create a component to encapsulate the shopping list domain model
-8. Use the shopping list domain model for one-way data binding of shopping lists
-9. Create an empty state indicator for shopping lists
-10. Add stub data to the shopping lists component
-11. Add a loading spinner to the shopping lists component
-12. Install PouchDB and pouchdb-find
-13. Create a component to encapsulate PouchDB with pouchdb-find
-14. Create a shared database property within the app component
-15. Use the shopping list repository to find a list of shopping lists
-16. Use PouchDB to listen for and propagate changes to shopping lists
-17. Create a dialog with a form for creating a new shopping list
-18. Create a new shopping list when the create new shopping list form is submitted
-19. Use the shopping list domain model for one-way data binding of shopping list items
-20. Create an empty state indicator for shopping list items
-21. Add stub data to the shopping list items component
-22. Add a loading spinner to the shopping list items component
-23. Observe route changes in shopping list items component
-24. Use the shopping list repository to find a list of shopping list items
-25. Use PouchDB to listen for and propagate changes to shopping list items
-26. Create a dialog with a form for creating a new shopping list item
-27. Create a new shopping list item when the create new shopping list item form is submitted
-28. Update database when a list item is checked or unchecked
-29. Enable live replication with a remote database
 
 ### Initial Set Up
 
