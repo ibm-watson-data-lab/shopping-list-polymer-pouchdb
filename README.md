@@ -178,7 +178,7 @@ Shopping List is an Offline First demo Progressive Web App built using Polymer a
   * Using the Hoodie Store API
   * Using Hoodie Account API
   * Testing Offline Sync
-* Adding Gelocation Features
+* Adding Geolocation Features
 * What's next?
   * Other Features
   * Get Involved in the Offline First Community!
