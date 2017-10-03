@@ -708,7 +708,7 @@ You should now be able to browse to `http://127.0.0.1:8081` in your web browser 
      * `get(shoppingListId)`: Returns a Promise that resolves to a **Shopping List** entity retrieved from PouchDB matching the supplied identifier
      * `find(request)`: Returns a Promise that resolves to a **List of Shopping Lists** retrieved from PouchDB matching the supplied Mango query request
      * `delete(shoppingList)`: Returns a Promise that resolves to a **Shopping List** entity deleted from PouchDB
-  * Methods for Persisting **Shoping List Items**
+  * Methods for Persisting **Shopping List Items**
      * `putItem(shoppingListItem)`: Returns a Promise that resolves to a **Shopping List Item** entity persisted to PouchDB
      * `putItemsBulk(shoppingListItems)`: Returns a Promise that resolves to a **List of Shopping List Items** persisted to PouchDB
      * `getItem(shoppingListItemId)`: Returns a Promise that resolves to a **Shopping List Item** entity retrieved from PouchDB matching the supplied identifier
