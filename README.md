@@ -1,5 +1,7 @@
 # Shopping List
 
+[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/markstur/shopping-list-polymer-pouchdb&branch=cfbuild)
+
 **Note:** This is a work in progress.
 
 Shopping List is an Offline First demo Progressive Web App built using Polymer and PouchDB. Mult-user / multi-device capabilities are enabled by Hoodie. [This app is part of a series of Offline First demo apps, each built using a different stack.](https://github.com/ibm-watson-data-lab/shopping-list)
