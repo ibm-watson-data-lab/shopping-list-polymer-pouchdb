@@ -77,12 +77,12 @@
   </template>
   <script>
     class ShoppingListItems extends Polymer.Element {
-      static get is() { return "shopping-list-items"; }
+      static get is() { return 'shopping-list-items'; }
 
       static get observers() {
         return [
-          "_routeChanged(route.*)"
-        ]
+          '_routeChanged(route.*)',
+        ];
       }
 
       static get properties() {
@@ -93,11 +93,11 @@
             notify: false,
             value: function() {
               return new ShoppingListModel.ShoppingListFactory();
-            }
+            },
           },
           dbChanges: {
             type: Object,
-            notify: false
+            notify: false,
           },
           shoppingListRepository: {
             type: Object,
@@ -105,13 +105,13 @@
             notify: false,
             value: function() {
               return new ShoppingListModel.ShoppingListRepositoryPouchDB(this.db);
-            }
+            },
           },
           shoppingListId: {
             type: String,
             readOnly: true,
             notify: true,
-            observer: "_shoppingListIdChanged"
+            observer: '_shoppingListIdChanged',
           },
           shoppingList: {
             type: Object,
@@ -124,33 +124,33 @@
             notify: true,
             value: function() {
               return this.shoppingListFactory.newListOfShoppingListItems();
-            }
+            },
           },
           listOfShoppingListItemsArray: {
             type: Array,
             readOnly: true,
             notify: true,
-            computed: "_listOfShoppingListItemsArray(listOfShoppingListItems)"
+            computed: '_listOfShoppingListItemsArray(listOfShoppingListItems)',
           },
           listOfShoppingListItemsIsEmpty: {
             type: Boolean,
             readOnly: true,
             notify: true,
-            computed: "_listOfShoppingListItemsIsEmpty(listOfShoppingListItems)"
+            computed: '_listOfShoppingListItemsIsEmpty(listOfShoppingListItems)',
           },
           newListItem: {
             type: Object,
             notify: false,
-            value: {}
+            value: {},
           },
         };
       }
 
       _routeChanged(route) {
-        if (route.base.prefix !== this.rootPath + "items") {
+        if (route.base.prefix !== this.rootPath + 'items') {
           return;
         }
-        this._setShoppingListId(route.base.path.replace(/\//g, ""));
+        this._setShoppingListId(route.base.path.replace(/\//g, ''));
       }
 
       _shoppingListIdChanged(newshoppingListId, oldshoppingListId) {
@@ -170,21 +170,23 @@
         if (this.shoppingListId === undefined) {
           this._setShoppingList(undefined);
         }
-        this.shoppingListRepository.get(this.shoppingListId).then(shoppingList => {
+        this.shoppingListRepository.get(this.shoppingListId)
+        .then((shoppingList) => {
           this._setShoppingList(shoppingList);
         });
       }
 
       _findListOfShoppingListItems() {
         if (this.shoppingListId === undefined) {
-          this._setListOfShoppingListItems(this.shoppingListFactory.newListOfShoppingListItems());
+          this._setListOfShoppingListItems(
+            this.shoppingListFactory.newListOfShoppingListItems());
         }
         this.shoppingListRepository.findItems({
           selector: {
-            type: "item",
-            list: this.shoppingListId
-          }
-        }).then(listOfShoppingListItems => {
+            type: 'item',
+            list: this.shoppingListId,
+          },
+        }).then((listOfShoppingListItems) => {
           this._setListOfShoppingListItems(listOfShoppingListItems);
         });
       }
@@ -192,11 +194,11 @@
       _checkedChanged(event) {
         let id = event.currentTarget.dataset.id;
         let checked = event.detail.value;
-        let listItem = this.listOfShoppingListItems.find(item => {
+        let listItem = this.listOfShoppingListItems.find((item) => {
           return item._id === id;
         });
         if (listItem && listItem.checked !== checked) {
-          listItem = listItem.set("checked", checked);
+          listItem = listItem.set('checked', checked);
           this.shoppingListRepository.putItem(listItem);
         }
       }
@@ -207,9 +209,10 @@
 
       _listItemAddFormSubmit() {
         let shoppingListItem = this.shoppingListFactory.newShoppingListItem({
-          title: this.newListItem.title
+          title: this.newListItem.title,
         }, this.shoppingList);
-        this.shoppingListRepository.putItem(shoppingListItem).then(shoppingListItem => {
+        this.shoppingListRepository.putItem(shoppingListItem)
+        .then((shoppingListItem) => {
           this.$.listItemAddForm.reset();
           this.newListItem = {};
           this.$.listItemAddDialog.close();
@@ -220,13 +223,13 @@
         super.ready();
         this._findShoppingList();
         this._findListOfShoppingListItems();
-        this.shoppingListRepository.ensureIndexes().then(result => {
+        this.shoppingListRepository.ensureIndexes().then((result) => {
           this.dbChanges = this.db.changes({
             live: true,
             selector: {
-              type: "item"
-            }
-          }).on("change", change => {
+              type: 'item',
+            },
+          }).on('change', (change) => {
             this._findListOfShoppingListItems();
           });
         });

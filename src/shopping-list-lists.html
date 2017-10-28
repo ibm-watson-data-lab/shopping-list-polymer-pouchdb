@@ -81,14 +81,14 @@
 
     class ShoppingListLists extends Polymer.Element {
 
-      static get is() { return "shopping-list-lists"; }
+      static get is() { return 'shopping-list-lists'; }
 
       static get properties() {
         return {
           loading: {
             type: Boolean,
             notify: true,
-            value: true
+            value: true,
           },
           shoppingListFactory: {
             type: Object,
@@ -96,11 +96,11 @@
             notify: false,
             value: function() {
               return new ShoppingListModel.ShoppingListFactory();
-            }
+            },
           },
           dbChanges: {
             type: Object,
-            notify: false
+            notify: false,
           },
           shoppingListRepository: {
             type: Object,
@@ -108,7 +108,7 @@
             notify: false,
             value: function() {
               return new ShoppingListModel.ShoppingListRepositoryPouchDB(this.db);
-            }
+            },
           },
           listOfShoppingLists: {
             type: Object,
@@ -116,24 +116,25 @@
             notify: true,
             value: function() {
               return this.shoppingListFactory.newListOfShoppingLists();
-            }
+            },
           },
           listOfShoppingListsArray: {
             type: Array,
             readOnly: true,
             notify: true,
-            computed: "_listOfShoppingListsArray(listOfShoppingLists)"
+            computed: '_listOfShoppingListsArray(listOfShoppingLists)',
           },
           listOfShoppingListsIsEmptyAndNotLoading: {
             type: Boolean,
             readOnly: true,
             notify: true,
-            computed: "_listOfShoppingListsIsEmptyAndNotLoading(listOfShoppingLists, loading)"
+            // eslint-disable-next-line max-len
+            computed: '_listOfShoppingListsIsEmptyAndNotLoading(listOfShoppingLists, loading)',
           },
           newList: {
             type: Object,
             notify: false,
-            value: {}
+            value: {},
           },
         };
       }
@@ -148,7 +149,7 @@
 
       _findListOfShoppingLists() {
         this.loading = true;
-        this.shoppingListRepository.find().then(listOfShoppingLists => {
+        this.shoppingListRepository.find().then((listOfShoppingLists) => {
           this._setListOfShoppingLists(listOfShoppingLists);
           this.loading = false;
         });
@@ -160,9 +161,9 @@
 
       _listAddFormSubmit() {
         let shoppingList = this.shoppingListFactory.newShoppingList({
-          title: this.newList.title
+          title: this.newList.title,
         });
-        this.shoppingListRepository.put(shoppingList).then(shoppingList => {
+        this.shoppingListRepository.put(shoppingList).then((shoppingList) => {
           this.$.listAddForm.reset();
           this.newList = {};
           this.$.listAddDialog.close();
@@ -172,13 +173,13 @@
       ready() {
         super.ready();
         this._findListOfShoppingLists();
-        this.shoppingListRepository.ensureIndexes().then(result => {
+        this.shoppingListRepository.ensureIndexes().then((result) => {
           this.dbChanges = this.db.changes({
             live: true,
             selector: {
-              type: "list"
-            }
-          }).on("change", change => {
+              type: 'list',
+            },
+          }).on(('change'), (change) => {
             this._findListOfShoppingLists();
           });
         });

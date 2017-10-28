@@ -34,43 +34,43 @@
   </template>
   <script>
     class ShoppingListReplicator extends Polymer.Element {
-      static get is() { return "shopping-list-replicator"; }
+      static get is() { return 'shopping-list-replicator'; }
 
       static get properties() {
         return {
           url: {
             type: String,
-            notify: true
+            notify: true,
           },
           username: {
             type: String,
-            notify: true
+            notify: true,
           },
           password: {
             type: String,
-            notify: true
+            notify: true,
           },
           localConfig: {
             type: Object,
             readOnly: true,
             notify: true,
-            observer: "_localConfigChanged",
+            observer: '_localConfigChanged',
             value: function() {
               return {
-                _id: "_local/config"
+                _ld: '_local/config',
               };
-            }
+            },
           },
           remoteDb: {
             type: Object,
             readOnly: true,
             notify: true,
-            computed: "_remoteDb(localConfig)",
-            observer: "_remoteDbChanged"
+            computed: '_remoteDb(localConfig)',
+            observer: '_remoteDbChanged',
           },
           replicationHandler: {
             type: Object,
-            notify: false
+            notify: false,
           },
         };
       }
@@ -99,16 +99,16 @@
         }
         this.replicationHandler = this.db.sync(this.remoteDb, {
           live: true,
-          retry: true
+          retry: true,
         });
-        this.$.toast.text = "Live replication with remote database started";
+        this.$.toast.text = 'Live replication with remote database started';
         this.$.toast.open();
       }
 
       _findLocalConfig() {
-        return this.db.get(this.localConfig._id).then(localConfig => {
+        return this.db.get(this.localConfig._id).then((localConfig) => {
           this._setLocalConfig(localConfig);
-        }).catch(err => {
+        }).catch((err) => {
           if (err.status != 404) {
             throw err;
           }
@@ -124,15 +124,15 @@
         let localConfig = this.localConfig;
         localConfig.remoteDb = {
           url: this.url,
-          options: {}
+          options: {},
         };
         if (this.username && this.password) {
           localConfig.remoteDb.options.auth = {
             username: this.username,
-            password: this.password
-          }
+            password: this.password,
+          };
         }
-        this.db.put(localConfig).then(result => {
+        this.db.put(localConfig).then((result) => {
           this._findLocalConfig();
         });
       }
