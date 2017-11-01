@@ -23,8 +23,6 @@ Want to take your Watson app to the next level? Looking to leverage Watson Brand
 * [Cloudant NoSQL DB](https://console.ng.bluemix.net/catalog/services/cloudant-nosql-db): A fully managed data layer designed for modern web and mobile applications that leverages a flexible JSON schema.
 
 ## Featured technologies
-* [Offline First](https://www.ibm.com/analytics/us/en/technology/offline-first/): In a data-first world, your web and native apps need to deliver excellent user experiences, including during network disruptions. The Offline First approach to application development puts performance first and recognizes that network downtime is a fact of life.
-* [Progressive Web Apps](https://developers.google.com/web/progressive-web-apps/): A Progressive Web App provides both the discoverability of a web app and the reliable, fast, and engaging user experience of a native mobile app. 
 * [Polymer](https://www.polymer-project.org/): Libraries, tools, and patterns for building Progressive Web Apps using web platform features such as Web Components, Service Workers, and HTTP/2.
 * [PouchDB](https://pouchdb.com/): An open source JavaScript database that syncs with anything that implements the CouchDB Replication Protocol.
 * [Databases](https://en.wikipedia.org/wiki/IBM_Information_Management_System#.22Full_Function.22_databases): Repository for storing and managing collections of data.
@@ -119,7 +117,7 @@ Add `/shopping-list` to the URL to connect to the database that you created.
 
 ![](doc/source/images/replicator.png)
 
-## Using the app
+# Using the app
 
 The app allows you to create a shopping list by clicking on the plus sign. Click on the list to see its items. Then, you can add items to the list by clicking the plus sign. There is a checkbox to allow you to mark the items complete as you buy load up your cart.
 
@@ -129,7 +127,7 @@ When you go online and have the database and CORS enabled and the Replication Ta
 
 ![](doc/source/images/shopping_lists.png)
 
-## Epic Features
+## Epic features
 
 Shopping List is a simple demo app, with a limited feature set. [Here](https://github.com/ibm-watson-data-lab/shopping-list#features) is a list of features written as user stories grouped by Epic.
 
@@ -172,13 +170,13 @@ build/
 
 Run `polymer help build` for the full list of available options and optimizations. Also, see the documentation on the [polymer.json specification](https://www.polymer-project.org/2.0/docs/tools/polymer-json) and [building your Polymer application for production](https://www.polymer-project.org/2.0/toolbox/build-for-production).
 
-### Previewing the Build
+## Previewing the Build
 
 This command serves your app. Replace `build-folder-name` with the folder name of the build you want to serve:
 
     polymer serve build/build-folder-name/
 
-### Running the Tests
+## Running the Tests
 
 This command will run [Web Component Tester](https://github.com/Polymer/web-component-tester) against the browsers currently installed on your machine:
 
@@ -191,11 +189,11 @@ If running Windows you will need to set the following environment variables:
 
 Read More here [daffl/launchpad](https://github.com/daffl/launchpad#environment-variables-impacting-local-browsers-detection)
 
-### Adding a New View
+## Adding a New View
 
 You can extend the app by adding more views that will be demand-loaded e.g. based on the route, or to progressively render non-critical sections of the application. Each new demand-loaded fragment should be added to the list of `fragments` in the included `polymer.json` file. This will ensure those components and their dependencies are added to the list of pre-cached components and will be included in the build.
 
-### Deploying to GitHub Pages
+## Deploying to GitHub Pages
 
 If you are deploying to a [Project Page](https://help.github.com/articles/user-organization-and-project-pages/#project-pages) then you will first need to modify the base URL and root path values in `index.html` to match your project name. For example, for the project name `shopping-list-polymer-pouchdb` change:
 
@@ -217,7 +215,7 @@ You can then deploy the app to GitHub pages by running:
 
     npm run deploy:gh-pages
 
-## App Architecture
+# App Architecture
 
 This app uses a drawer-based layout. The layout is provided by Polymer's `app-layout` elements.
 
@@ -230,10 +228,23 @@ The PRPL pattern, in a nutshell:
 * **Pre-cache** components for remaining routes
 * **Lazy-load** and progressively upgrade next routes on-demand
 
-## Live Demo
+# Live Demo
 
 https://ibm-watson-data-lab.github.io/shopping-list-polymer-pouchdb/
 
-## Tutorial
+# Tutorial
 
 Refer to the [tutorial](tutorial) for step-by-step instructions on how to build your own Offline First shopping list Progressive Web App with Polymer and PouchDB.
+
+# Links
+<!--Update this section when the video is created
+* [Demo on Youtube](https://www.youtube.com/watch?v=placeholder)
+-->
+* [Offline First](https://www.ibm.com/analytics/us/en/technology/offline-first/): In a data-first world, your web and native apps need to deliver excellent user experiences, including during network disruptions. The Offline First approach to application development puts performance first and recognizes that network downtime is a fact of life.
+* [Progressive Web Apps](https://developers.google.com/web/progressive-web-apps/): A Progressive Web App provides both the discoverability of a web app and the reliable, fast, and engaging user experience of a native mobile app. 
+* [Web Components](https://www.webcomponents.org/): Open standard for components and widgets that are customizable, reusable, and encapsulated
+* [Polymer App Toolbox](https://www.polymer-project.org/2.0/toolbox/): Components, tools, and templates for building Progressive Web Apps with Polymer and Web Components.
+* [Polymer App Toolbox - Starter Kit](https://github.com/PolymerElements/polymer-starter-kit): A starter kit for building Polymer apps.
+
+# License
+[Apache 2.0](LICENSE)
