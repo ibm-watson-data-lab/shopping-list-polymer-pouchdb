@@ -2,9 +2,9 @@
 
 # Create an Offline First Shopping List with Polymer and PouchDB
 
-In this developer journey, we will create an Offline First shopping list. Shopping List is an Offline First demo Progressive Web App built using Polymer and PouchDB. [This app is part of a series of Offline First demo apps, each built using a different stack.](https://github.com/ibm-watson-data-lab/shopping-list) Credit goes to [Bradley Holt](https://github.com/bradley-holt) for this Polymer/PouchDB implementation.
+In this code pattern, we will create an Offline First shopping list. Shopping List is an Offline First demo Progressive Web App built using Polymer and PouchDB. [This app is part of a series of Offline First demo apps, each built using a different stack.](https://github.com/ibm-watson-data-lab/shopping-list) Credit goes to [Bradley Holt](https://github.com/bradley-holt) for this Polymer/PouchDB implementation.
 
-When the reader has completed this journey, they will understand how to:
+When the reader has followed this code pattern, they will understand how to:
 
 * Implement an app database that runs in the browser with local data when offline, and syncs with a remote database when online.
 * Create an Offline First Progressive Web App.
@@ -45,17 +45,26 @@ Want to take your Watson app to the next level? Looking to leverage Watson Brand
 
 1. In Toolchains, click on Delivery Pipeline to watch while the app is deployed. Once deployed, the app can be viewed by clicking `View app`.
 
-1. To see the app and services created and configured for this journey, use the Bluemix dashboard. The app is named `shopping-list-polymer-pouchdb` with a unique suffix. The following services are created and easily identified by the `slpp-` prefix:
+1. To see the app and services created and configured for this code pattern, use the Bluemix dashboard. The app is named `shopping-list-polymer-pouchdb` with a unique suffix. The following services are created and easily identified by the `slpp-` prefix:
     * slpp-CloudantNoSQLDB
 
 ## Run locally
 > NOTE: These steps are only needed when running locally instead of using the ``Deploy to Bluemix`` button.
 
-1. [Install the prerequisites](#1-install-the-prerequisites)
-1. [Run the server](#2-run-the-server)
-1. [Create a Cloudant or CouchDB service](#3-create-a-cloudant-or-couchdb-service)
+1. [Clone the repo](#1-clone-the-repo)
+1. [Install the prerequisites](#2-install-the-prerequisites)
+1. [Run the server](#3-run-the-server)
+1. [Create a Cloudant or CouchDB service](#4-create-a-cloudant-or-couchdb-service)
 
-### 1. Install the prerequisites
+### 1. Clone the repo
+
+Clone the `shopping-list-polymer-pouchdb` locally. In a terminal, run:
+
+```
+$ git clone https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb
+```
+
+### 2. Install the prerequisites
 
 First, install [Polymer CLI](https://github.com/Polymer/polymer-cli) using [npm](https://www.npmjs.com/) (we assume you have pre-installed [Node.js](https://nodejs.org/)):
 
@@ -69,13 +78,13 @@ Third, install the [Bower npm resolver](https://github.com/mjeanroy/bower-npm-re
 
     npm install --global bower-npm-resolver
 
-### 2. Run the Server
+### 3. Run the server
 
 This command serves the app at `http://127.0.0.1:8081` and provides basic URL routing for the app:
 
     polymer serve
 
-### 3. Create a Cloudant or CouchDB service
+### 4. Create a Cloudant or CouchDB service
 
 PouchDB can synchronize with CouchDB and compatible servers. To run and test locally, you can install CouchDB. Alternatively, you can use a Bluemix Cloudant NoSQL DB service for your remote DB.
 
@@ -129,7 +138,7 @@ When you go online and have the database and CORS enabled and the Replication Ta
 
 ![](doc/source/images/shopping_lists.png)
 
-## Epic features
+## Features as epics
 
 Shopping List is a simple demo app, with a limited feature set. [Here](https://github.com/ibm-watson-data-lab/shopping-list#features) is a list of features written as user stories grouped by Epic.
 
@@ -172,13 +181,13 @@ build/
 
 Run `polymer help build` for the full list of available options and optimizations. Also, see the documentation on the [polymer.json specification](https://www.polymer-project.org/2.0/docs/tools/polymer-json) and [building your Polymer application for production](https://www.polymer-project.org/2.0/toolbox/build-for-production).
 
-## Previewing the Build
+## Previewing the build
 
 This command serves your app. Replace `build-folder-name` with the folder name of the build you want to serve:
 
     polymer serve build/build-folder-name/
 
-## Running the Tests
+## Running the tests
 
 This command will run [Web Component Tester](https://github.com/Polymer/web-component-tester) against the browsers currently installed on your machine:
 
@@ -191,7 +200,7 @@ If running Windows you will need to set the following environment variables:
 
 Read More here [daffl/launchpad](https://github.com/daffl/launchpad#environment-variables-impacting-local-browsers-detection)
 
-## Adding a New View
+## Adding a new view
 
 You can extend the app by adding more views that will be demand-loaded e.g. based on the route, or to progressively render non-critical sections of the application. Each new demand-loaded fragment should be added to the list of `fragments` in the included `polymer.json` file. This will ensure those components and their dependencies are added to the list of pre-cached components and will be included in the build.
 
@@ -217,7 +226,7 @@ You can then deploy the app to GitHub pages by running:
 
     npm run deploy:gh-pages
 
-# App Architecture
+# App architecture
 
 This app uses a drawer-based layout. The layout is provided by Polymer's `app-layout` elements.
 
@@ -230,7 +239,7 @@ The PRPL pattern, in a nutshell:
 * **Pre-cache** components for remaining routes
 * **Lazy-load** and progressively upgrade next routes on-demand
 
-# Live Demo
+# Live demo
 
 https://ibm-watson-data-lab.github.io/shopping-list-polymer-pouchdb/
 
