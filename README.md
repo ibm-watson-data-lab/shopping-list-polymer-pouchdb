@@ -1,3 +1,5 @@
+![Bluemix Deployments](https://metrics-tracker.mybluemix.net/stats/5c5df69e10058d49cdc1f4d2fc63ce31/badge.svg)
+
 # Create an Offline First Shopping List with Polymer and PouchDB
 
 In this developer journey, we will create an Offline First shopping list. Shopping List is an Offline First demo Progressive Web App built using Polymer and PouchDB. [This app is part of a series of Offline First demo apps, each built using a different stack.](https://github.com/ibm-watson-data-lab/shopping-list) Credit goes to [Bradley Holt](https://github.com/bradley-holt) for this Polymer/PouchDB implementation.
@@ -37,7 +39,7 @@ Want to take your Watson app to the next level? Looking to leverage Watson Brand
 * [Database and replication setup](#database-and-replication-setup)
 
 ## Deploy to Bluemix
-[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/markstur/shopping-list-polymer-pouchdb&branch=cfbuild)
+[![Deploy to Bluemix](https://metrics-tracker.mybluemix.net/stats/5c5df69e10058d49cdc1f4d2fc63ce31/button.svg)](https://bluemix.net/deploy?repository=https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb)
 
 1. Press the above ``Deploy to Bluemix`` button and then click on ``Deploy``.
 

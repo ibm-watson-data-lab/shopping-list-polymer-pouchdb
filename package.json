@@ -33,9 +33,11 @@
   },
   "scripts": {
     "postinstall": "node_modules/.bin/bower install && polymer build --preset es5-bundled -v",
-    "start": "polymer serve build/es5-bundled --hostname 0.0.0.0 --port $PORT",
-    "lint": "npm run lint:javascript && polymer lint",
+    "start": "node app.js",
+    "start-poly-build-es5": "polymer serve build/es5-bundled --hostname 0.0.0.0 --port $PORT",
+    "lint": "npm run lint:javascript",
     "lint:javascript": "eslint . --ext js,html --ignore-path .gitignore",
+    "lint:polymer": "polymer lint",
     "test": "polymer test",
     "test:integration": "polymer build # test that psk builds without error with the CLI",
     "deploy:gh-pages": "gulp build-deploy-gh-pages"
@@ -43,6 +45,7 @@
   "dependencies": {
     "bower": "^1.8.2",
     "bower-npm-resolver": "^0.8.1",
+    "metrics-tracker-client": "^0.2.3",
     "polymer-cli": "^1.5.7"
   },
   "engines": {
