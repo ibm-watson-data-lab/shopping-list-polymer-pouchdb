@@ -18,12 +18,13 @@
 /* eslint-env node */
 
 const express = require('express');
+const path = require('path');
 const app = express();
 const port = process.env.PORT || process.env.VCAP_APP_PORT || 8081;
 
 require('metrics-tracker-client').track();
 
-app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname, 'build/es5-bundled')));
 app.listen(port, () => {
   console.log(`Server starting on ${port}`);
 });

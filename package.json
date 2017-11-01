@@ -46,6 +46,7 @@
     "bower": "^1.8.2",
     "bower-npm-resolver": "^0.8.1",
     "metrics-tracker-client": "^0.2.3",
+    "path": "^0.12.7",
     "polymer-cli": "^1.5.7"
   },
   "engines": {
