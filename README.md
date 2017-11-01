@@ -121,14 +121,19 @@ Add `/shopping-list` to the URL to connect to the database that you created.
 
 ## Using the app
 
-The app allows you to create shopping lists and add items to the lists by clicking on the plus sign.
+The app allows you to create a shopping list by clicking on the plus sign. Click on the list to see its items. Then, you can add items to the list by clicking the plus sign. There is a checkbox to allow you to mark the items complete as you buy load up your cart.
 
-When you have not configured your Replication Target or when you are offline, the list will not sync. One good way to test this is to run two browsers. You can use Chrome and Firefox and have different lists in each.
+When you have not configured your Replication Target or when you are offline, the lists will not sync. One good way to test this is to run two browsers. You can use Chrome and Firefox and have different lists in each.
 
 When you go online and have the database and CORS enabled and the Replication Target is set, the shopping lists will sync. You will then be able to use both lists from either browser.
 
 ![](doc/source/images/shopping_lists.png)
 
+## Epic Features
+
+Shopping List is a simple demo app, with a limited feature set. [Here](https://github.com/ibm-watson-data-lab/shopping-list#features) is a list of features written as user stories grouped by Epic.
+
+Not all features are implemented in the current Polymer app. This demo app does not yet include item/list removal, geolocation features or multi-user features.
 
 ## Building for production
 
@@ -211,32 +216,6 @@ To:
 You can then deploy the app to GitHub pages by running:
 
     npm run deploy:gh-pages
-
-## Features
-
-Shopping List is a simple demo app, with a limited feature set. Here is a list of features written as user stories grouped by Epic:
-
-* Planning
-  * As a \<person planning to shop for groceries\>, I want to \<create a shopping list\> so that \<I can add items to this shopping list\>.
-  * As a \<person planning to shop for groceries\>, I want to \<add an item to my shopping list\> so that \<I can remember to buy that item when I am at the grocery store later\>.
-  * As a \<person planning to shop for groceries\>, I want to \<remove an item from my shopping list\> so that \<I can change my mind on what to buy when I am at the grocery store later\>.
-* Shopping
-  * As a \<person shopping for groceries\>, I want to \<view items on my shopping list\> so that \<I can remember what items to buy\>.
-  * As a \<person shopping for groceries\>, I want to \<add an item to my shopping list\> so that \<I can remember to buy that item\>.
-  * As a \<person shopping for groceries\>, I want to \<remove an item from my shopping list\> so that \<I can change my mind on what to buy\>.
-  * As a \<person shopping for groceries\>, I want to \<check off an item on my shopping list\> so that \<I can keep track of what items I have bought\>.
-* Offline First
-  * As a \<person shopping for groceries\>, I want to \<have the app installed on my device\> so that \<I can continue to utilize my shopping list when no internet connection is available\>.
-  * As a \<person shopping for groceries\>, I want to \<have my shopping list stored locally on my device\> so that \<I can continue to utilize my shopping list when no internet connection is available\>.
-  * As a \<person shopping for groceries\>, I want to \<sync my shopping list with the cloud\> so that \<I can manage and utilize my shopping list on multiple devices\>.
-* Multi-User / Multi-Device
-  * As a \<new user\>, I want to \<sign up for the app\> so that \<I can use the app\>.
-  * As an \<existing user\>, I want to \<sign in to the app\> so that \<I can use the app\>.
-  * As an \<existing user\>, I want to \<sign out of the app\> so that \<I can protect my privacy\>.
-* Geolocation
-  * As a \<person planning to shop for groceries\>, I want to \<associate a shopping list with a grocery store\> so that \<I can be notified of this shopping list when I am physically at that grocery store\>.
-  * As a \<person associating a shopping list with a physical store\>, I want to \<access previously-used locations\> so that \<I can quickly find the physical store for which I am searching\>.
-  * As a \<person shopping for groceries\>, I want to \<be notified of a shopping list when I am physically at the grocery store associated with that shopping list\> so that \<I can quickly find the shopping list for my current context\>.
 
 ## App Architecture
 
