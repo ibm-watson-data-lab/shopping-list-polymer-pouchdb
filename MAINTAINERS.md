@@ -1,7 +1,7 @@
 ## Maintainers Guide
 
 This guide is intended for maintainers — anybody with commit access to one or
-more Developer Journey repositories.
+more Code Pattern repositories.
 
 The remainder of this document details how to merge pull requests to the
 repositories.
