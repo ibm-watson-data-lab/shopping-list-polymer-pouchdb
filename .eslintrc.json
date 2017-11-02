@@ -16,6 +16,9 @@
     "require-jsdoc": "off"
   },
   "globals": {
-    "Polymer": true
+    "paper-toast": false,
+    "Polymer": false,
+    "PouchDB": false,
+    "ShoppingListModel": false
   }
 }

@@ -10,11 +10,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 */
 
 'use strict';
+/* eslint-env node */
 
 // Include Gulp & tools we'll use
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
-var fs = require('fs');
 var path = require('path');
 var runSequence = require('run-sequence');
 var shell = require('gulp-shell');
@@ -41,11 +41,11 @@ gulp.task('deploy-gh-pages', function() {
     .pipe($.if(process.env.TRAVIS === 'true', $.ghPages({
       remoteUrl: 'https://$GH_TOKEN@github.com/polymerelements/polymer-starter-kit.git',
       silent: true,
-      branch: 'gh-pages'
+      branch: 'gh-pages',
     }), $.ghPages()));
 });
 
 // Build production files, the default task
 gulp.task('default', shell.task([
   'polymer build',
-]))
+]));
