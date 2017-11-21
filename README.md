@@ -29,10 +29,8 @@ Want to take your Watson app to the next level? Looking to leverage Watson Brand
 * [PouchDB](https://pouchdb.com/): An open source JavaScript database that syncs with anything that implements the CouchDB Replication Protocol.
 * [Databases](https://en.wikipedia.org/wiki/IBM_Information_Management_System#.22Full_Function.22_databases): Repository for storing and managing collections of data.
 
-<!--Update this section when the video is created
 # Watch the Video
-[![](http://img.youtube.com/vi/Jxi7U7VOMYg/0.jpg)](https://www.youtube.com/watch?v=Jxi7U7VOMYg)
--->
+[![](http://img.youtube.com/vi/hsq0sUAM-1I/0.jpg)](https://youtu.be/hsq0sUAM-1I)
 
 # Steps
 * [Deploy to Bluemix](#deploy-to-bluemix) **OR** [Run locally](#run-locally)
@@ -248,9 +246,7 @@ https://ibm-watson-data-lab.github.io/shopping-list-polymer-pouchdb/
 Refer to the [tutorial](tutorial) for step-by-step instructions on how to build your own Offline First shopping list Progressive Web App with Polymer and PouchDB.
 
 # Links
-<!--Update this section when the video is created
-* [Demo on Youtube](https://www.youtube.com/watch?v=placeholder)
--->
+* [Demo on Youtube](https://youtu.be/hsq0sUAM-1I)
 * [Offline First](https://www.ibm.com/analytics/us/en/technology/offline-first/): In a data-first world, your web and native apps need to deliver excellent user experiences, including during network disruptions. The Offline First approach to application development puts performance first and recognizes that network downtime is a fact of life.
 * [Progressive Web Apps](https://developers.google.com/web/progressive-web-apps/): A Progressive Web App provides both the discoverability of a web app and the reliable, fast, and engaging user experience of a native mobile app. 
 * [Web Components](https://www.webcomponents.org/): Open standard for components and widgets that are customizable, reusable, and encapsulated
