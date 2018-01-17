@@ -1,4 +1,4 @@
-![Bluemix Deployments](https://metrics-tracker.mybluemix.net/stats/5c5df69e10058d49cdc1f4d2fc63ce31/badge.svg)
+![IBM Cloud Deployments](https://metrics-tracker.mybluemix.net/stats/5c5df69e10058d49cdc1f4d2fc63ce31/badge.svg)
 
 # Create an Offline First Shopping List with Polymer and PouchDB
 
@@ -33,21 +33,21 @@ Want to take your Watson app to the next level? Looking to leverage Watson Brand
 [![](http://img.youtube.com/vi/hsq0sUAM-1I/0.jpg)](https://youtu.be/hsq0sUAM-1I)
 
 # Steps
-* [Deploy to Bluemix](#deploy-to-bluemix) **OR** [Run locally](#run-locally)
+* [Deploy to IBM Cloud](#deploy-to-bluemix) **OR** [Run locally](#run-locally)
 * [Database and replication setup](#database-and-replication-setup)
 
-## Deploy to Bluemix
-[![Deploy to Bluemix](https://metrics-tracker.mybluemix.net/stats/5c5df69e10058d49cdc1f4d2fc63ce31/button.svg)](https://bluemix.net/deploy?repository=https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb)
+## Deploy to IBM Cloud
+[![Deploy to IBM Cloud](https://metrics-tracker.mybluemix.net/stats/5c5df69e10058d49cdc1f4d2fc63ce31/button.svg)](https://bluemix.net/deploy?repository=https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb)
 
-1. Press the above ``Deploy to Bluemix`` button and then click on ``Deploy``.
+1. Press the above ``Deploy to IBM Cloud`` button and then click on ``Deploy``.
 
 1. In Toolchains, click on Delivery Pipeline to watch while the app is deployed. Once deployed, the app can be viewed by clicking `View app`.
 
-1. To see the app and services created and configured for this code pattern, use the Bluemix dashboard. The app is named `shopping-list-polymer-pouchdb` with a unique suffix. The following services are created and easily identified by the `slpp-` prefix:
+1. To see the app and services created and configured for this code pattern, use the IBM Cloud dashboard. The app is named `shopping-list-polymer-pouchdb` with a unique suffix. The following services are created and easily identified by the `slpp-` prefix:
     * slpp-CloudantNoSQLDB
 
 ## Run locally
-> NOTE: These steps are only needed when running locally instead of using the ``Deploy to Bluemix`` button.
+> NOTE: These steps are only needed when running locally instead of using the ``Deploy to IBM Cloud`` button.
 
 1. [Clone the repo](#1-clone-the-repo)
 1. [Install the prerequisites](#2-install-the-prerequisites)
@@ -84,7 +84,7 @@ This command serves the app at `http://127.0.0.1:8081` and provides basic URL ro
 
 ### 4. Create a Cloudant or CouchDB service
 
-PouchDB can synchronize with CouchDB and compatible servers. To run and test locally, you can install CouchDB. Alternatively, you can use a Bluemix Cloudant NoSQL DB service for your remote DB.
+PouchDB can synchronize with CouchDB and compatible servers. To run and test locally, you can install CouchDB. Alternatively, you can use a hosted Cloudant NoSQL DB service for your remote DB.
 
 #### Installing Apache CouchDB
 
@@ -92,11 +92,11 @@ PouchDB can synchronize with CouchDB and compatible servers. To run and test loc
 
 Configure CouchDB for a [single-node setup](http://docs.couchdb.org/en/2.1.0/install/setup.html#single-node-setup), as opposed to a cluster setup. Once you have finished setting up CouchDB, you should be able to access CouchDB at `http://127.0.0.1:5984/`. Ensure that CouchDB is running and take note of your admin username and password.
 
-#### Creating a Bluemix Cloudant NoSQL DB service
+#### Creating a Cloudant NoSQL DB service
 
-Sign up for an [IBM Bluemix](https://console.ng.bluemix.net/) account, if you do not already have one.
+Sign up for an [IBM Cloud](https://console.ng.bluemix.net/) account, if you do not already have one.
 
-Once you are logged in to Bluemix, create a new Cloudant instance on the [Cloudant NoSQL DB Bluemix Catalog](https://console.ng.bluemix.net/catalog/services/cloudant-nosql-db) page. This should take you to a page representing the newly-created service instance. Click the "Service credentials" link. You should have one set of service credentials listed. Click "View credentials" which should show you a JSON object containing your service credentials. Copy the value for the `url` key to your clipboard (the value will be in the form of `https://username:password@uniqueid-bluemix.cloudant.com`).
+Once you are logged in to IBM Cloud, create a new Cloudant instance on the [Cloudant NoSQL DB Bluemix Catalog](https://console.ng.bluemix.net/catalog/services/cloudant-nosql-db) page. This should take you to a page representing the newly-created service instance. Click the "Service credentials" link. You should have one set of service credentials listed. Click "View credentials" which should show you a JSON object containing your service credentials. Copy the value for the `url` key to your clipboard (the value will be in the form of `https://username:password@uniqueid-bluemix.cloudant.com`).
 
 ## Database and replication setup
 1. [Create the remote database](#1-create-the-remote-database)
@@ -258,23 +258,7 @@ Refer to the [tutorial](tutorial) for step-by-step instructions on how to build 
 
 # Privacy Notice
 
-If using the `Deploy to Bluemix` button some metrics are tracked.
-The following information is sent to a [Deployment Tracker](https://github.com/IBM/metrics-collector-service) service on each deployment:
-
-* Node.js package version
-* Node.js repository URL
-* Application Name (`application_name`)
-* Application GUID (`application_id`)
-* Application instance index number (`instance_index`)
-* Space ID (`space_id`) or OS username
-* Application Version (`application_version`)
-* Application URIs (`application_uris`)
-* Cloud Foundry API (`cf_api`)
-* Labels of bound services
-* Number of instances for each bound service and associated plan information
-* Metadata in the repository.yaml file
-
-This data is collected from the `package.json` and `repository.yaml` file in the sample application and the `VCAP_APPLICATION` and `VCAP_SERVICES` environment variables in IBM Bluemix and other Cloud Foundry platforms. This data is used by IBM to track metrics around deployments of sample applications to IBM Bluemix to measure the usefulness of our examples, so that we can continuously improve the content we offer to you. Only deployments of sample applications that include code to ping the Deployment Tracker service will be tracked.
+Refer to https://github.com/IBM/metrics-collector-service#privacy-notice.
 
 ## Disabling Deployment Tracking
 
