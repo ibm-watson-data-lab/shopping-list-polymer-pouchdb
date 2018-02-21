@@ -1869,7 +1869,7 @@ In `src/my-app.html` add a `ready()` method that will start bi-directional repli
       }
 ```
 
-To enable replication, uncomment the `return new PouchDB("…")` line and replace the value passed to the PouchDB constructor with the URL for your remote database. Be sure to create a database named `shopping-list` first.
+To enable replication, uncomment the `return new PouchDB("…")` line and replace the value passed to the PouchDB constructor with the URL for your remote database. **Be sure to create a database named `shopping-list` first.**
 
 If you are using a local CouchDB database (replace `admin` and `password` with the values noted in the "Configure a Database" section):
 
