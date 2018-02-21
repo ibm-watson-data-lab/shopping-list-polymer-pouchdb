@@ -1926,3 +1926,63 @@ info:    Files in this directory are available under the following URLs
 You should now be able to browse to `http://127.0.0.1:8081` in your web browser and see the Shopping List app. When you open the app, a toast should open indicating that database replication has started. Open the app in another browser window and place both app instances side-by-side. As you create **Shopping Lists**, create **Shopping List Items**, or check or uncheck **Shopping List Items** you should see the data flow between the two app instances. When you're done, close the browser tab containing the Shopping List app. Back in your terminal, use `Ctrl-C` to cancel the `polymer serve` command and return you to the command prompt.
 
 Congratulations! You have built an Offline First Progressive Web App with Polymer and PouchDB that replicates its data with a remote database.
+
+### Adding Multi-User / Multi-Device Features with Hoodie
+
+This section of the tutorial is not yet completed.
+
+#### Installing Hoodie
+
+This section of the tutorial is not yet completed.
+
+#### Configuring Hoodie
+
+This section of the tutorial is not yet completed.
+
+#### Using the Hoodie Store API
+
+This section of the tutorial is not yet completed.
+
+#### Using Hoodie Account API
+
+This section of the tutorial is not yet completed.
+
+#### Testing Offline Sync
+
+This section of the tutorial is not yet completed.
+
+### Adding Geolocation Features
+
+This section of the tutorial is not yet completed.
+
+### What's next?
+
+#### Other Features
+
+Additional features to add to the app:
+
+* Handle replication conflicts
+* Ability to edit and delete **Shopping List** and **Shopping List Items** entities
+* Deploy to IBM Cloud
+
+#### Get Involved in the Offline First Community!
+
+Ways that you can get involved:
+
+* [Join the Offline First Slack team](http://offlinefirst.org/chat/)
+* Follow @[OfflineCamp](https://twitter.com/OfflineCamp) on Twitter
+* Read the [Offline Camp Medium publication](https://medium.com/offline-camp)
+* Join us at an upcoming [Offline Camp](http://offlinefirst.org/camp/)
+
+#### Further Reading and Resources
+
+* [Offline Sync for Progressive Web Apps – IBM Watson Data Lab](https://medium.com/ibm-watson-data-lab/offline-sync-for-progressive-web-apps-ccab6bf6db17)
+* [Voice of InterConnect – IBM Watson Data Lab](https://medium.com/ibm-watson-data-lab/voice-of-interconnect-112d5036dabc)
+* [Deploying the Hoodie Tracker demo app to IBM Bluemix](https://github.com/hoodiehq/hoodie-app-tracker/blob/master/deployment.md#deploy-with-bluemix)
+* [Hoodie documentation on storing data with IBM Cloudant](http://docs.hood.ie/en/latest/guides/deployment.html#store-data-with-cloudant)
+* [Offline Camp Medium publication](https://medium.com/offline-camp)
+* [Offline First resources](https://medium.com/offline-camp/offline-first-resources-2acc5836e9d4)
+* [Offline First on YouTube](https://www.youtube.com/OfflineFirst)
+* [Maureen McElaney Presents Go Offline First to Save The World at JSConf EU 2017](https://youtu.be/GOdmPaBJqwA)
+* [Make&Model](http://makemodel.co/) (consultancy specializing in user experience design for Offline First apps)
+* [Neighbourhoodie Software](http://neighbourhood.ie/) (IBM Business Partner specializing in architecting Offline First apps)
