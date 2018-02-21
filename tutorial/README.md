@@ -1769,7 +1769,7 @@ Configure CouchDB for a [single-node setup](http://docs.couchdb.org/en/2.1.0/ins
 
 ##### Option 2: IBM Cloudant
 
-Sign up for an [IBM Bluemix](https://console.ng.bluemix.net/) account, if you do not already have one.
+Sign up for an [IBM Cloud](https://www.ibm.com/cloud/) account, if you do not already have one.
 
 Once you are logged in to Bluemix, create a new Cloudant instance on the [Cloudant NoSQL DB Bluemix Catalog](https://console.ng.bluemix.net/catalog/services/cloudant-nosql-db) page. This should take you to a page representing the newly-created service instance. Click the "service credentials" link. You should have one set of service credentials listed. Click "view credentials" which should show you a JSON object containing your service credentials. Copy the value for the `url` key to your clipboard (the value will be in the form of `https://username:password@uniqueid-bluemix.cloudant.com`).
 
